@@ -477,7 +477,7 @@ echo $form->field($wm, 'data')->hiddenInput()->label(false)->hint(false);
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <?=$form->field($model,'acct_name',['template' => "{label}\n{input}"])->staticControl()?>
+                    <?=$form->field($model,'accountName',['template' => "{label}\n{input}"])->staticControl()?>
                 </div>
                 <div class="col-sm-6">
                     <?=$form->field($model,'panText',['template' => "{label}\n{input}"])->staticControl()?>
