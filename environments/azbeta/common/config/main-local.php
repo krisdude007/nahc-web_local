@@ -2,6 +2,7 @@
 return [
     'components' => [
         'redis' => [
+            'class' => 'yii\redis\Connection',
             'hostname' => '10.2.2.5',
             'port' => 6379,
             'database' => 0,
