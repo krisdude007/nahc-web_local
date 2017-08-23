@@ -1,6 +1,11 @@
 <?php
 return [
     'components' => [
+        'redis' => [
+            'hostname' => '10.2.2.5',
+            'port' => 6379,
+            'database' => 0,
+        ],
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'pgsql:host=10.2.2.5;port=5432;dbname=nahcazbeta;sslmode=require',
