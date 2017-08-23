@@ -7,6 +7,7 @@ return [
             'username' => 'nahcazbeta',
             'password' => 'UncgzE3LAbKvYEHaNPhB3wss',
             'charset' => 'utf8',
+            'queryCache' => 'cache',
         ],
 //        'mailer' => [
 //            'class' => 'yii\swiftmailer\Mailer',
