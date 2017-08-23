@@ -482,7 +482,8 @@ class SiteController extends Controller
         $payment = new PaymentMethod([
             'member_id' => $member->id,
             'pay_type' => $model->pay_type,
-            'acct_name' => $model->acct_name,
+            'f_name' => $model->acct_f_name,
+            'l_name' => $model->acct_l_name,
             'name' => 'Primary',
             'status' => PaymentMethod::STATUS_ACTIVE,
         ]);

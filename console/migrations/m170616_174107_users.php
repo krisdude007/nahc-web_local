@@ -175,13 +175,13 @@ class m170616_174107_users extends Migration
         );
 
         $this->batchInsert('payment_method',
-            ['member_id', 'name', 'pay_type', 'acct_name', 'f_name', 'l_name', 'routing', 'account_type', 'account',  'status', 'created_at', 'updated_at'],
+            ['member_id', 'name', 'pay_type', 'f_name', 'l_name', 'routing', 'account_type', 'account',  'status', 'created_at', 'updated_at'],
             [
-                [1, 'Primary',  1,  'John B Member',    'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [2, 'Primary',  1,  'John Cu Member',   'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [3, 'Primary',  1,  'John Ag Member',   'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [4, 'Primary',  1,  'John Au Member',   'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [5, 'Primary',  1,  'John A Member',    'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
+                [1, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
+                [2, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
+                [3, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
+                [4, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
+                [5, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
             ]
         );
 

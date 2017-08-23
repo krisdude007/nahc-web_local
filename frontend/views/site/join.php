@@ -287,12 +287,18 @@ echo $form->field($wm, 'data')->hiddenInput()->label(false)->hint(false);
                 </div>
             </div>
             <div class="row" id="acctName" style="<?=(!empty($model->pay_type)?'':'display:none;')?>">
-                <div class="col-sm-12">
-                    <?php
-                    if(empty($model->acct_name))
-                        $model->acct_name = $model->nameText;
+                <?php
+                if(empty($model->acct_f_name))
+                    $model->acct_f_name = $model->f_name;
 
-                    echo $form->field($model, 'acct_name') ?>
+                if(empty($model->acct_l_name))
+                    $model->acct_l_name = $model->f_name;
+                ?>
+                <div class="col-sm-6">
+                    <?= $form->field($model, 'acct_f_name') ?>
+                </div>
+                <div class="col-sm-6">
+                    <?= $form->field($model, 'acct_l_name') ?>
                 </div>
             </div>
             <div class="section-divider"></div>
@@ -449,7 +455,7 @@ echo $form->field($wm, 'data')->hiddenInput()->label(false)->hint(false);
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <?=$form->field($model,'acct_name',['template' => "{label}\n{input}"])->staticControl()?>
+                    <?=$form->field($model,'accountName',['template' => "{label}\n{input}"])->staticControl()?>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group field-joinform-accounttype">

@@ -203,7 +203,7 @@ class m130524_201442_init extends Migration
             'name' => $this->string(),
 
             'pay_type' => $this->integer()->notNull()->comment('Payment Type'),
-            'acct_name' => $this->string()->notNull()->comment('Name on Account'),
+//            'acct_name' => $this->string()->notNull()->comment('Name on Account'),
 
             'f_name' => $this->string()->notNull()->comment('First Name on Account'),
             'l_name' => $this->string()->notNull()->comment('Last Name on Account'),

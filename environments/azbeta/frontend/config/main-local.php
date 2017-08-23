@@ -17,6 +17,11 @@ $config = [
                 'encryption' => 'tls',
             ],
         ],
+        'session' => [
+            'class' => 'yii\redis\Session',
+            // this is the name of the session cookie used for login on the frontend
+            'name' => 'advanced-frontend',
+        ],
     ],
 ];
 

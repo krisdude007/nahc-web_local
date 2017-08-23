@@ -34,7 +34,7 @@ $form = ActiveForm::begin([
                 <dt>Payment Type</dt>
                 <dd><?= $model->payTypeText ?></dd>
                 <dt>Name On Account</dt>
-                <dd><?= $model->acct_name ?></dd>
+                <dd><?= $model->accountName ?></dd>
             </dl>
             <?php if ($model->pay_type == 1) { ?>
                 <dl class="dl-horizontal">
@@ -94,10 +94,20 @@ $form = ActiveForm::begin([
         </div>
         <div class="panel-body">
             <?php
-            if(empty($updateModel->acct_name))
-                $updateModel->acct_name = $updateModel->member->nameText;
+            if(empty($updateModel->f_name))
+                $updateModel->f_name = $updateModel->member->f_name;
 
-            echo $form->field($updateModel, 'acct_name') ?>
+            if(empty($updateModel->l_name))
+                $updateModel->l_name = $updateModel->member->l_name; ?>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <?=$form->field($updateModel, 'f_name') ?>
+                </div>
+                <div class="col-sm-6">
+                    <?=$form->field($updateModel, 'l_name') ?>
+                </div>
+            </div>
         </div>
     </div>
 

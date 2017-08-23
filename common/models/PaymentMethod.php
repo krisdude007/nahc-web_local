@@ -11,8 +11,9 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property integer $member_id
  * @property string $name
+ * @property string $f_name
+ * @property string $l_name
  * @property integer $pay_type
- * @property string $acct_name
  * @property string $routing
  * @property string $account
  * @property integer $account_type
@@ -64,9 +65,9 @@ class PaymentMethod extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['member_id', 'pay_type', 'acct_name'], 'required'],
+            [['member_id', 'pay_type', 'f_name', 'l_name'], 'required'],
             [['member_id', 'pay_type', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'acct_name'], 'string', 'max' => 255],
+            [['name', 'f_name', 'l_name'], 'string', 'max' => 255],
 //            [['routing'], 'string', 'max' => 9],
 //            [['exp'], 'string', 'max' => 7],
 //            [['pan', 'panText'], 'string', 'max' => 16],
@@ -100,7 +101,9 @@ class PaymentMethod extends \yii\db\ActiveRecord
             'name' => 'Name',
             'pay_type' => 'Payment Type',
 
-            'acct_name' => 'Name on Account',
+            'f_name' => 'Account First Name',
+            'l_name' => 'Account Last Name',
+
             'routing' => 'Bank Routing Number',
             'account' => 'Bank Account Number',
             'accountText' => 'Bank Account Number',
@@ -247,14 +250,9 @@ class PaymentMethod extends \yii\db\ActiveRecord
         return $exp[1];
     }
 
-    public function getAcctFirstName()
+    public function getAccountName()
     {
-
-    }
-
-    public function getAcctLastName()
-    {
-
+        return $this->f_name.' '.$this->l_name;
     }
 
     /**

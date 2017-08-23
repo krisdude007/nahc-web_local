@@ -37,7 +37,8 @@ class JoinForm extends Model
     public $zip;
     public $phone;
 
-    public $acct_name;
+    public $acct_f_name;
+    public $acct_l_name;
     public $pay_type;
     public $account;
     public $account_type;
@@ -81,7 +82,8 @@ class JoinForm extends Model
                 'state_id',
                 'zip',
                 'phone',
-                'acct_name',
+                'acct_f_name',
+                'acct_l_name',
                 'pay_type',
                 'account',
                 'account_type',
@@ -116,7 +118,8 @@ class JoinForm extends Model
                 'phone',
             ], 'required', 'on' => self::WIZARD_STEP_4],
 
-            [[  'acct_name',
+            [[  'acct_f_name',
+                'acct_l_name',
                 'pay_type',
             ], 'required', 'on' => self::WIZARD_STEP_5],
 
@@ -141,8 +144,8 @@ class JoinForm extends Model
                     return $('.active > input[name=\"JoinForm[pay_type]\"]').val() == 2;
             }",'on' => self::WIZARD_STEP_5],
 
-            [['f_name', 'l_name', 'm_name', 'address', 'address2', 'city', 'email', 'username', 'acct_name',], 'trim'],
-            [['f_name', 'l_name', 'm_name', 'address', 'address2', 'city', 'email', 'username', 'acct_name',], 'string', 'max' => 255],
+            [['f_name', 'l_name', 'm_name', 'address', 'address2', 'city', 'email', 'username', 'acct_f_name', 'acct_l_name',], 'trim'],
+            [['f_name', 'l_name', 'm_name', 'address', 'address2', 'city', 'email', 'username', 'acct_f_name', 'acct_l_name',], 'string', 'max' => 255],
 
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -237,7 +240,9 @@ class JoinForm extends Model
 
             'pay_type' => 'Payment Type',
 
-            'acct_name' => 'Name on Account',
+            'acct_f_name' => 'Account First Name',
+            'acct_l_name' => 'Account Last Name',
+
             'routing' => 'Routing Code',
             'routingText' => 'Routing Code',
 
@@ -378,5 +383,10 @@ class JoinForm extends Model
         $out = '('.substr($this->phone,0,3).') '.substr($this->phone,3,3).'-'.substr($this->phone,6,4);
 
         return $out;
+    }
+
+    public function getAccountName()
+    {
+        return $this->acct_f_name.' '.$this->acct_l_name;
     }
 }

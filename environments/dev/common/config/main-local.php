@@ -1,6 +1,12 @@
 <?php
 return [
     'components' => [
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+//        'cache' => [
+//            'class' => 'yii\redis\Cache',
+//        ],
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'pgsql:host=192.168.127.5;dbname=nahcdev',

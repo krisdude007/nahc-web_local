@@ -7,6 +7,12 @@ return [
             'port' => 6379,
             'database' => 0,
         ],
+        //        'cache' => [
+//            'class' => 'yii\caching\FileCache',
+//        ],
+        'cache' => [
+            'class' => 'yii\redis\Cache',
+        ],
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'pgsql:host=10.2.2.5;port=5432;dbname=nahcazbeta;sslmode=require',

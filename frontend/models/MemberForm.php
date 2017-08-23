@@ -20,7 +20,8 @@ class MemberForm extends Member
 
     public $plan;
 
-    public $acct_name;
+    public $acct_f_name;
+    public $acct_l_name;
     public $pay_type;
     public $account;
     public $account_type;
@@ -91,7 +92,8 @@ class MemberForm extends Member
 
         $rules[] = [
             [
-                'acct_name',
+                'acct_f_name',
+                'acct_l_name',
                 'pay_type',
             ],
             'required',
@@ -143,7 +145,7 @@ class MemberForm extends Member
         ];
 
 
-        $rules[] = [['f_name', 'm_name', 'l_name', 'address', 'address2', 'city', 'email', 'acct_name', 'username'], 'trim'];
+        $rules[] = [['f_name', 'm_name', 'l_name', 'address', 'address2', 'city', 'email', 'acct_f_name', 'acct_l_name', 'username'], 'trim'];
 
         $rules[] = ['plan', 'integer', 'min' => Membership::MEMBERSHIP_BASIC, 'max' => Membership::MEMBERSHIP_MAX];
 
@@ -161,7 +163,8 @@ class MemberForm extends Member
         $rules[] = ['password', 'string', 'min' => 6];
 
 
-        $rules[] = [['acct_name'], 'string', 'max' => 255];
+        $rules[] = [['acct_f_name'], 'string', 'max' => 255];
+        $rules[] = [['acct_l_name'], 'string', 'max' => 255];
         $rules[] = [['pay_type'], 'integer', 'min' => '1', 'max' => '2'];
         $rules[] = [['routing'], 'match', 'pattern' => '/^[0-9]{9}$/'];
         $rules[] = [['account'], 'match', 'pattern' => '/^[0-9]{4,17}$/'];
@@ -209,7 +212,8 @@ class MemberForm extends Member
     {
         $names = parent::attributeLabels();
 
-        $names['acct_name'] = 'Name on Account';
+        $names['acct_f_name'] = 'Account First Name';
+        $names['acct_l_name'] = 'Account Last Name';
         $names['pay_type'] = 'Payment Type';
         $names['routing'] = 'Routing Code';
         $names['account'] = 'Account Number';
@@ -274,7 +278,8 @@ class MemberForm extends Member
                 $pay = new PaymentMethod();
                 $pay->member_id = $this->id;
                 $pay->pay_type  = $this->pay_type;
-                $pay->acct_name = $this->acct_name;
+                $pay->f_name = $this->acct_f_name;
+                $pay->l_name = $this->acct_l_name;
                 $pay->routing = $this->routing;
                 $pay->account = $this->account;
                 $pay->pan = $this->pan;
