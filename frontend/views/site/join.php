@@ -292,7 +292,7 @@ echo $form->field($wm, 'data')->hiddenInput()->label(false)->hint(false);
                     $model->acct_f_name = $model->f_name;
 
                 if(empty($model->acct_l_name))
-                    $model->acct_l_name = $model->f_name;
+                    $model->acct_l_name = $model->l_name;
                 ?>
                 <div class="col-sm-6">
                     <?= $form->field($model, 'acct_f_name') ?>
