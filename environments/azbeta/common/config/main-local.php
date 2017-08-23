@@ -4,7 +4,7 @@ return [
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'pgsql:host=10.2.2.5;port=5432;dbname=nahcazbeta;sslmode=require',
-            'username' => 'nahcbeta',
+            'username' => 'nahcazbeta',
             'password' => 'UncgzE3LAbKvYEHaNPhB3wss',
             'charset' => 'utf8',
         ],
