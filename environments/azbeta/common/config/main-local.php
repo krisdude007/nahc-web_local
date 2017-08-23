@@ -3,8 +3,8 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'pgsql:host=nahc-beta-db1.postgres.database.azure.com;port=5432;dbname=nahcazbeta;sslmode=require',
-            'username' => 'nahcbeta@nahc-beta-db1',
+            'dsn' => 'pgsql:host=10.2.2.5;port=5432;dbname=nahcazbeta;sslmode=require',
+            'username' => 'nahcbeta',
             'password' => 'UncgzE3LAbKvYEHaNPhB3wss',
             'charset' => 'utf8',
         ],
