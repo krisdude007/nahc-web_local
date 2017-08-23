@@ -1,0 +1,141 @@
+User
+- Created
+- Sent
+- Verified
+- Disabled
+
+
+Member
+- Created
+- Reconciled
+- Suspended
+- Inactive
+
+
+Purchase
+- Created
+- Reconciled
+- Active
+- Failed
+- Cancelled
+
+
+--
+dependent member table search row
+email agent info
+account summary
+
+E123 testing
+Handle join case for agent with existing user
+T&R img
+
+
+Look at API for on-hold info, etc.
+Method for adding products
+Flag individual policies for dependent mismatch issues
+
+
+
+Agent -> forward to russ
+member -> cyndi
+
+
+email agent on signup ->
+
+member
+18 - 64
+spouse
+same
+child
+0-25yrs
+
+products
+
+
+
+Product page -> save changes
+
+
+product -> member & family
+
+dependents -> dropdown in relationship
+
+agent->member token
+
+
+upgrade
+
+----
+
+
+email confirm
+cc validator
+routing validator
+
+    <?= $form->field($model, 'plan')->radioList([
+        1 => 'Basic',
+        2 => 'Bronze',
+        3 => 'Silver',
+        4 => 'Gold',
+    ],
+    [
+        'item' => function ($index, $label, $name, $checked, $value) {
+            $item = '<label class="btn btn-primary">
+                    <input type="radio" name="'.$name.'" id="plan'.$index.'" autocomplete="off" value="'.$value.'">'.$label.'</label>';
+
+            return $item;
+        },
+//                'tag' => false,
+        'class' => 'btn-group',
+            'data-toggle' => 'buttons',
+            'label' => false,
+    ]);?>
+
+
+
+
+
+
+
+
+->comment('Customer Name'),
+
+
+dependent -> match member address -> field or form class??
+
+cleanup member vs memberform vs joinform
+
+convert states to IDs instead of text
+
+
+
+
+
+
+    public function getPhoneText()
+    {
+        $pattern = '/([0-9]{3})([0-9]{3})([0-9]{4})/i';
+        $replacement = '($1)$2-$3';
+        return preg_replace($pattern, $replacement, $this->phone);
+
+//        return $this->phone;
+    }
+
+    public function getNameText()
+    {
+        return $this->f_name.' '.$this->l_name;
+    }
+
+
+[10, 6, $ts, $ts],
+
+                    <?=((!isset($active) || $active == true)?"<a href=\"#mem{$benefit->id}\"":'<div')?> title="<?=$benefit->name?>" class="opt-block nahc-bg-<?=$colors[$c]?>-dk col-xs-12 col-sm-5 col-md-5 col-lg-5">
+
+                        <img src="/img/icon/<?=$benefit->icon?>-white.png">
+<!--                        <br class="hidden-lg hidden-xs">--><br class="hidden-sm">
+                            <span class=""><?=$benefit->name?></span>
+                        <?=((!isset($active) || $active == true)?'</a>':'</div>')?>
+
+
+
+

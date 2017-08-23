@@ -1,0 +1,351 @@
+<?php
+namespace frontend\controllers;
+
+use common\models\Agent;
+use common\models\Member;
+use common\models\MemberSearch;
+use common\models\Membership;
+use common\models\PaymentMethod;
+use common\models\Purchase;
+use frontend\models\MemberForm;
+use frontend\models\ProductForm;
+use Yii;
+use yii\base\Model;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+
+class AgentController extends Controller
+{
+    public $layout = 'dashboard';
+
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+//                'only' => ['logout', 'signup', 'dashboard'],
+                'rules' => [
+//                    [
+//                        'actions' => ['add-membership','add-product',''],
+//                        'allow' => true,
+//                        'roles' => ['?'],
+//                    ],
+                    [
+//                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actionIndex()
+    {
+        $model = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        return $this->render('index', ['model' => $model]);
+    }
+
+    public function actionDetails()
+    {
+        $model = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->addFlash('success', 'Agent Details Updated!');
+            return $this->redirect(['agent/index']);
+        }
+
+        return $this->render('details', ['model' => $model]);
+    }
+
+    public function actionEnroll()
+    {
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        $plans = Membership::find()->where(['status' => Membership::STATUS_ACTIVE])->all();
+
+        $model = new MemberForm(['agent_id' => $agent->id]);
+        $model->setScenario(MemberForm::SCENARIO_ENROLL);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['member', 'id' => $model->id]);
+        }
+
+        return $this->render('enroll', [
+            'model' => $model,
+            'plans' => $plans,
+        ]);
+    }
+
+//    public function actionProducts()
+//    {
+//        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+//
+//        $params = ArrayHelper::merge(Yii::$app->request->queryParams, ['MemberSearch'=>['agent_id' => $agent->id]]);
+//
+//        Yii::info(print_r($params, true));
+//
+//        $searchModel = new MemberSearch();
+//        $dataProvider = $searchModel->search($params);
+//
+//        return $this->render('products', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//        ]);
+//    }
+
+    public function actionAgents()
+    {
+        return $this->render('agents');
+    }
+
+    public function actionMembers()
+    {
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        $params = ArrayHelper::merge(Yii::$app->request->queryParams, ['MemberSearch'=>['agent_id' => $agent->id]]);
+
+        Yii::info(print_r($params, true));
+
+        $searchModel = new MemberSearch();
+        $dataProvider = $searchModel->search($params);
+
+        return $this->render('members', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionMember($id)
+    {
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        $model = MemberForm::findOne(['id' => (int)$id, 'agent_id' => $agent->id]);
+
+        if(empty($model))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $membership = $model->membership;
+
+        $model->plan = $membership->level;
+
+        $payment = PaymentMethod::findOne(['member_id'=>$model->id]);
+
+        $productOptions = $model->productOptions;
+
+        return $this->render('member', [
+            'model' => $model, 'membership' => $membership, 'payment' => $payment, 'productOptions' => $productOptions
+        ]);
+    }
+
+    public function actionMemberDetail($id)
+    {
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        $model = MemberForm::findOne(['id' => (int)$id, 'agent_id' => $agent->id]);
+
+        if(empty($model))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $level = $model->level;
+
+//        $pay = $model->getPaymentMethod();
+//
+//        if(!empty($pay)) {
+//            $model->pay_type = $pay->pay_type;
+//            $model->acct_name = $pay->acct_name;
+//            $model->routing = $pay->routing;
+//            $model->account = $pay->account;
+//            $model->pan = $pay->pan;
+//            $model->exp = $pay->exp;
+//            $model->cvv = $pay->cvv;
+//        }
+
+        $model->setScenario(MemberForm::SCENARIO_UPDATE);
+
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Member Updated!');
+            $this->redirect(['agent/member', 'id' => $model->id]);
+        }
+
+        return $this->render('member_detail', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionMemberPlan($id)
+    {
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        if(empty($agent))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $model = MemberForm::findOne(['id' => (int)$id, 'agent_id' => $agent->id]);
+
+        if(empty($model))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $level = $model->level;
+
+        $memberships = Membership::find()->all();
+
+        $memberOptions = [];
+
+        foreach ($memberships as $m) {
+            if($m->level > $level) {
+                $memberOptions[$m->id] = $m->name;
+            }
+        }
+
+//        $pay = $model->getPaymentMethod();
+//
+//        if(!empty($pay)) {
+//            $model->pay_type = $pay->pay_type;
+//            $model->acct_name = $pay->acct_name;
+//            $model->routing = $pay->routing;
+//            $model->account = $pay->account;
+//            $model->pan = $pay->pan;
+//            $model->exp = $pay->exp;
+//            $model->cvv = $pay->cvv;
+//        }
+
+        $model->setScenario(MemberForm::SCENARIO_PLAN);
+
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Member Plan Updated!');
+            $this->redirect(['agent/member', 'id' => $model->id]);
+        }
+
+        return $this->render('member_plan', [
+            'model' => $model,
+            'options' => $memberOptions,
+        ]);
+    }
+
+    public function actionMemberPayment($id) {
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        if(empty($agent))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $member = MemberForm::findOne(['id' => (int)$id, 'agent_id' => $agent->id]);
+
+        if(empty($member))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $model = $member->paymentMethod;
+
+        if(empty($model))
+            $model = new PaymentMethod(['member_id' => $member->id]);
+
+        if($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->status = 10; //TODO: SET STATUS FOR UPDATED PAYMENT INFO!
+
+            if($model->save()) {
+                Yii::$app->session->setFlash('success', 'Payment Information Updated!');
+                return $this->redirect(['agent/member', 'id' => $member->id]);
+            }
+        }
+
+        return $this->render('member_payment', ['member' => $member, 'model' => $model]);
+    }
+
+
+
+    public function actionProducts($member_id)
+    {
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        if(empty($agent))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $member = Member::findOne(['id' => $member_id, 'agent_id' => $agent->id]);
+
+        if(empty($member))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $products = $agent->getProductList($member->state_id);
+        $productOptions = $member->getProductOptions()->indexBy('product_id')->select(['product_option.id', 'product_id'])->asArray()->column();
+
+        Yii::info('Options: '.print_r($productOptions, true));
+
+        $models = [];
+
+        foreach($products as $product) {
+            $opt = ArrayHelper::getValue($productOptions, $product->id,0);
+
+            $models[$product->id] = new ProductForm(['product_id' => $product->id, 'product_option_id' => $opt]);
+        }
+
+        if(Model::loadMultiple($models, Yii::$app->request->post()))
+        {
+            Yii::info('Multiple loaded');
+            $existing = [];
+            $changed = [];
+
+            foreach($products as $product) {
+                $opt = ArrayHelper::getValue($productOptions, $product->id,0);
+
+                if($models[$product->id]->product_option_id != $opt) {
+                    Yii::info('Changed! '.$product->id.' - '.$models[$product->id]->product_option_id.'/'.$opt);
+                    $changed[$product->id] = $models[$product->id];
+                } else {
+                    $existing[$product->id] = $models[$product->id];
+                }
+            }
+
+            if($changed) {
+                return $this->render('product_summary', ['member' => $member, 'products' => $products, 'changed' => $changed, 'existing' => $existing]);
+            }
+        }
+
+        return $this->render('product', ['member' => $member, 'products' => $products, 'models' => $models]);
+//
+//        if(Model::loadMultiple($models, Yii::$app->request->post()))
+//        {
+//            $enable_purchase = ArrayHelper::keyExists('product-summary-btn', Yii::$app->request->post());
+//            $purchase_state = true;
+//            $change_flag = false;
+//            foreach($models as $model) {
+//                $opt = ArrayHelper::getValue($productOptions, $model->product_id,null);
+//                $opt_id = ArrayHelper::getValue($opt, 'id', 0);
+//
+//                if($model->product_option_id != $opt_id) {
+//                    $change_flag = true;
+//                    if ($enable_purchase) {
+//                        Yii::info('Update Purchase!');
+//                        $purchase = Purchase::purchaseProduct($model->product_option_id, $member->id);
+//                        if (empty($purchase))
+//                            $purchase_state = false;
+//                    }
+//                }
+//            }
+//
+//            if($purchase_state && $change_flag) {
+//                Yii::$app->session->addFlash('success', 'Products Purchased');
+//                return $this->redirect(['agent/member', 'id' => $member->id]);
+//            }
+//
+//            if($change_flag) {
+//                return $this->render('product_summary', ['products' => $products, 'models' => $models]);
+//            }
+//        }
+
+
+    }
+}

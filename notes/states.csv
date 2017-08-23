@@ -1,0 +1,57 @@
+State,Abbrev,create,update
+'Alabama',                     'AL', $ts, $ts
+'Alaska',                      'AK', $ts, $ts
+'Arizona',                     'AZ', $ts, $ts
+'Arkansas',                    'AR', $ts, $ts
+'California',                  'CA', $ts, $ts
+'Colorado',                    'CO', $ts, $ts
+'Connecticut',                 'CT', $ts, $ts
+'Delaware',                    'DE', $ts, $ts
+'Florida',                     'FL', $ts, $ts
+'Georgia',                     'GA', $ts, $ts
+'Hawaii',                      'HI', $ts, $ts
+'Idaho',                       'ID', $ts, $ts
+'Illinois',                    'IL', $ts, $ts
+'Indiana',                     'IN', $ts, $ts
+'Iowa',                        'IA', $ts, $ts
+'Kansas',                      'KS', $ts, $ts
+'Kentucky',                    'KY', $ts, $ts
+'Louisiana',                   'LA', $ts, $ts
+'Maine',                       'ME', $ts, $ts
+'Maryland',                    'MD', $ts, $ts
+'Massachusetts',               'MA', $ts, $ts
+'Michigan',                    'MI', $ts, $ts
+'Minnesota',                   'MN', $ts, $ts
+'Mississippi',                 'MS', $ts, $ts
+'Missouri',                    'MO', $ts, $ts
+'Montana',                     'MT', $ts, $ts
+'Nebraska',                    'NE', $ts, $ts
+'Nevada',                      'NV', $ts, $ts
+'New Hampshire',               'NH', $ts, $ts
+'New Jersey',                  'NJ', $ts, $ts
+'New Mexico',                  'NM', $ts, $ts
+'New York',                    'NY', $ts, $ts
+'North Carolina',              'NC', $ts, $ts
+'North Dakota',                'ND', $ts, $ts
+'Ohio',                        'OH', $ts, $ts
+'Oklahoma',                    'OK', $ts, $ts
+'Oregon',                      'OR', $ts, $ts
+'Pennsylvania',                'PA', $ts, $ts
+'Rhode Island',                'RI', $ts, $ts
+'South Carolina',              'SC', $ts, $ts
+'South Dakota',                'SD', $ts, $ts
+'Tennessee',                   'TN', $ts, $ts
+'Texas',                       'TX', $ts, $ts
+'Utah',                        'UT', $ts, $ts
+'Vermont',                     'VT', $ts, $ts
+'Virginia',                    'VA', $ts, $ts
+'Washington',                  'WA', $ts, $ts
+'West Virginia',               'WV', $ts, $ts
+'Wisconsin',                   'WI', $ts, $ts
+'Wyoming',                     'WY', $ts, $ts
+'District of Columbia',        'DC', $ts, $ts
+'American Samoa',              'AS', $ts, $ts
+'Guam',                        'GU', $ts, $ts
+'Northern Mariana Islands',    'MP', $ts, $ts
+'Puerto Rico',                 'PR', $ts, $ts
+'U.S. Virgin Islands',         'VI', $ts, $ts

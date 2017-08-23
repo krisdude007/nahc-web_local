@@ -1,0 +1,30 @@
+// provider list for agent
+SELECT DISTINCT provider_agent_map.provider_id FROM (SELECT * FROM
+  agent_state_map JOIN provider_state_map ON agent_state_map.state_id = provider_state_map.state_id WHERE agent_state_map.agent_id = 1) q1
+   JOIN provider_agent_map ON q1.provider_id = provider_agent_map.provider_id
+WHERE provider_agent_map.agent_id = 1;
+
+// product list agent
+SELECT * FROM product WHERE provider_id IN (SELECT DISTINCT provider_agent_map.provider_id FROM (SELECT * FROM
+  agent_state_map JOIN provider_state_map ON agent_state_map.state_id = provider_state_map.state_id
+WHERE agent_state_map.agent_id = 3) q1
+   JOIN provider_agent_map ON q1.provider_id = provider_agent_map.provider_id
+WHERE provider_agent_map.agent_id = 3);
+
+// product list agent w/ state
+SELECT * FROM product WHERE provider_id IN (
+  SELECT DISTINCT provider_agent_map.provider_id FROM (
+    SELECT * FROM agent_state_map JOIN provider_state_map ON agent_state_map.state_id = provider_state_map.state_id
+      WHERE agent_state_map.agent_id = 3 AND agent_state_map.state_id = 36
+  ) q1 JOIN provider_agent_map ON q1.provider_id = provider_agent_map.provider_id
+  WHERE provider_agent_map.agent_id = 3
+);
+
+// product list state
+SELECT * FROM product JOIN provider_state_map ON product.provider_id = provider_state_map.provider_id WHERE provider_state_map.state_id = 43
+
+
+// product list agent w/ state
+SELECT * FROM product WHERE provider_id IN (
+  SELECT DISTINCT provider_id FROM provider_state_map JOIN agent_state_map ON agent_state_map.state_id = provider_state_map.state_id
+WHERE agent_state_map.agent_id = 1 AND provider_state_map.state_id = 36);

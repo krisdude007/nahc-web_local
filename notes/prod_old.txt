@@ -1,0 +1,111 @@
+
+        <div class="row text-left">
+            <div class="col-sm-3 col-sm-offset-1">
+                <img src="/img/products-1.jpg" width="100%">
+            </div>
+            <div class="col-sm-7">
+                <h1>Accident Disability Insurance (ADI)</h1>
+                <p>NAHC’s Accident Disability policies cover expenses related to accidental injuries. They care for out-of-pocket
+                    expenses and medical costs beyond what your existing health insurance plan covers. Disability Insurance, also
+                    known as Disability Income Insurance or Temporary Disability Insurance, provides a monthly, tax-free source
+                    of revenue. If you are unable to work due to a disability, it can assist in covering the costs of basic daily needs
+                    like food, rent, utilities, gasoline, or car payments.<br>
+
+                </p>
+                <a href="#prod1" data-toggle="modal" data-target="#prod1" class="btn btn-default">More Details</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary">Buy Now!</a>
+            </div>
+        </div>
+        <div class="row text-right">
+            <div class="col-sm-7 col-sm-offset-1 text-right">
+                <h1>Accident Hospital Indemnity (AHI)</h1>
+                <p>Accident Hospital Indemnity Insurance (AHI) pays benefits when an accident results in hospitalization. AHI
+                    is specifically for policy-covered accidents that require a hospital admission. It pays for room and board,
+                    miscellaneous hospital expenses and general nursing charges. AHI Insurance is specifically for accidents that
+                    require hospital admission, accident-related inpatient rehabilitation, and hospital stays.<br>
+
+                </p>
+                <a href="#prod2" data-toggle="modal" data-target="#prod2" class="btn btn-default">More Details</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary">Buy Now!</a>
+            </div>
+            <div class="col-sm-3 ">
+                <img src="/img/products-2.jpg" width="100%">
+            </div>
+        </div>
+        <div class="row text-left">
+            <div class="col-sm-3 col-sm-offset-1">
+                <img src="/img/products-1.jpg" width="100%">
+            </div>
+            <div class="col-sm-7">
+                <h1>Accident Medical Expense (AME) Policy</h1>
+                <p>An Accident Medical Expense Policy can help you pay for out-of-pocket expenses related medical expenses
+                    that result from accidents, such as deductibles and copays for primary care visits and physical therapy, as
+                    well as everyday living expenses that may not be covered under your primary health plan, like transportation,
+                    lawn care and child care. Benefits are paid directly to you, not to the hospital or facility where you are being
+                    treated, and you have discretion over how and where the money is used.<br>
+
+                </p>
+                <a href="#prod3" data-toggle="modal" data-target="#prod3" class="btn btn-default">More Details</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary">Buy Now!</a>
+            </div>
+        </div>
+        <div class="row text-right">
+            <div class="col-sm-7 col-sm-offset-1 text-right">
+                <h1>Critical Illness Insurance</h1>
+                <p>NAHC Critical Illness Plans protect you and your family from the oppressive costs of surgeries and treatment for major illnesses like cancer and heart disease.<br>
+
+                    • Lump sum payments for living expenses<br>
+                    • Coverage for major surgical procedures<br>
+                    • Payment for recuperation expenses<br>
+
+                </p>
+                <a href="#prod4" data-toggle="modal" data-target="#prod4" class="btn btn-default">More Details</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary">Buy Now!</a>
+            </div>
+            <div class="col-sm-3 ">
+                <img src="/img/products-4.jpg" width="100%">
+            </div>
+        </div>
+
+        <div class="row text-left">
+            <div class="col-sm-3 col-sm-offset-1">
+                <img src="/img/products-2.jpg" width="100%">
+            </div>
+            <div class="col-sm-7 ">
+                <h1>Vision Insurance</h1>
+                <p>NAHC offers innovative Vision Insurance Plans designed to reduce the costs of routine preventive and correctional eye care. Coverage includes: <br>
+                    • Routine annual eye exams<br>
+                    • Prescription eyewear (eyeglasses and contacts)<br>
+                    • Corrective surgeries <br>
+
+                </p>
+                <a href="#prod5" data-toggle="modal" data-target="#prod5" class="btn btn-default">More Details</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary">Buy Now!</a>
+            </div>
+
+        </div>
+        <div class="row text-right">
+            <div class="col-sm-7 col-sm-offset-1 text-right">
+                <h1>Dental Insurance</h1>
+                <p>NAHC Dental Plans provide attractive savings on highest-quality dental care provided by your choice of provider with no waiting period.<br><br>
+                    • No network provisions<br>
+                    • More flexible than traditional plans<br>
+                    • Lower co-pays in most cases <br>
+
+                </p>
+                <a href="#prod6" data-toggle="modal" data-target="#prod6" class="btn btn-default">More Details</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary">Buy Now!</a>
+            </div>
+            <div class="col-sm-3">
+                <img src="/img/products-3.jpg" width="100%">
+            </div>
+        </div>
+
+        <div class="row text-left">
+            <div class="col-sm-3 col-sm-offset-1">
+                <img src="/img/products-2.jpg" width="100%">
+            </div>
+            <div class="col-sm-7">
+                <h1>Accidental Death & Dismemberment</h1>
+                <p>Accidental Death & Dismemberment (AD&D) pays a lump sum in the event of an unforeseen accident that
+                    results in a fatality or dismemberment. An AD&D policy will pay the policy’s face value, or death benefit, to
+                    the beneficiary named in the policy if the insured accidentally dies or suffers dismemberment.<br>
+
+                </p>
+                <a href="#prod7" data-toggle="modal" data-target="#prod7" class="btn btn-default">More Details</a>&nbsp;&nbsp;<a href="#" class="btn btn-primary">Buy Now!</a>
+            </div>
+        </div>
