@@ -138,10 +138,20 @@ $this->render('_leftnav');
             <div class="row" id="acctName" style="display: none;">
                 <div class="col-sm-12">
                     <?php
-                    if(empty($model->acct_name))
-                        $model->acct_name = $model->nameText;
+                    if(empty($model->acct_f_name))
+                        $model->acct_f_name = $model->f_name;
 
-                    echo $form->field($model, 'acct_name') ?>
+                    if(empty($model->acct_l_name))
+                        $model->acct_l_name = $model->l_name;?>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <?=$form->field($model, 'acct_f_name') ?>
+                        </div>
+                        <div class="col-sm-6">
+                            <?=$form->field($model, 'acct_l_name') ?>
+                        </div>
+                    </div>
                 </div>
             </div>
 

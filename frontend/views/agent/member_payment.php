@@ -61,10 +61,19 @@ $form = ActiveForm::begin([
         </div>
         <div class="panel-body">
             <?php
-            if(empty($model->acct_name))
-                $model->acct_name = $model->member->nameText;
+            if(empty($model->f_name))
+                $model->f_name = $model->member->f_name;
 
-            echo $form->field($model, 'acct_name') ?>
+            if(empty($model->l_name))
+                $model->l_name = $model->member->l_name;?>
+            <div class="row">
+                <div class="col-sm-6">
+                    <?=$form->field($model, 'f_name') ?>
+                </div>
+                <div class="col-sm-6">
+                    <?=$form->field($model, 'l_name') ?>
+                </div>
+            </div>
         </div>
     </div>
 
