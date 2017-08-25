@@ -15,9 +15,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'pgsql:host=10.2.2.5;port=5432;dbname=nahcazbeta;sslmode=require',
-            'username' => 'nahcazbeta',
-            'password' => 'UncgzE3LAbKvYEHaNPhB3wss',
+            'dsn' => 'pgsql:host=10.2.2.5;port=5432;dbname=nahcprod;sslmode=require',
+            'username' => 'nahcprod',
+            'password' => 'eFZtF4bKaZUfcEZTt3JtkUcG',
             'charset' => 'utf8',
             'queryCache' => 'cache',
         ],
