@@ -6,17 +6,6 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.office365.com',
-                'username' => 'webuser@nahc.co',
-                'password' => '8mvMQsvbyWhdkCZ2',
-                'port' => '587',
-                'encryption' => 'tls',
-            ],
-        ],
         'session' => [
 //            'class' => 'yii\redis\Session',
             // this is the name of the session cookie used for login on the frontend
