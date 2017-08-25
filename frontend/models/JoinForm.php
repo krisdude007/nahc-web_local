@@ -186,7 +186,7 @@ class JoinForm extends Model
 
             [['account_type'], 'integer', 'min'=>1, 'max'=>2],
 
-            [['exp'], 'match', 'pattern' => '/^(0[1-9]|1[0-2])\/((19|20)[12][0-9])$/'],
+            [['exp'], 'match', 'pattern' => '/^(0[1-9]|1[0-2])\/(201[7-9]|20[234][0-9])$/', 'message' => 'Please Double-Check Expiration Date'],
             [['pan'], 'match', 'pattern' => '/^[0-9]{15,16}$/'],
             [['cvv'], 'match', 'pattern' => '/^[0-9]{3}[0-9]?$/'],
 

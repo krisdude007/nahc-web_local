@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "sync_log".
@@ -33,10 +34,20 @@ class SyncLog extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['sync_type', 'sync_begin', 'sync_complete', 'created_at', 'updated_at'], 'required'],
+            [['sync_type', 'sync_begin', 'sync_complete'], 'required'],
             [['sync_type', 'sync_begin', 'sync_complete', 'status', 'created_at', 'updated_at'], 'integer'],
             [['instance'], 'string', 'max' => 255],
         ];
@@ -61,7 +72,7 @@ class SyncLog extends \yii\db\ActiveRecord
 
     public static function findLastSync()
     {
-        $sync = self::find()->orderBy('sync_at')->one();
+        $sync = self::find()->orderBy('sync_begin')->one();
 
         if(empty($sync))
             return null;
@@ -69,14 +80,20 @@ class SyncLog extends \yii\db\ActiveRecord
         return $sync;
     }
 
+    /**
+     * @param $start
+     * @param int $type
+     * @return SyncLog|null
+     *
+     */
     public static function LogSync($start, $type = self::SYNC_TYPE_PURCHASE)
     {
-        $sl = new SyncLog(['sync_type' => $type, 'sync_begin' => $start, 'sync_commplete' => time()]);
+        $sl = new SyncLog(['sync_type' => $type, 'sync_begin' => $start, 'sync_complete' => time()]);
 
         if(!$sl->save())
-            return false;
+            return null;
 
-        return true;
+        return $sl;
     }
 
     /**

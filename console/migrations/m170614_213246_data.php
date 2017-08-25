@@ -38,7 +38,7 @@ class m170614_213246_data extends Migration
                 [16978, 'Basics+',      'The Basics & More',    2,   795,    $ts, $ts,
                     '<dl><dt>Includes</dt><dd>The Basics Plan PLUS:</dd><dd>Quality Reports</dd><dd>Medical Travel Assistance</dd></dl>'],
                 [16980, 'Advocate',     'Adds the Advocate',    3,   1495,   $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>The Basics+ Plan PLUS:</dd><dd>Pricing Comparison</dd><dd>Telemedical Services</dd><dd>Patient Advocacy</dd></dl>'],
+                    '<dl><dt>Includes</dt><dd>The Basics+ Plan PLUS:</dd><dd>Pricing Comparison</dd><dd>Telemedicine Services</dd><dd>Patient Advocacy</dd></dl>'],
                 [16983, 'Advocate+',    'Soup to Nuts',         4,   1995,   $ts, $ts,
                     '<dl><dt>Includes</dt><dd>The Advocate Plan PLUS:</dd><dd>Premium Advocacy</dd><dd>Provider Concierge</dd></dl>'],
             ]
@@ -128,7 +128,7 @@ class m170614_213246_data extends Migration
                         'Learn what different hospitals charge for same procedure',
                     ]),
                 ],
-                [5, 'Telemedical Services',    '24/7 Telemedical Access',            'icon-tele',            'helpdesk@memd.me',                 '855-636-3669',     'https://www.memd.me/group/nahc',                   true,   'NAHC',     null,    $ts, $ts,
+                [5, 'Telemedicine Services',    '24/7 Telemedicine Access',            'icon-tele',            'helpdesk@memd.me',                 '855-636-3669',     'https://www.memd.me/group/nahc',                   true,   'NAHC',     null,    $ts, $ts,
                     'NAHC Members get 24/7 on-line access, 365 days a year to medical providers anywhere in the U.S., and from the convenience of one’s home, office, or even on vacation.',
                     implode('::', [
                         'See a medical professional on-line, immediately',
@@ -402,8 +402,8 @@ class m170614_213246_data extends Migration
 
                 [5, 16918, 1, '$500 / week',                                        1800,       $ts, $ts],
 
-                [6, 16919, 1, 'Dental Insurance',                                   4300,       $ts, $ts],
-                [6, 16959, 3, 'Dental Insurance',                                   6900,       $ts, $ts],
+                [6, 16919, 1, 'Dental Insurance',                                   3600,       $ts, $ts],
+                [6, 16959, 3, 'Dental Insurance',                                   9900,       $ts, $ts],
 
                 [7, 16895, 1, 'VSP Vision Care',                                    2200,       $ts, $ts],
                 [7, 16958, 3, 'VSP Vision Care',                                    4000,       $ts, $ts],

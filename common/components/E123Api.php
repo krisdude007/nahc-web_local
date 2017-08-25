@@ -23,6 +23,7 @@ class E123Api extends Component {
     const DEFAULT_PASS = 'Test123uSer';
     const DEFAULT_CORP = 1063;
     const DEFAULT_AGENT = 264934;
+    const DEFAULT_PDID = 18240;
 
     const REST_URL_BASE = 'api.1administration.com/v1/';
     const DO_LOOKUP_URL = 'https://www.enrollment123.com/api/user.cfc';
@@ -32,6 +33,8 @@ class E123Api extends Component {
     public $password;
     public $corpid;
     public $agentid;
+
+    public $testMode = false;
 
     public function __construct(array $config = [])
     {
@@ -50,6 +53,9 @@ class E123Api extends Component {
         if(empty($corp))
             $this->corpid = self::DEFAULT_CORP;
 
+        if(empty($uname) && empty($pass) && empty($corp)) {
+            $this->testMode = true;
+        }
 
         parent::__construct($config);
     }
@@ -62,17 +68,24 @@ class E123Api extends Component {
 
         $agent = $model->agent;
 
-        if(empty($agent)) {
+        if(empty($agent) || $this->testMode) {
             $agent = self::DEFAULT_AGENT;
             $model->agent = $agent;
         }
 
+        if(!empty($model->products) && $this->testMode) {
+            foreach($model->products as &$prod) {
+                $prod['pdid'] = self::DEFAULT_PDID;
+            }
+        }
 
         if($model->mode == E123Member::MODE_ADD) {
             $url .= $agent.'/member/0.json';
         } elseif($model->mode == E123Member::MODE_UPDATE) {
             $url .= $agent.'/member/'.$model->uniqueid.'.json';
         }
+
+        echo 'Calling: '.$url.PHP_EOL;
 
         $payload = $model->toArray();
         $payload['corpid'] = $this->corpid;
@@ -114,6 +127,8 @@ class E123Api extends Component {
         } else {
             $url = 'https://' . $this->username . ':' . $this->password . '@' . self::REST_URL_BASE . $agent . '/member/'.$memAr['uniqueid'].'.json';
         }
+
+        echo 'Calling: '.$url.PHP_EOL;
 
         $payload_str = json_encode($memAr, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
 

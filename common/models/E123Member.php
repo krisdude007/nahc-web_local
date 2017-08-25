@@ -63,6 +63,7 @@ class E123Member extends Model {
     public $dependents = [];
 
     private $memberMap = [
+        'uniqueid' => 'ext_id',
         'firstname' => 'f_name',
         'middlename' => 'm_name',
         'lastname' => 'l_name',
@@ -120,11 +121,19 @@ class E123Member extends Model {
 
         $model = new E123Member();
 
+        if(empty($member->ext_id)) {
+            $model->mode = 1;
+        } else {
+            $model->mode = 2;
+        }
+
         foreach($model->memberMap as $ef => $mf) {
             $model[$ef] = $member[$mf];
         }
 
         $model->formatFields();
+
+        $model->agent = $member->agent->ext_id;
 
         return $model;
     }
@@ -142,7 +151,8 @@ class E123Member extends Model {
 
         $model = self::getModelFromMember($member);
 
-        $model->addPayment($payment);
+        if($model->mode == self::MODE_ADD)
+            $model->addPayment($payment);
 
         $prodAr = [
             'pdid' => intval($extId),
@@ -164,24 +174,27 @@ class E123Member extends Model {
         if(empty($pay))
             return false;
 
-        $this->payment = [];
+        if($this->mode == self::MODE_ADD || $pay->updated_at > $pay->sync_at) {
 
-        switch($pay->pay_type) {
-            case PaymentMethod::PAY_TYPE_BANK:
-                $this->payment['paymenttype'] = 'ACH';
-                $this->payment['achrouting'] = $pay->routing;
-                $this->payment['achaccount'] = $pay->account;
-                $this->payment['achbank'] = $pay->bankName;
-                break;
-            case PaymentMethod::PAY_TYPE_CARD:
-                $this->payment['paymenttype'] = 'CC';
-                $this->payment['ccnumber'] = $pay->pan;
-                $this->payment['ccexpmonth'] = $pay->expMonth;
-                $this->payment['ccexpyear'] = $pay->expYear;
-                $this->payment['ccsecuritycode'] = $pay->cvv;
-                break;
-            default:
-                return false;
+            $this->payment = [];
+
+            switch ($pay->pay_type) {
+                case PaymentMethod::PAY_TYPE_BANK:
+                    $this->payment['paymenttype'] = 'ACH';
+                    $this->payment['achrouting'] = $pay->routing;
+                    $this->payment['achaccount'] = $pay->account;
+                    $this->payment['achbank'] = $pay->bankName;
+                    break;
+                case PaymentMethod::PAY_TYPE_CARD:
+                    $this->payment['paymenttype'] = 'CC';
+                    $this->payment['ccnumber'] = $pay->pan;
+                    $this->payment['ccexpmonth'] = $pay->expMonth;
+                    $this->payment['ccexpyear'] = $pay->expYear;
+                    $this->payment['ccsecuritycode'] = $pay->cvv;
+                    break;
+                default:
+                    return false;
+            }
         }
 
         return true;

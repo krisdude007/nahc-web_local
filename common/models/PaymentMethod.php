@@ -23,6 +23,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $sync_at
  *
  * @property integer $panText
  * @property integer $accountText

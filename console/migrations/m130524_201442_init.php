@@ -41,6 +41,7 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'sync_at' => $this->integer()->defaultValue(0),
         ], $tableOptions);
 
 //        $this->createTable('{{%page}}', [
@@ -194,7 +195,7 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'sync_at' => $this->integer(),
+            'sync_at' => $this->integer()->defaultValue(0),
         ], $tableOptions);
 
         $this->createTable('{{%payment_method}}', [
@@ -219,7 +220,7 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'sync_at' => $this->integer(),
+            'sync_at' => $this->integer()->defaultValue(0),
         ], $tableOptions);
 
         $this->createTable('{{%dependent}}', [
@@ -248,7 +249,7 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'sync_at' => $this->integer(),
+            'sync_at' => $this->integer()->defaultValue(0),
         ], $tableOptions);
 
         $this->createTable('{{%member_group}}', [
@@ -283,7 +284,7 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'sync_at' => $this->integer(),
+            'sync_at' => $this->integer()->defaultValue(0),
         ], $tableOptions);
 
 
@@ -315,7 +316,7 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'sync_at' => $this->integer(),
+            'sync_at' => $this->integer()->defaultValue(0),
         ], $tableOptions);
 
         $this->createTable('{{%deposit_method}}', [
@@ -411,9 +412,8 @@ class m130524_201442_init extends Migration
 
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'sync_at' => $this->integer()->defaultValue(0),
         ], $tableOptions);
-
-
 
         $this->createTable('{{%provider_agent_map}}', [
             'provider_id'   => $this->integer()->notNull(),

@@ -2,6 +2,8 @@
 namespace console\controllers;
 
 use common\models\E123Member;
+use common\models\Member;
+use common\models\PaymentMethod;
 use common\models\Purchase;
 use common\models\SyncLog;
 use SplFileObject;
@@ -264,49 +266,102 @@ class SyncController extends Controller
         return Controller::EXIT_CODE_NORMAL;
     }
 
-    public function actionSyncPurchases()
+    public function actionPushPurchases()
     {
+        $purchList = [];
+        $memberList = [];
+        $payList = [];
+
         $sync_start = time();
 
         $last_sync = SyncLog::findLastSync();
 
+        $purchaseQuery = Purchase::find()->where('[[updated_at]] > [[sync_at]]');
+
         if(!empty($last_sync)) {
-            $lastTs = $last_sync->sync_begin;
-            $purchases = Purchase::find()->where(['>', 'update_at', $lastTs])->all();
-        }
-        else
-        {
-            $purchases = Purchase::find()->where(['<', 'update_at', time()])->all();
+            $lastTs = $last_sync->sync_complete;
+            $purchaseQuery->andWhere(['>','updated_at', $lastTs]);
         }
 
+        $purchases = $purchaseQuery->all();
+        $purchCount = count($purchases);
+
+        echo 'Syncing '.$purchCount.' Purchase Records...'.PHP_EOL;
+
+        Console::startProgress(0, $purchCount);
+        $i = 0;
         foreach($purchases as $purch) {
-
             $member = $purch->member;
+
+            $purchList[] = $purch->id;
+            $memberList[] = $member->id;
 
             $model = E123Member::getModelFromPurchase($purch);
 
+            if($model->mode == E123Member::MODE_ADD || $member->updated_at > $member->sync_at)
+                $memberList[] = $member->id;
+
+            if($model->mode == E123Member::MODE_ADD/* || $purch->paymentMethod->updated_at > $purch->paymentMethod->sync_at*/)
+                $payList[] = $purch->paymentMethod->id;
+
             $api = Yii::$app->e123;
 
-            echo 'Calling...' . PHP_EOL;
+            echo 'Calling API...' . PHP_EOL;
 
             $result = $api->callMemberRest($model);
 
             echo 'Response...' . print_r($result, true) . PHP_EOL;
 
-            $id = ArrayHelper::getValue($result, 'MEMBER.ID', null);
+            $success = ArrayHelper::getValue($result, 'SUCCESS', null);
 
-            if (!empty($id))
-                $member->ext_id = $id;
-
-            if (!$member->save()) {
-                echo 'Error updating member' . PHP_EOL;
-                echo print_r($member->errors, true) . PHP_EOL;
+            if(empty($success)) {
+                echo 'Error syncing Purchase '.$purch->id.PHP_EOL;
+                continue;
             }
 
-            echo 'Member id ' . $member->id . ' updated: ' . print_r($member->toArray(), true) . PHP_EOL;
+            if($model->mode == E123Member::MODE_ADD) {
+                $id = ArrayHelper::getValue($result, 'MEMBER.ID', null);
+
+                $member->ext_id = $id;
+//            $member->sync_at = $sync_start;
+
+                if (!$member->save()) {
+                    echo 'Error updating member' . PHP_EOL;
+                    echo print_r($member->errors, true) . PHP_EOL;
+                }
+            }
+
+////            $purch->sync_at = $sync_start;
+//            if(!$purch->save()) {
+//                echo 'Error updating purchase' . PHP_EOL;
+//                echo print_r($purch->errors, true) . PHP_EOL;
+//            }
+
+            echo 'Purchase id ' . $purch->id . ' updated: ' . print_r($purch->toArray(), true) . PHP_EOL;
+            $i++;
+            Console::updateProgress($i, $purchCount);
         }
 
-        SyncLog::logSync($sync_start);
+
+        $sync = SyncLog::logSync($sync_start);
+
+        Console::endProgress();
+
+        if(empty($sync)) {
+            echo 'Error logging sync!'.PHP_EOL;
+            return Controller::EXIT_CODE_ERROR;
+        }
+
+        $end = $sync->sync_complete;
+
+        if(!empty($purchList))
+            Purchase::updateAll(['sync_at' => $end], ['id' => $purchList]);
+
+        if(!empty($memberList))
+            Member::updateAll(['sync_at' => $end], ['id' => $memberList]);
+
+        if(!empty($payList))
+            PaymentMethod::updateAll(['sync_at' => $end], ['id' => $payList]);
 
         return Controller::EXIT_CODE_NORMAL;
     }
