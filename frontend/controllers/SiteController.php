@@ -611,7 +611,7 @@ class SiteController extends Controller
                 return $this->redirect(['member/index']);
 
             if(Yii::$app->user->identity->has_agent)
-                return $this->redirect(['agemt/index']);
+                return $this->redirect(['agent/index']);
 
             if(Yii::$app->user->identity->has_provider)
                 return $this->redirect(['provider/index']);

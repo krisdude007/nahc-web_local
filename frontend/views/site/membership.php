@@ -12,14 +12,13 @@ $this->title = 'Membership';
 <div class="site-membership">
 
     <div class="jumbotron jumbo-top jumbo-membership">
-        <h1>The Valuable Advantages Of NAHC Membership</h1>
+        <h1>This is one membership that will immediately pay huge dividends.</h1>
     </div>
 
     <div class="body-content">
         <div class="row caption-row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <h4>The cost-saving benefits of your NAHC Membership ensure that you’ll always have access to the best healthcare policies, products, services, and support – at the most affordable prices.
-                <br><small>As a Member of the NAHC, you receive all the resources you’ll need to make well-informed decisions in all matters concerning your and your family’s healthcare. Considering what you can save as an NAHC Member, the cost of joining will more than pay for itself many times over.</small></h4>
+            <div class="col-sm-8 col-sm-offset-2">
+                <h4>Your NAHC Membership ensures you’ll always have access to the best healthcare policies, products, services, and support – at the most affordable prices. In fact, the cost to join will likely be recovered with the savings from your first use!</h4>
             </div>
         </div>
 <!--        <div class="row visible-sm visible-xs" style="text-align: center;">-->
@@ -71,7 +70,7 @@ $this->title = 'Membership';
                 <?php } ?>
                     <div class="col-sm-9 col-lg-7 <?=($i%2==1?'col-lg-offset-1':'')?>">
                         <h1><?=$benefit->long_name?></h1>
-                        <p class="lead"><?=$benefit->description?></p>
+                        <p class="lead"><?=$benefit->detail?></p>
                         <div class="row">
                             <div class="col-sm-6">
                                 <dl>
@@ -82,7 +81,7 @@ $this->title = 'Membership';
                             </div>
                             <div class="col-sm-6">
                                 <dl class="hidden-xs">
-                                    <dt>Benefits</dt>
+                                    <dt>&nbsp;</dt>
                                     <?=implode(PHP_EOL, array_map( function ($b) { return '<dd>'.$b.'</dd>';}, explode('::', $benefit->features2)));?>
                                 </dl>
                             </div>

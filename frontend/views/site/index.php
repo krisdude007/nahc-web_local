@@ -10,16 +10,28 @@ use yii\helpers\Url;
 $this->title = 'NAHC';
 Icon::map($this, Icon::FA);
 Icon::map($this, Icon::ICF);
+
+$js = <<< SCRIPT
+// To initialize BS3 tooltips set this below //
+$(function () {
+    $("[data-toggle='tooltip']").tooltip();
+});;
+// To initialize BS3 popovers set this below //
+$(function () {
+    $("[data-toggle='popover']").popover();
+});
+SCRIPT;
+// Register tooltip/popover initialization javascript
+$this->registerJs($js);
+
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
         <div class="box">
-            <h1>Never overpay for healthcare again</h1>
+            <h1>We've pulled back the curtain on the healthcare industry. Never overpay for healthcare services again.</h1>
 
-            <p class="lead hidden-xs">We are a non-profit healthcare consumer advocacy association dedicated to helping our members find the best healthcare solutions</p>
-
-            <p><a class="btn btn-lg btn-success" href="<?=Url::to(['site/believe']);?>">Learn More</a></p>
+            <p class="lead hidden-xs">We're a healthcare consumer advocacy association dedicated to helping our members find the best healthcare solutions, with the highest possible doctor and hospital ratings, all delivered at the best possible pricing by your own, personal healthcare consultant.</p>
         </div>
     </div>
 
@@ -66,13 +78,13 @@ Icon::map($this, Icon::ICF);
             <div class="col-md-10 col-md-offset-1">
                 <div class="row hidden-xs">
                     <div class="col-sm-4">
-                        <h2>Plan & Pricing Transparency</h2>
+                        <h2>Shop For Healthcare Services Like You Do Anything Else</h2>
                     </div>
                     <div class="col-sm-4">
-                        <h2>Doctor & Hospital Quality</h2>
+                        <h2>Doctor and Facility Ratings / Reviews Nationwide</h2>
                     </div>
                     <div class="col-sm-4">
-                        <h2>Personal Healthcare Advocacy</h2>
+                        <h2>Personal Healthcare Consulting Services Only A Call Away</h2>
                     </div>
                 </div>
 
@@ -80,28 +92,28 @@ Icon::map($this, Icon::ICF);
 
                 <div class="row narrow-row hidden-xs">
                     <div class="col-sm-4" style="text-align: justify">
-                        <p>Our NAHC Network helps identify the highest-quality, most affordable plans and options – we help find the coverage that’s best suited to you and your family’s individual needs.</p>
+                        <p>Shopping online for TV's, cars and clothing is second nature these days. Wouldn't it be great if you could do the same to find the best possible healthcare services? Now you can with our simple to use memberships.</p>
                     </div>
                     <div class="col-sm-4" style="text-align: justify">
-                        <p>Your NAHC Membership provides access to reviews, reports and other critical data that ensures you’re able to engage the nation’s top rated and most reputable healthcare providers.</p>
+                        <p>Your NAHC Membership provides access to reviews, reports, doctor ratings and so much more which will ensure you’re able to engage the nation’s top rated and most reputable healthcare providers.</p>
                     </div>
                     <div class="col-sm-4" style="text-align: justify">
-                        <p>Your personal NAHC Advocate will collaborate with you, one-on-one, to make sure your best interests are always protected, first and foremost, in all your healthcare matters.</p>
+                        <p>With NAHC, you now have your own healthcare concierge Advocate who will collaborate with you, one-on-one, to make sure your best interests are always protected. And in healthcare, that is huge!</p>
                     </div>
                 </div>
 
                 <div class="row visible-xs">
                     <div class="col-sm-4">
-                        <h2>Plan & Pricing Transparency</h2>
-                        <p>Our NAHC Network helps identify the highest-quality, most affordable plans and options – we help find the coverage that’s best suited to you and your family’s individual needs.</p><br>
+                        <h2>Shop For Healthcare Services Like You Do Anything Else</h2>
+                        <p>Shopping online for TV's, cars and clothing is second nature these days. Wouldn't it be great if you could do the same to find the best possible healthcare services? Now you can with our simple to use memberships.</p><br>
                     </div>
                     <div class="col-sm-4">
-                        <h2>Doctor & Hospital Quality</h2>
-                        <p>Your NAHC Membership provides access to reviews, reports and other critical data that ensures you’re able to engage the nation’s top rated and most reputable healthcare providers.</p><br>
+                        <h2>Doctor and Facility Ratings / Reviews Nationwide</h2>
+                        <p>Your NAHC Membership provides access to reviews, reports, doctor ratings and so much more which will ensure you’re able to engage the nation’s top rated and most reputable healthcare providers.</p><br>
                     </div>
                     <div class="col-sm-4">
-                        <h2>Personal Healthcare Advocacy</h2>
-                        <p>Your personal NAHC Advocate will collaborate with you, one-on-one, to make sure your best interests are always protected, first and foremost, in all your healthcare matters.</p><br>
+                        <h2>Personal Healthcare Consulting Services Only A Call Away</h2>
+                        <p>With NAHC, you now have your own healthcare concierge Advocate who will collaborate with you, one-on-one, to make sure your best interests are always protected. And in healthcare, that is huge!</p><br>
                     </div>
 
                     <?php /*
@@ -131,9 +143,63 @@ Icon::map($this, Icon::ICF);
             </div>
         </div>
 
+        <div class="jumbotron jumbo-row index-banner-2" style="">
+            <div class="box">
+                <h1>Finally, a place to save on all your out-of-pocket expenses with powerful products.</h1>
+                    <p class="lead" style="color: white;">Say goodbye to the days of the "pricing cram down" from providers. Get the most experienced doctors at the lowest prices. Dentists, Optometrists, Surgeons, Therapists...our memberships cover every possible healthcare need you could ever need.</p>
+            </div>
+        </div>
+
+        <div class="row narrow-row">
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <div class="row flex-row icon-index">
+                    <?php           foreach($products as $product) {
+                        $iconSet = [];
+
+                        preg_match('/^([a-zA-Z]+)-([a-zA-Z-]+)/', $product->icon, $iconSet);
+
+//                    Yii::info('Got iconset: '.$product->icon.' / '.print_r($iconSet, true));
+
+                        ?>
+                        <a href="/products#prod<?=$product->id?>" class="col-xs-4 text-left btn">
+
+                            <img src="/img/icon/<?=$product->icon?>.png">
+                            <div class="h4"><?=$product->name?></div>
+                        </a>
+
+
+
+                        <!--                            <img src="/img/icon/" width="100%" style="margin-bottom: 5px; max-width: 50px; padding-left: 5px; padding-right: 5px;">-->
+                        <!--                            <br class="hidden-xs hidden-sm">-->
+
+
+                    <?php           }  ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row content-row">
+            <div class="col-sm-12">
+                <br>
+                <a href="<?=Url::to(['site/products']);?>" class="btn btn-primary btn-lg">Learn More</a>
+            </div>
+        </div>
+
+        <div class="row content-row">
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <h1>Just imagine access to tools like this...</h1>
+
+                <p class="lead">You can now search in your area for medical services by price and doctor quality ratings. Even each facility receives documented ratings that are held to the highest standards. Our database is second to none and completely accurate.<br>
+                ​
+                And this is just one of many tools you'll have at your disposal.</p>
+
+            </div>
+        </div>
+
         <div class="jumbotron jumbo-row index-banner-1" style="">
 
-            <h1><span style="white-space:nowrap">Reduce your costs.</span>  <span style="white-space:nowrap">Increase your options.</span></h1>
+            <h1>You already comparison shop for clothing, TV's and other life necessities...why not healthcare?</h1>
+            <p class="lead">Our world has changed, and we've introduced the most comprehensive method for locating, comparing and learning about the best possible healthcare services at the best possible prices around. All in one place with an affordable membership!</p>
 
 
             <!--<p class="lead"><a class="btn btn-lg btn-success" href="<?=Url::to(['site/membership']);?>">Join Now</a></p>-->
@@ -152,9 +218,9 @@ Icon::map($this, Icon::ICF);
 <!--        </div>-->
 
         <div class="row">
-            <div class="col-sm-12">
-                <h1>Our memberships deliver great results</h1>
-                <p class="lead">NAHC offers a variety of membership benefits and plans designed to fit any family at any budget!</p>
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <h1>Memberships that deliver big time.</h1>
+                <p class="lead">A membership to anything is only as good as the benefits it offers. Make no mistake, with NAHC, you'll now have access to premium services in healthcare unlike anything you have seen before, and a personal advocate assisting you with it all!</p>
             </div>
         </div>
 
@@ -163,21 +229,21 @@ Icon::map($this, Icon::ICF);
                 <div class="row flex-row icon-index">
 
 
-                <?php //$this->render('_membership_row', ['level' => $level, 'memberships' => $memberships, 'active' => false])
+                <?php echo $this->render('_membership_row', ['level' => $level, 'memberships' => $memberships])
 
-                foreach($benefits as $benefit) { ?>
+                //foreach($benefits as $benefit) {
 
-                    <a href="/membership#mem<?=$benefit->id?>" class="col-xs-4 text-left btn">
-
-
-                                <img src="/img/icon/<?=$benefit->icon?>.png">
-
-                                <div class="h4"><?=$benefit->name?></div>
+                    //<a href="/membership#mem<?=$benefit->id? >" class="col-xs-4 text-left btn" data-toggle="tooltip" title="<?$benefit->description? >">
 
 
-                    </a>
+//                                <img src="/img/icon/<$benefit->icon? >.png">
 
-                <?php }
+  //                              <div class="h4"><?=$benefit->name? ></div>
+//
+
+                    //</a>
+
+                 //}
 
                 ?>
                 </div>
@@ -197,50 +263,14 @@ Icon::map($this, Icon::ICF);
 
 
 
-        <div class="jumbotron jumbo-row index-banner-2" style="">
-            <div class="box">
-                <h1>Peace of mind with the protection you need<br><small style="color: white;">When you become an NAHC member, you will have a full array of healthcare protection and services you can count on</small></h1>
-            </div>
-        </div>
-
-        <div class="row narrow-row">
-            <div class="col-sm-12 col-md-10 col-md-offset-1">
-                <div class="row flex-row icon-index">
-<?php           foreach($products as $product) {
-                    $iconSet = [];
-
-                    preg_match('/^([a-zA-Z]+)-([a-zA-Z-]+)/', $product->icon, $iconSet);
-
-//                    Yii::info('Got iconset: '.$product->icon.' / '.print_r($iconSet, true));
-
-    ?>
-            <a href="/products#prod<?=$product->id?>" class="col-xs-4 text-left btn">
-
-                <img src="/img/icon/<?=$product->icon?>.png">
-                <div class="h4"><?=$product->name?></div>
-            </a>
 
 
 
-<!--                            <img src="/img/icon/" width="100%" style="margin-bottom: 5px; max-width: 50px; padding-left: 5px; padding-right: 5px;">-->
-<!--                            <br class="hidden-xs hidden-sm">-->
 
 
-<?php           }  ?>
-                </div>
-
-
-            </div>
-        </div>
-        <div class="row content-row">
-            <div class="col-sm-12">
-                <br>
-                <a href="<?=Url::to(['site/products']);?>" class="btn btn-primary btn-lg">Learn More</a>
-            </div>
-        </div>
 
         <div class="jumbotron jumbo-row index-cta" style="height: auto;">
-            <h1>Our Goal Is Helping You Find The Best Healthcare Solutions</h1><br>
+            <h1>Your new single source for every healthcare need you face, with support from your own consultant!</h1><br>
 
             <p><a class="btn btn-lg btn-success" href="<?=Url::to(['site/membership']);?>">Join Now</a></p>
         </div>

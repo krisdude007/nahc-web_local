@@ -439,7 +439,7 @@ h1 > small, h2 > small, h3 > small {
     margin-top: 0;
     padding-top: 20px;
     padding-bottom: 20px;
-    background: #fafafa;
+    background: #f0f0f0;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 30px;
@@ -629,7 +629,7 @@ h1 > small, h2 > small, h3 > small {
 }
 
 .membership-col h1, .membership-col h2, .membership-col h3 {
-    /*margin-top: 0;*/
+    margin-top: 20px;
     /*margin-bottom: 5px;*/
     font-weight: 500;
 }
@@ -1473,8 +1473,8 @@ a.nahc-bg-o-dk:hover {
         /*margin-top: 0;*/
         /*padding-top: 0;*/
         /*margin-bottom: 20px;*/
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .membership-col .flex-row {

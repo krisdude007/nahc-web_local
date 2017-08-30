@@ -12,7 +12,7 @@ $this->title = 'We Believe';
 
     <div class="body-content">
         <div class="row caption-row">
-            <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-sm-8 col-sm-offset-2">
                 <h3>NAHC provides the resources which give our Members the information, tools, and assistance necessary to make informed healthcare decisions</h3>
             </div>
         </div>

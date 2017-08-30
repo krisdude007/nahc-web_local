@@ -10,10 +10,15 @@ $this->title = 'Agents';
 <div class="site-agents">
 
     <div class="jumbotron jumbo-top jumbo-agent">
-        <h1>Join NAHC As An Agent!</h1>
+        <h1>We make your life easier with our unique product approach</h1>
     </div>
 
     <div class="body-content">
+        <div class="row caption-row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h3>Selling today has become harder than ever. That’s why when you become an NAHC agent, you truly have access to something never before offered in one place, and that means bigger sales ahead for you!</h3>
+            </div>
+        </div>
         <?php /*<div class="row">
             <div class="col-sm-12">
                 <h2>Find an Agent</h2>
