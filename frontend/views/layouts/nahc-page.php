@@ -83,10 +83,13 @@ $prodList = ArrayHelper::getValue($memprod, 'prod', null);
         $actionList[] = ['label' => 'Login', 'url' => ['site/login']];
         $actionList[] = ['label' => 'Join Now', 'url' => ['site/join']];
     } else {
-        if(Yii::$app->user->identity->has_member) {
+        if(Yii::$app->user->identity->has_agent) {
+            $action = ['label' => 'Agent Dashboard', 'uri' => Url::to(['agent/index'])];
+            $actionList[] = ['label' => 'Agent Dashboard', 'url' => ['agent/index']];
+        }
+        else if(Yii::$app->user->identity->has_member) {
             $action = ['label' => 'Benefits', 'uri' => Url::to(['member/index'])];
             $actionList[] = ['label' => 'Benefits', 'url' => ['member/index']];
-
         } else {
             $action = ['label' => 'Join Now', 'uri' => Url::to(['site/join'])];
             $actionList[] = ['label' => 'Join Now', 'url' => ['site/join']];
@@ -94,19 +97,19 @@ $prodList = ArrayHelper::getValue($memprod, 'prod', null);
 
 
         $actionBtn = Html::beginForm(['/site/logout'], 'post').'<div class="btn-group">
-            <a class="btn btn-primary" href="'.$action['uri'].'">'.$action['label'].'</a>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">';
+        <a class="btn btn-primary" href="'.$action['uri'].'">'.$action['label'].'</a>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">';
 
         if(Yii::$app->user->identity->has_agent || Yii::$app->user->identity->has_provider)
         {
 
-            if(Yii::$app->user->identity->has_agent) {
-                $actionBtn .= '<li><a href="'.Url::to(['agent/index']).'">Agent Dashboard</a></li>'.PHP_EOL;
-                $actionList[] = ['label' => 'Agent Dashboard', 'url' => ['agent/index']];
+            if(Yii::$app->user->identity->has_member) {
+                $actionBtn .= '<li><a href="'.Url::to(['member/index']).'">Benefits</a></li>'.PHP_EOL;
+                $actionList[] = ['label' => 'Benefits', 'url' => ['member/index']];
             }
 
             if(Yii::$app->user->identity->has_provider) {
@@ -114,7 +117,8 @@ $prodList = ArrayHelper::getValue($memprod, 'prod', null);
                 $actionList[] = ['label' => 'Provider Tools', 'url' => ['provider/index']];
             }
 
-            $actionBtn .= '<li role="separator" class="divider"></li>';
+            if(Yii::$app->user->identity->has_member|| Yii::$app->user->identity->has_provider)
+                $actionBtn .= '<li role="separator" class="divider"></li>';
         }
 
 
