@@ -607,14 +607,15 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 //            return $this->goBack();
-            if(Yii::$app->user->identity->has_member)
-                return $this->redirect(['member/index']);
 
             if(Yii::$app->user->identity->has_agent)
                 return $this->redirect(['agent/index']);
 
             if(Yii::$app->user->identity->has_provider)
                 return $this->redirect(['provider/index']);
+
+            if(Yii::$app->user->identity->has_member)
+                return $this->redirect(['member/index']);
 
             return $this->redirect(['site/dashboard']);
         } else {
