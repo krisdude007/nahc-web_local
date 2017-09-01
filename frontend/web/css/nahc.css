@@ -556,7 +556,7 @@ h1 > small, h2 > small, h3 > small {
 
 .jumbo-agent {
     background-image: url('/img/jumbo/jumbo-agent-xs.jpg');
-    background-position: 90% 20% !important;
+    background-position: 0% 0% !important;
 }
 
 .jumbo-advocacy {
