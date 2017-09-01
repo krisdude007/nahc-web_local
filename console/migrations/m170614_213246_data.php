@@ -31,23 +31,20 @@ class m170614_213246_data extends Migration
         );
 
         $this->batchInsert('membership',
-            ['ext_id', 'name', 'description', 'level', 'price', 'created_at', 'updated_at', 'detail'],
+            ['ext_id', 'name', 'description', 'level', 'price', 'created_at', 'updated_at'],
             [
-                [17454, 'Basics',       'Just the Basics',      1,   0,      $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>RX Savings Card</dd><dd>Savings Network</dd></dl>'],
-                [16978, 'Basics+',      'The Basics & More',    2,   795,    $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>The Basics Plan PLUS:</dd><dd>Quality Reports</dd><dd>Medical Travel Assistance</dd></dl>'],
-                [16980, 'Advocate',     'Adds the Advocate',    3,   1495,   $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>The Basics+ Plan PLUS:</dd><dd>Pricing Comparison</dd><dd>Telemedicine Services</dd><dd>Patient Advocacy</dd></dl>'],
-                [16983, 'Advocate+',    'Soup to Nuts',         4,   1995,   $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>The Advocate Plan PLUS:</dd><dd>Premium Advocacy</dd><dd>Provider Concierge</dd></dl>'],
+                [17454, 'Basic',    'Just the Basics',      1,   0,      $ts, $ts],
+                [16978, 'Bronze',   'The Basics & More',    2,   795,    $ts, $ts],
+                [16980, 'Silver',   'Adds the Advocate',    3,   1495,   $ts, $ts],
+                [16983, 'Gold',     'Soup to Nuts',         4,   1995,   $ts, $ts],
             ]
         );
 
         $this->batchInsert('membership_benefit',
-            ['provider_id', 'name', 'long_name', 'icon', 'email', 'phone', 'url', 'benefit_mem_id', 'group_data', 'other_ref', 'created_at', 'updated_at', 'description', 'features', 'features2'],
+            ['provider_id', 'name', 'long_name', 'icon', 'email', 'phone', 'url', 'benefit_mem_id', 'group_data', 'other_ref', 'created_at', 'updated_at', 'description', 'detail', 'features', 'features2'],
             [
                 [1, 'RX Savings Card',  'Prescription Drug Savings Card',      'icon-card',            'tbd@chi.com',                      '877-827-8680',     'api',                                              true,   'NAHC',     null,    $ts, $ts,
+                    'Save hundreds of dollars per year at thousands of name-brand pharmacies nationwide',
                     'The NAHC Prescription Drug Savings Card is free and gives you and your family immediate discounts on prescription drugs at over 59,000 pharmacies nationwide.',
                     implode('::', [
                         'A Free Prescription Drug Discount Card',
@@ -65,6 +62,7 @@ class m170614_213246_data extends Migration
                     ]),
                 ],
                 [1, 'Savings Network',  'Medical Provider Savings Network',         'icon-dmpo',        'tbd@chi.com',                      '877-827-8680',     'api',                                              true,   'NAHC',     null,    $ts, $ts,
+                    'Save thousands of dollars per year at thousands of medical providers nationwide',
                     'NAHC Members get access to a nationwide network of doctors and other healthcare providers who provide immediate discounts at time of service for Members paying cash.',
                     implode('::', [
                         'Free Member Access to the provider discount network',
@@ -83,6 +81,7 @@ class m170614_213246_data extends Migration
                 ],
 
                 [2, 'Quality Reports',  'Doctor & Hospital Quality Reports',         'icon-qual',         'tbd@healthgrades.com',             null,               'http://healthgrades.com',                          false,  null,       null,    $ts, $ts,
+                    'Ratings and reviews for thousands of doctors and healthcare facilities nationwide',
                     'NAHC Members get access to on-line doctor and hospital reviews and quality ratings nationwide, so our Members can make informed decisions when choosing the best provider for their medical needs.',
                     implode('::', [
                         'Search on-line to find a doctor near you or nationwide',
@@ -98,6 +97,7 @@ class m170614_213246_data extends Migration
                     ]),
                 ],
                 [3, 'Medical Travel Assistance',    'Worldwide Medical Travel Assistance',        'icon-mta',          'tbd@meridian.com',                 'N/A',              'tbd',                                              true,   null,       null,    $ts, $ts,
+                    'Complete peace-of-mind when traveling with coverage that takes care of hundreds of needs',
                     'NAHC Members get access to emergency medical service when traveling domestically or worldwide.',
                     implode('::', [
                         '24/7 emergency medical evacuation on traveling',
@@ -114,6 +114,7 @@ class m170614_213246_data extends Migration
                 ],
 
                 [4, 'Pricing Comparison',   'Healthcare Pricing Reports & Comparisons',  'icon-comp',    'support@healthcarebluebook.com',   '800-341-0504',     'http://www.healthcarebluebook.com/cc/nahc',        true,   null,       null,    $ts, $ts,
+                    'Compare and shop for virtually any healthcare service online and instantly save',
                     'NAHC Members get access to on-line doctor and hospital pricing nationwide, so our Members can find the best most cost-effective solutions for their medical needs.',
                     implode('::', [
                         'See what doctors and hospitals typically charge',
@@ -129,6 +130,7 @@ class m170614_213246_data extends Migration
                     ]),
                 ],
                 [5, 'Telemedicine Services',    '24/7 Telemedicine Access',            'icon-tele',            'helpdesk@memd.me',                 '855-636-3669',     'https://www.memd.me/group/nahc',                   true,   'NAHC',     null,    $ts, $ts,
+                    '24/7 phone readiness to assist you with any medical question or need you might have',
                     'NAHC Members get 24/7 on-line access, 365 days a year to medical providers anywhere in the U.S., and from the convenience of one’s home, office, or even on vacation.',
                     implode('::', [
                         'See a medical professional on-line, immediately',
@@ -146,6 +148,7 @@ class m170614_213246_data extends Migration
                     ]),
                 ],
                 [6, 'Patient Advocacy', 'Personal Healthcare Advocacy',                 'icon-adv',        'help@karis360.com',                '512-292-9560',     'https://thekarisgroup.com/karis360-members/',      true,   null,       null,    $ts, $ts,
+                    'Finally a healthcare advocate and consultant who works just for you',
                     'NAHC Members get access to a personal healthcare advocate you can advise and lobby on behalf of the Member; on costs for healthcare services, best insurance and understanding the benefits, and medical billing.',
                     implode('::', [
                         'Get help on understanding insurance plans & benefits',
@@ -163,6 +166,7 @@ class m170614_213246_data extends Migration
                 ],
 
                 [7, 'Premium Advocacy', 'Premium Personal Healthcare Advocacy',         'icon-advp',        'info@healthcareadvocates.com',     '215-735-7738',     'http://healthcareadvocates.com',                   true,   null,       null,    $ts, $ts,
+                    'Enhanced personal services from your very own personal healthcare advisor',
                     'NAHC Members get access to a personal healthcare advocate you can advise and lobby on behalf of the Member; on costs for healthcare services, best insurance and understanding the benefits, and medical billing.',
                     implode('::', [
                         'Get help on understanding insurance plans & benefits',
@@ -179,6 +183,7 @@ class m170614_213246_data extends Migration
                     ]),
                 ],
                 [8, 'Provider Concierge',   'Concierge for Healthcare Services',               'icon-pc',       'tbd@chi.com',                      'NA',               null,                                               true,   'NAHC',     null,    $ts, $ts,
+                    'Your advocate negotiates a cash price for any non-contracted provider on your behalf',
                     'Have an advocate negotiate with doctors and other healthcare providers and determine a price for you, before you visit the doctor’s office.',
                     implode('::', [
                         'Get help finding the right doctor for a specialized procedure',

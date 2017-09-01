@@ -22,7 +22,7 @@ $this->title = 'Contact';
         <?= Alert::widget() ?>
 
         <div class="row caption-row">
-            <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-sm-8 col-sm-offset-2">
                 <h1>Stay In Touch!<br><small>We’re here for you when and as you need us</small></h1>
                 <p class="lead">Have a question? Please feel free to contact us by mail, phone or email with any questions, comments, or concerns. </p>
             </div>

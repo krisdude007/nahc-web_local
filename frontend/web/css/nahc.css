@@ -27,6 +27,11 @@ body {
     text-align: inherit;
 }
 
+.col-pad {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 /* login */
 .login-logo {
     margin-top: 50px;
@@ -114,8 +119,8 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 0;
-    right: 0;
+    left: 15px;
+    right: 15px;
     margin:auto;
 }
 
@@ -218,6 +223,15 @@ body {
     background-color: rgba(242,12,215,1);
 }
 
+.navbar-nav > li > .dropdown-menu {
+    background-color: rgba(242,12,215,0.65);
+    color: white;
+}
+
+.dropdown-menu > li > a {
+    color: white;
+}
+
 
 
 .index-jumbo {
@@ -244,8 +258,20 @@ body {
 }
 
 .content-row {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+}
+
+.spacer-row {
+    margin-bottom: 0px;
+    margin-top: 0px !important;
     padding-bottom: 20px;
+}
+
+.spacer-row-lg {
+    margin-bottom: 0px;
+    margin-top: 0px !important;
+    padding-bottom: 100px;
 }
 
 .site-index > .body-content > .jumbo-row {
@@ -294,7 +320,7 @@ body {
     background: url('/img/index-banner-2.jpg') no-repeat local 50% 60%;
     position: relative;
     background-size: cover;
-    min-height: 640px;
+    min-height: 440px;
 }
 
 /*.index-banner-2 > div {*/
@@ -439,7 +465,7 @@ h1 > small, h2 > small, h3 > small {
     margin-top: 0;
     padding-top: 20px;
     padding-bottom: 20px;
-    background: #fafafa;
+    background: #f0f0f0;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 30px;
@@ -530,7 +556,7 @@ h1 > small, h2 > small, h3 > small {
 
 .jumbo-agent {
     background-image: url('/img/jumbo/jumbo-agent-xs.jpg');
-    background-position: 90% 20% !important;
+    background-position: 0% 0% !important;
 }
 
 .jumbo-advocacy {
@@ -629,7 +655,7 @@ h1 > small, h2 > small, h3 > small {
 }
 
 .membership-col h1, .membership-col h2, .membership-col h3 {
-    /*margin-top: 0;*/
+    margin-top: 20px;
     /*margin-bottom: 5px;*/
     font-weight: 500;
 }
@@ -1067,7 +1093,7 @@ a.nahc-bg-o-dk:hover {
 
     .wrap > .container-fluid {
         /*padding: 270px 15px 20px;*/
-        padding-top: 15px;
+        padding-top: 30px;
     }
 
     .index-jumbo {
@@ -1080,10 +1106,18 @@ a.nahc-bg-o-dk:hover {
     .site-index > .jumbotron {
         height: 280px;
         padding-top: 48px;
+        padding-left: 10px;
+    }
+
+    .jumbotron > .box {
+        left: 10px;
+        right: 10px;
     }
 
     .site-index > .jumbotron > .box > .lead {
         font-size: 19px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .site-index .jumbotron h1 {
@@ -1332,14 +1366,28 @@ a.nahc-bg-o-dk:hover {
     .site-index > .jumbotron {
         height: 480px;
         padding-top: 0;
+        padding-left: 35px;
+        padding-right: 35px;
     }
 
     .site-index .jumbotron h1 {
-        font-size: 46px;
+        font-size: 45px;
+    }
+
+    .jumbotron > .box {
+        left: 35px;
+        right: 35px;
+    }
+
+    [class^="index-banner-"] > .box {
+        padding-left: 25px;
+        padding-right: 25px;
     }
 
     .site-index > .jumbotron > .box > .lead {
         font-size: 21px;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 
     .page-wrap > .container-fluid .jumbo-top {
@@ -1473,8 +1521,8 @@ a.nahc-bg-o-dk:hover {
         /*margin-top: 0;*/
         /*padding-top: 0;*/
         /*margin-bottom: 20px;*/
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .membership-col .flex-row {
@@ -1530,7 +1578,7 @@ a.nahc-bg-o-dk:hover {
 
     .wrap > .container-fluid {
         /*padding: 270px 15px 20px;*/
-        padding-top: 100px;
+        padding-top: 60px;
     }
 
     .index-jumbo {
@@ -1541,7 +1589,7 @@ a.nahc-bg-o-dk:hover {
     }
 
     .site-index > .jumbotron h1 {
-        font-size: 57px;
+        font-size: 56px;
     }
 
     .page-wrap > .container-fluid .jumbo-top {

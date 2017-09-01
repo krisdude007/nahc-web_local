@@ -22,7 +22,7 @@ $this->title = 'Agent Inquiry';
         <?= Alert::widget() ?>
 
         <div class="row caption-row">
-            <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-sm-8 col-sm-offset-2">
                 <h1>Interested in becoming an agent, or need more information?<br><small>We'd be happy to help!</small></h1>
                 <p class="lead">Fill out the form below and an NAHC representative will get back to you as soon as possible</p>
             </div>

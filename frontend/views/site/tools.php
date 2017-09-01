@@ -55,7 +55,7 @@ $links = [
 
     <div class="body-content">
         <div class="row caption-row">
-            <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-sm-8 col-sm-offset-2">
                 <h2>Your NAHC Membership provides tools and resources to compare costs, evaluate quality, and find the best care at the best price.</h2>
             </div>
         </div>

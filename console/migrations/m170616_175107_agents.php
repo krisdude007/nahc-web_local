@@ -61,67 +61,43 @@ class m170616_175107_agents extends Migration
                 ['tom_albers',          Yii::$app->security->generatePasswordHash('temp_141924'),   Yii::$app->security->generateRandomString(),    'tom.healthcaresolutions@gmail.com',    true,   $ts,    $ts],
                 ['tracey_white',        Yii::$app->security->generatePasswordHash('temp_194697'),   Yii::$app->security->generateRandomString(),    'tracey@health-quotes.com',             true,   $ts,    $ts],
                 ['rmig',                Yii::$app->security->generatePasswordHash('temp_260975'),   Yii::$app->security->generateRandomString(),    'russ@russmillerinsurancegroup.com',    true,   $ts,    $ts],
+                ['vel.roe',             Yii::$app->security->generatePasswordHash('temp_141377'),   Yii::$app->security->generateRandomString(),    'arvella1952@yahoo.com',                true,   $ts,    $ts],
+                ['suzi.mcalpine',       Yii::$app->security->generatePasswordHash('temp_141002'),   Yii::$app->security->generateRandomString(),    'baseballmoma@sbcglobal.net',           true,   $ts,    $ts],
             ]
         );
 
         $this->batchInsert('agent',
             ['user_id', 'ext_id', 'f_name', 'l_name', 'organization', 'address', 'city', 'state_id', 'zip', 'phone', 'email',  'created_at', 'updated_at'],
             [
-                [ 10, '140954',  'STEVEN',     'WENDLANDT',    null,                           '3000 WESLAYAN, SUITE 318',         'HOUSTON',          43, '77027',    '7136211440',   'stevew@selectedbenefits.com',          $ts,    $ts],
-                [ 11, '140972',  'TODD',       'MADRID',       null,                           '8105 RANCHO DE LA OSA TR.',        'MCKINNEY',         43, '75070',    '9727627570',   'toddmcic@gmail.com',                   $ts,    $ts],
-                [ 12, '140987',  'MARK',       'HARRIS',       null,                           '2715 16TH STREET',                 'GREAT BEND',       16, '67530',    '6207924560',   'markdharris@cox.net',                  $ts,    $ts],
-                [ 13, '141011',  'ROBERT',     'JABOUR II',    null,                           '5068 WEST PLANO PKWY, STE 300',    'PLANO',            43, '75093',    '9723814232',   'bob@texashealthnow.com',               $ts,    $ts],
-                [ 14, '141072',  'GRACE',      'TORNIK',       null,                           '6300 CARRIZO DR.',                 'GRANBURY',         43, '76049',    '8172191901',   'gracetornik@yahoo.com',                $ts,    $ts],
-                [ 15, '141093',  'REED',       'HITCH',        null,                           '3223 S LOOP 289 #240C',            'LUBBOCK',          43, '79423',    '8067501210',   'reedhitch@msn.com',                    $ts,    $ts],
-                [ 16, '141165',  'CHRISTOPHER','FORD',         "FORD INS. SERVICES",           'PO BOX 30282',                     'MIDWEST CITY',     36, '73140',    '4052458253',   'chris.ford1@cox.net',                  $ts,    $ts],
-                [ 17, '141182',  'RICHARD',    'HAMILTON',     "HAMILTON GROUP",               '2212 MULBERRY LANE',               'NEWCASTLE',        36, '73065',    '4053141763',   'rick.health@yahoo.com',                $ts,    $ts],
-                [ 18, '141253',  'STEVE',      'HERMAN',       null,                           '6142 BRANDEIS LN',                 'DALLAS',           43, '75214',    '2143638771',   'steveherman68@sbcglobal.net',          $ts,    $ts],
-                [ 19, '141295',  'PHIL',       'RASKIN',       "AO INSURANCE AGENCY INC",      '7066 LAKEVIEW HAVEN DR STE108',    'HOUSTON',          43, '77095',    '2813450805',   'lisa.aoinsagency@gmail.com',           $ts,    $ts],
-                [ 20, '141326',  'PHIL',       'RASKIN',       "ISURE,LLC",                    '7066 LAKEVIEW HAVEN DR, #108',     'HOUSTON',          43, '77095',    '2813450805',   'lisamcconville2013@gmail.com',         $ts,    $ts],
-                [ 21, '141335',  'CHARLES',    'HARRELL',      "CHARLES HARRELL",              '5920 E. UNIVERSITY BLVD #4116',    'DALLAS',           43, '75206',    '8004622322',   'c.harrell@allaboardbenefits.net',      $ts,    $ts],
-                [ 22, '141420',  'GREG',       'MYERS',        "TEXAS MEDICAL PLANS LLC",      'PO BOX 1270',                      'WIMBERLEY',        43, '78676',    '8887503164',   'tracey@health-quotes.com',             $ts,    $ts],
-                [ 23, '141483',  'RYAN',       'HOWELL',       null,                           '10 HOLMSBY LN',                    'TAYLORS',          40, '29687',    '8649791006',   'protectiveplanning@hotmail.com',       $ts,    $ts],
-                [ 24, '141553',  'TARYN',      'COLLINS',      "STREAMLINE BENEFITS GROUP",    '5443 FOX RUN BLVD',                'FREDERICK',         6, '80504',    '7206758350',   'taryn@streamlinebg.com',               $ts,    $ts],
-                [ 25, '141612',  'JAMES',      'RIPPEL',       "RIPPEL & ASSOCIATES",          '8955 BEAR CREEK',                  'SYLVANIA',         35, '43560',    '4193182323',   'jim@chsmkting.com',                    $ts,    $ts],
-                [ 26, '141768',  'REGINALD',   'JACKSON',      "RJ INSURANCE SERVICES",        '10202 ANGELL STREET',              'DOWNEY',            5, '90242',    '8773601144',   'reggiej@rjinsures.com',                $ts,    $ts],
-                [ 27, '141820',  'DANIEL',     'MOEN',         null,                           '5400 CLARK AVE #107',              'LAKEWOOD',          5, '90712',    '5624728177',   'danielsinbox@yahoo.com',               $ts,    $ts],
-                [ 28, '141875',  'TODD',       'MADRID',       null,                           '8105 RANCHO DE LA OSA TRAIL',      'MCKINNEY',         43, '75070',    '9727627570',   'tmadrid45@gmail.com',                  $ts,    $ts],
-                [ 29, '141896',  'CHARITY',    'BLISS',        "CHARITY BLISS INC",            '941 NE 19TH AVE',                  'FORT LAUDERDALE',   9, '33304',    '3214325805',   'charityblissinc@gmail.com',            $ts,    $ts],
-                [ 30, '141908',  'SEAN',       'COLLINS',      null,                           '1130 CHARLESTON STREET',           'COSTA MESA',        5, '92626',    '9494224003',   'collins4s@sbcglobal.net',              $ts,    $ts],
-                [ 31, '141916',  'SCOTT',      'ECKLEY',       "APOLLO INSURANCE GROUP, INC",  '200 NE MISSOURI RD #200',          'LEES SUMMIT',      23, '64086',    '9132790077',   'seckley@apollo-insurance.com',         $ts,    $ts],
-                [ 32, '141924',  'TOM',        'ALBERS',       null,                           '3021 YELLOWSTONE DR',              'LAWRENCE',         16, '66047',    '7855504922',   'tom.healthcaresolutions@gmail.com',    $ts,    $ts],
-                [ 33, '194697',  'Tracey',     'White',        "Texas Medical Plans",          'PO Box 1270',                      'Wimberley',        43, '78676',    '8887503164',   'tracey@health-quotes.com',             $ts,    $ts],
-                [ 34, '260975',  'Russell',    'Miller',       "Russ Miller Insurance Group",  '16801 Addison Road',               'Addison',          43, '75001',    '8174001084',   'russ@russmillerinsurancegroup.com',    $ts,    $ts],
+                [ 10, '140954',  'STEVEN',      'WENDLANDT',    null,                           '3000 WESLAYAN, SUITE 318',         'HOUSTON',              43, '77027',    '7136211440',   'stevew@selectedbenefits.com',          $ts,    $ts],
+                [ 11, '140972',  'TODD',        'MADRID',       null,                           '8105 RANCHO DE LA OSA TR.',        'MCKINNEY',             43, '75070',    '9727627570',   'toddmcic@gmail.com',                   $ts,    $ts],
+                [ 12, '140987',  'MARK',        'HARRIS',       null,                           '2715 16TH STREET',                 'GREAT BEND',           16, '67530',    '6207924560',   'markdharris@cox.net',                  $ts,    $ts],
+                [ 13, '141011',  'ROBERT',      'JABOUR II',    null,                           '5068 WEST PLANO PKWY, STE 300',    'PLANO',                43, '75093',    '9723814232',   'bob@texashealthnow.com',               $ts,    $ts],
+                [ 14, '141072',  'GRACE',       'TORNIK',       null,                           '6300 CARRIZO DR.',                 'GRANBURY',             43, '76049',    '8172191901',   'gracetornik@yahoo.com',                $ts,    $ts],
+                [ 15, '141093',  'REED',        'HITCH',        null,                           '3223 S LOOP 289 #240C',            'LUBBOCK',              43, '79423',    '8067501210',   'reedhitch@msn.com',                    $ts,    $ts],
+                [ 16, '141165',  'CHRISTOPHER', 'FORD',         "FORD INS. SERVICES",           'PO BOX 30282',                     'MIDWEST CITY',         36, '73140',    '4052458253',   'chris.ford1@cox.net',                  $ts,    $ts],
+                [ 17, '141182',  'RICHARD',     'HAMILTON',     "HAMILTON GROUP",               '2212 MULBERRY LANE',               'NEWCASTLE',            36, '73065',    '4053141763',   'rick.health@yahoo.com',                $ts,    $ts],
+                [ 18, '141253',  'STEVE',       'HERMAN',       null,                           '6142 BRANDEIS LN',                 'DALLAS',               43, '75214',    '2143638771',   'steveherman68@sbcglobal.net',          $ts,    $ts],
+                [ 19, '141295',  'PHIL',        'RASKIN',       "AO INSURANCE AGENCY INC",      '7066 LAKEVIEW HAVEN DR STE108',    'HOUSTON',              43, '77095',    '2813450805',   'lisa.aoinsagency@gmail.com',           $ts,    $ts],
+                [ 20, '141326',  'PHIL',        'RASKIN',       "ISURE,LLC",                    '7066 LAKEVIEW HAVEN DR, #108',     'HOUSTON',              43, '77095',    '2813450805',   'lisamcconville2013@gmail.com',         $ts,    $ts],
+                [ 21, '141335',  'CHARLES',     'HARRELL',      "CHARLES HARRELL",              '5920 E. UNIVERSITY BLVD #4116',    'DALLAS',               43, '75206',    '8004622322',   'c.harrell@allaboardbenefits.net',      $ts,    $ts],
+                [ 22, '141420',  'GREG',        'MYERS',        "TEXAS MEDICAL PLANS LLC",      'PO BOX 1270',                      'WIMBERLEY',            43, '78676',    '8887503164',   'tracey@health-quotes.com',             $ts,    $ts],
+                [ 23, '141483',  'RYAN',        'HOWELL',       null,                           '10 HOLMSBY LN',                    'TAYLORS',              40, '29687',    '8649791006',   'protectiveplanning@hotmail.com',       $ts,    $ts],
+                [ 24, '141553',  'TARYN',       'COLLINS',      "STREAMLINE BENEFITS GROUP",    '5443 FOX RUN BLVD',                'FREDERICK',             6, '80504',    '7206758350',   'taryn@streamlinebg.com',               $ts,    $ts],
+                [ 25, '141612',  'JAMES',       'RIPPEL',       "RIPPEL & ASSOCIATES",          '8955 BEAR CREEK',                  'SYLVANIA',             35, '43560',    '4193182323',   'jim@chsmkting.com',                    $ts,    $ts],
+                [ 26, '141768',  'REGINALD',    'JACKSON',      "RJ INSURANCE SERVICES",        '10202 ANGELL STREET',              'DOWNEY',                5, '90242',    '8773601144',   'reggiej@rjinsures.com',                $ts,    $ts],
+                [ 27, '141820',  'DANIEL',      'MOEN',         null,                           '5400 CLARK AVE #107',              'LAKEWOOD',              5, '90712',    '5624728177',   'danielsinbox@yahoo.com',               $ts,    $ts],
+                [ 28, '141875',  'TODD',        'MADRID',       null,                           '8105 RANCHO DE LA OSA TRAIL',      'MCKINNEY',             43, '75070',    '9727627570',   'tmadrid45@gmail.com',                  $ts,    $ts],
+                [ 29, '141896',  'CHARITY',     'BLISS',        "CHARITY BLISS INC",            '941 NE 19TH AVE',                  'FORT LAUDERDALE',       9, '33304',    '3214325805',   'charityblissinc@gmail.com',            $ts,    $ts],
+                [ 30, '141908',  'SEAN',        'COLLINS',      null,                           '1130 CHARLESTON STREET',           'COSTA MESA',            5, '92626',    '9494224003',   'collins4s@sbcglobal.net',              $ts,    $ts],
+                [ 31, '141916',  'SCOTT',       'ECKLEY',       "APOLLO INSURANCE GROUP, INC",  '200 NE MISSOURI RD #200',          'LEES SUMMIT',          23, '64086',    '9132790077',   'seckley@apollo-insurance.com',         $ts,    $ts],
+                [ 32, '141924',  'TOM',         'ALBERS',       null,                           '3021 YELLOWSTONE DR',              'LAWRENCE',             16, '66047',    '7855504922',   'tom.healthcaresolutions@gmail.com',    $ts,    $ts],
+                [ 33, '194697',  'Tracey',      'White',        "Texas Medical Plans",          'PO Box 1270',                      'Wimberley',            43, '78676',    '8887503164',   'tracey@health-quotes.com',             $ts,    $ts],
+                [ 34, '260975',  'Russell',     'Miller',       "Russ Miller Insurance Group",  '16801 Addison Road',               'Addison',              43, '75001',    '8174001084',   'russ@russmillerinsurancegroup.com',    $ts,    $ts],
+                [ 35, '141377',  'VEL',         'ROE',          null,                           '3118 SO. CO. RD. 1069',            'MIDLAND',              43, '79706',    '4322386677',   'arvella1952@yahoo.com',                $ts,    $ts],
+                [ 36, '141002',  'SUZI',        'MCALPINE',     null,                           '8033 KRISTINA LN.',                'NORTH RICHLAND HILLS', 43, '76182',    '8175018732',   'baseballmoma@sbcglobal.net',           $ts,    $ts],
             ]
         );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         $this->batchInsert('agent_state_map',
             ['agent_id', 'state_id', 'created_at', 'updated_at'],
@@ -237,6 +213,25 @@ class m170616_175107_agents extends Migration
                 [17,10,$ts,$ts],
                 [17,26,$ts,$ts],
                 [27,43,$ts,$ts],
+                [29,43,$ts,$ts],
+                [30,43,$ts,$ts],
+                [30,36,$ts,$ts],
+                [30,23,$ts,$ts],
+                [30,16,$ts,$ts],
+                [30,6,$ts,$ts],
+                [30,27,$ts,$ts],
+                [30,3,$ts,$ts],
+                [30,24,$ts,$ts],
+                [30,1,$ts,$ts],
+                [30,18,$ts,$ts],
+                [30,42,$ts,$ts],
+                [30,17,$ts,$ts],
+                [30,26,$ts,$ts],
+                [30,23,$ts,$ts],
+                [30,22,$ts,$ts],
+                [30,2,$ts,$ts],
+                [30,13,$ts,$ts],
+                [30,14,$ts,$ts],
             ]
         );
 
@@ -269,6 +264,8 @@ class m170616_175107_agents extends Migration
                 [26, 9, $ts, $ts], [26, 10, $ts, $ts], [26, 11, $ts, $ts],
                 [27, 9, $ts, $ts], [27, 10, $ts, $ts], [27, 11, $ts, $ts],
                 [28, 9, $ts, $ts], [28, 10, $ts, $ts], [28, 11, $ts, $ts],
+                [29, 9, $ts, $ts], [29, 10, $ts, $ts], [29, 11, $ts, $ts],
+                [30, 9, $ts, $ts], [30, 10, $ts, $ts], [30, 11, $ts, $ts],
             ]
         );
 

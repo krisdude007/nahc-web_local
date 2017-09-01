@@ -31,13 +31,17 @@ $colors = ['m','g','b','o'];
         <div class="row is-table-row membership-row">
 <?php
 $c = 0;
+$memAr = [];
 foreach ($memberships as $membership)
-        { ?>
+        {
+            $memAr[$membership->level] = $membership;
+
+            ?>
             <div id="memcol<?=$membership->level?>" class="col-sm-3 membership-col nahc-bg-<?=$colors[$c]?>-dk">
                 <a id="plan<?=$membership->id?>" name="plan<?=$membership->id?>"></a>
                 <div class="row nahc-bg-<?=$colors[$c]?>-base" style="padding-bottom: 5px;">
                     <div class="col-sm-12">
-                        <h3><?=$membership->name ?></h3>
+                        <h3><?=$membership->name?></h3>
                     </div>
                 </div>
 
@@ -45,7 +49,17 @@ foreach ($memberships as $membership)
                     <div class="col-sm-12">
                         <h3><?=$membership->priceText ?></h3><h4 style="font-weight: 200;"><?=$membership->description?></h4>
                         <hr>
-                        <span><?=$membership->detail?></span>
+                        <span><dl><dt>Includes</dt>
+                                <?php  if($membership->level > 1) { ?>
+                                    <dd>The <?=$memAr[($membership->level - 1)]->name?> Plan PLUS:</dd>
+                                <?php    }
+
+                                foreach($membership->benefits as $benefit) {
+
+                                    if($benefit->minimumMembershipLevel == $membership->level) { ?>
+                                        <dd><a id="mem<?=$membership->level?>btn<?=$benefit->id?>" href="<?=Url::to(['site/membership', '#' => "mem{$benefit->id}"])?>" data-toggle="tooltip" title="<?=$benefit->description?>"><?=$benefit->name?>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size: 14px;"></span></a></dd>
+                                <?php    }
+                                }?></dl></span>
                     </div>
                 </div>
 
@@ -55,15 +69,15 @@ foreach ($memberships as $membership)
 // data-toggle="tooltip" data-placement="top"
 foreach($membership->benefits as $benefit)
             {
-                $highlight = ($benefit->minimumMembershipLevel == $membership->level)?'nahc-highlight-'.$colors[$c]:'';
+                //$highlight = ($benefit->minimumMembershipLevel == $membership->level)?'nahc-highlight-'.$colors[$c]:'';
 
-                ?>
-                    <a id="mem<?=$membership->level?>btn<?=$benefit->id?>" role="button" tabindex="0"  data-container="memcol<?=$membership->level?>" data-toggle="popover-x" data-target="#mem<?=$membership->level?>po<?=$benefit->id?>"  <?php //href="/membership#mem<?=$benefit->id>"?> title="<?=$benefit->name?>" class="opt-block nahc-bg-<?=$colors[$c]?>-dk col-xs-12 col-sm-3 col-md-3 col-lg-3 <?=$highlight?>" >
 
-                        <img src="/img/icon/<?=$benefit->icon?>-white.png">
-                        <?php //<br class="hidden-lg hidden-xs">
-                         //<div style="display: none;"><?=$benefit->name </div>?>
-                    </a>
+                 //   <a id="mem<?=$membership->level? >btn<?=$benefit->id? >" role="button" tabindex="0"  data-container="memcol<?=$membership->level? >" data-toggle="popover-x" data-target="#mem<?=$membership->level? >po<?=$benefit->id? >"  <?php //href="/membership#mem<?=$benefit->id>"? > title="<?=$benefit->name? >" class="opt-block nahc-bg-<?=$colors[$c]? >-dk col-xs-12 col-sm-3 col-md-3 col-lg-3 <?=$highlight? >" >
+
+                         //<img src="/img/icon/<?=$benefit->icon? >-white.png">
+                        //<br class="hidden-lg hidden-xs">
+                         //<div style="display: none;"><?=$benefit->name </div>? >
+                    //</a> ?>
 
 <?php echo PopoverX::widget([
                 'id' => "mem{$membership->level}po{$benefit->id}",

@@ -2,6 +2,8 @@
 
 $this->render('_leftnav');
 
+$this->title = "Agent Dashboard";
+
 ?>
 
 <h1>Agent Dashboard</h1>

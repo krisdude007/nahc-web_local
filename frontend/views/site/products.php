@@ -23,13 +23,13 @@ if($is_member) {
 <div class="site-products">
 
     <div class="jumbotron jumbo-top jumbo-products">
-        <h1>Innovative and Affordable Health Insurance Products</h1>
+        <h1>Shop for healthcare just like you do for other of life’s necessities</h1>
     </div>
 
     <div class="body-content">
         <div class="row caption-row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <h2>NAHC makes it simple to find high-quality, low-cost providers<br><small>It's never been easier to save</small></h2>
+            <div class="col-sm-8 col-sm-offset-2">
+                <h2>Your NAHC Membership provides tools and resources to compare costs, evaluate quality, and find the best care at the best price.</h2>
             </div>
         </div>
     <?php if(!$is_member) { ?>
