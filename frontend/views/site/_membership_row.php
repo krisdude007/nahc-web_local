@@ -57,7 +57,7 @@ foreach ($memberships as $membership)
                                 foreach($membership->benefits as $benefit) {
 
                                     if($benefit->minimumMembershipLevel == $membership->level) { ?>
-                                        <dd><a id="mem<?=$membership->level?>btn<?=$benefit->id?>" href="<?=Url::to(['site/membership', '#' => "mem{$benefit->id}"])?>" data-toggle="tooltip" title="<?=$benefit->description?>"><?=$benefit->name?></a></dd>
+                                        <dd><a id="mem<?=$membership->level?>btn<?=$benefit->id?>" href="<?=Url::to(['site/membership', '#' => "mem{$benefit->id}"])?>" data-toggle="tooltip" title="<?=$benefit->description?>"><?=$benefit->name?>&nbsp;<span class="glyphicon glyphicon-info-sign" aria-hidden="true" style="font-size: 14px;"></span></a></dd>
                                 <?php    }
                                 }?></dl></span>
                     </div>
