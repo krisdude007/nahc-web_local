@@ -31,16 +31,12 @@ class m170614_213246_data extends Migration
         );
 
         $this->batchInsert('membership',
-            ['ext_id', 'name', 'description', 'level', 'price', 'created_at', 'updated_at', 'detail'],
+            ['ext_id', 'name', 'description', 'level', 'price', 'created_at', 'updated_at'],
             [
-                [17454, 'Basics',       'Just the Basics',      1,   0,      $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>RX Savings Card</dd><dd>Savings Network</dd></dl>'],
-                [16978, 'Basics+',      'The Basics & More',    2,   795,    $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>The Basics Plan PLUS:</dd><dd>Quality Reports</dd><dd>Medical Travel Assistance</dd></dl>'],
-                [16980, 'Advocate',     'Adds the Advocate',    3,   1495,   $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>The Basics+ Plan PLUS:</dd><dd>Pricing Comparison</dd><dd>Telemedicine Services</dd><dd>Patient Advocacy</dd></dl>'],
-                [16983, 'Advocate+',    'Soup to Nuts',         4,   1995,   $ts, $ts,
-                    '<dl><dt>Includes</dt><dd>The Advocate Plan PLUS:</dd><dd>Premium Advocacy</dd><dd>Provider Concierge</dd></dl>'],
+                [17454, 'Basic',    'Just the Basics',      1,   0,      $ts, $ts],
+                [16978, 'Bronze',   'The Basics & More',    2,   795,    $ts, $ts],
+                [16980, 'Silver',   'Adds the Advocate',    3,   1495,   $ts, $ts],
+                [16983, 'Gold',     'Soup to Nuts',         4,   1995,   $ts, $ts],
             ]
         );
 

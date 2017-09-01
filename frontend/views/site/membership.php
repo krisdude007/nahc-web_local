@@ -45,6 +45,13 @@ $this->title = 'Membership';
         </div>
 
         <?=$this->render('_membership_row', ['level' => $level, 'memberships' => $memberships])?>
+
+        <div class="row spacer-row">
+            <div class="col-sm-12">
+                &nbsp;
+            </div>
+        </div>
+
         <div class="jumbotron">
             <h1>Why Join NAHC?</h1>
             <p class="lead">You’ll have ready access to resources that will keep you apprised of healthcare provider quality ratings and pricing, access to benefits and services that will help you save money, and exclusive access to insurance products that will give you peace of mind.</p>
@@ -101,7 +108,7 @@ $this->title = 'Membership';
                         </div>
                     <?php } ?>
                 </div>
-                <div class="row content-row">
+                <div class="row spacer-row">
                     &nbsp;
                 </div>
 

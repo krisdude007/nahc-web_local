@@ -77,42 +77,42 @@ $this->registerJs($js);
         <div class="row content-row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="row hidden-xs">
-                    <div class="col-sm-4">
-                        <h2>Shop For Healthcare Services Like You Do Anything Else</h2>
+                    <div class="col-sm-4 col-pad">
+                        <h3>Shop For Healthcare Services Like You Do Anything Else</h3>
                     </div>
-                    <div class="col-sm-4">
-                        <h2>Doctor and Facility Ratings / Reviews Nationwide</h2>
+                    <div class="col-sm-4 col-pad" >
+                        <h3>Doctor and Facility Ratings / Reviews Nationwide</h3>
                     </div>
-                    <div class="col-sm-4">
-                        <h2>Personal Healthcare Consulting Services Only A Call Away</h2>
+                    <div class="col-sm-4 col-pad" >
+                        <h3>Personal Healthcare Consulting Services Only A Call Away</h3>
                     </div>
                 </div>
 
 
 
                 <div class="row narrow-row hidden-xs">
-                    <div class="col-sm-4" style="text-align: justify">
+                    <div class="col-sm-4 col-pad" style="text-align: justify;">
                         <p>Shopping online for TV's, cars and clothing is second nature these days. Wouldn't it be great if you could do the same to find the best possible healthcare services? Now you can with our simple to use memberships.</p>
                     </div>
-                    <div class="col-sm-4" style="text-align: justify">
+                    <div class="col-sm-4 col-pad" style="text-align: justify;">
                         <p>Your NAHC Membership provides access to reviews, reports, doctor ratings and so much more which will ensure you’re able to engage the nation’s top rated and most reputable healthcare providers.</p>
                     </div>
-                    <div class="col-sm-4" style="text-align: justify">
+                    <div class="col-sm-4 col-pad" style="text-align: justify;">
                         <p>With NAHC, you now have your own healthcare concierge Advocate who will collaborate with you, one-on-one, to make sure your best interests are always protected. And in healthcare, that is huge!</p>
                     </div>
                 </div>
 
                 <div class="row visible-xs">
                     <div class="col-sm-4">
-                        <h2>Shop For Healthcare Services Like You Do Anything Else</h2>
+                        <h3>Shop For Healthcare Services Like You Do Anything Else</h3>
                         <p>Shopping online for TV's, cars and clothing is second nature these days. Wouldn't it be great if you could do the same to find the best possible healthcare services? Now you can with our simple to use memberships.</p><br>
                     </div>
                     <div class="col-sm-4">
-                        <h2>Doctor and Facility Ratings / Reviews Nationwide</h2>
+                        <h3>Doctor and Facility Ratings / Reviews Nationwide</h3>
                         <p>Your NAHC Membership provides access to reviews, reports, doctor ratings and so much more which will ensure you’re able to engage the nation’s top rated and most reputable healthcare providers.</p><br>
                     </div>
                     <div class="col-sm-4">
-                        <h2>Personal Healthcare Consulting Services Only A Call Away</h2>
+                        <h3>Personal Healthcare Consulting Services Only A Call Away</h3>
                         <p>With NAHC, you now have your own healthcare concierge Advocate who will collaborate with you, one-on-one, to make sure your best interests are always protected. And in healthcare, that is huge!</p><br>
                     </div>
 
@@ -140,6 +140,69 @@ $this->registerJs($js);
                     </div> */
                     ?>
                 </div>
+            </div>
+        </div>
+
+        <div class="jumbotron jumbo-row index-banner-1" style="">
+
+            <h1>You already comparison shop for clothing, TV's and other life necessities...why not healthcare?</h1>
+            <p class="lead">Our world has changed, and we've introduced the most comprehensive method for locating, comparing and learning about the best possible healthcare services at the best possible prices around. All in one place with an affordable membership!</p>
+
+
+            <!--<p class="lead"><a class="btn btn-lg btn-success" href="<?=Url::to(['site/membership']);?>">Join Now</a></p>-->
+        </div>
+
+        <div class="row content-row">
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <h1>Just imagine access to tools like this...</h1>
+
+                <p class="lead">You can now search in your area for medical services by price and doctor quality ratings. Even each facility receives documented ratings that are held to the highest standards. Our database is second to none and completely accurate.<br>
+                    ​
+                    And this is just one of many tools you'll have at your disposal.</p>
+                <img src="/img/index-tools.jpg" class="img-responsive">
+
+            </div>
+        </div>
+
+
+        <div class="row nahc-bg-gr-dk">
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <h1>Memberships that deliver big time.</h1>
+                <p class="lead">A membership to anything is only as good as the benefits it offers. Make no mistake, with NAHC, you'll now have access to premium services in healthcare unlike anything you have seen before, and a personal advocate assisting you with it all!</p>
+            </div>
+        </div>
+
+
+
+        <div class="row narrow-row nahc-bg-gr-dk">
+            <div class="col-sm-12 col-lg-10 col-lg-offset-1">
+                <div class="row flex-row icon-index">
+
+
+                    <?php echo $this->render('_membership_row', ['level' => $level, 'memberships' => $memberships])
+
+                    //foreach($benefits as $benefit) {
+
+                    //<a href="/membership#mem<?=$benefit->id? >" class="col-xs-4 text-left btn" data-toggle="tooltip" title="<?$benefit->description? >">
+
+
+                    //                                <img src="/img/icon/<$benefit->icon? >.png">
+
+                    //                              <div class="h4"><?=$benefit->name? ></div>
+                    //
+
+                    //</a>
+
+                    //}
+
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row spacer-row-lg nahc-bg-gr-dk">
+            <div class="col-12-sm">
+                &nbsp;
             </div>
         </div>
 
@@ -185,25 +248,14 @@ $this->registerJs($js);
             </div>
         </div>
 
-        <div class="row content-row">
-            <div class="col-sm-12 col-md-10 col-md-offset-1">
-                <h1>Just imagine access to tools like this...</h1>
-
-                <p class="lead">You can now search in your area for medical services by price and doctor quality ratings. Even each facility receives documented ratings that are held to the highest standards. Our database is second to none and completely accurate.<br>
-                ​
-                And this is just one of many tools you'll have at your disposal.</p>
-
+        <div class="row spacer-row">
+            <div class="col-12-sm">
+                &nbsp;
             </div>
         </div>
 
-        <div class="jumbotron jumbo-row index-banner-1" style="">
-
-            <h1>You already comparison shop for clothing, TV's and other life necessities...why not healthcare?</h1>
-            <p class="lead">Our world has changed, and we've introduced the most comprehensive method for locating, comparing and learning about the best possible healthcare services at the best possible prices around. All in one place with an affordable membership!</p>
 
 
-            <!--<p class="lead"><a class="btn btn-lg btn-success" href="<?=Url::to(['site/membership']);?>">Join Now</a></p>-->
-        </div>
 
 <!--        <div class="row">-->
 <!--            <div class="col-sm-12 col-md-10 col-md-offset-1">-->
@@ -216,54 +268,6 @@ $this->registerJs($js);
 <!--        <div class="jumbotron jumbo-row" style="background-image: url('/img/index-banner-1.jpg');">-->
 <!--            <h1>Choose a plan tailored to your needs.</h1>-->
 <!--        </div>-->
-
-        <div class="row">
-            <div class="col-sm-12 col-md-10 col-md-offset-1">
-                <h1>Memberships that deliver big time.</h1>
-                <p class="lead">A membership to anything is only as good as the benefits it offers. Make no mistake, with NAHC, you'll now have access to premium services in healthcare unlike anything you have seen before, and a personal advocate assisting you with it all!</p>
-            </div>
-        </div>
-
-        <div class="row narrow-row">
-            <div class="col-sm-12 col-lg-10 col-lg-offset-1">
-                <div class="row flex-row icon-index">
-
-
-                <?php echo $this->render('_membership_row', ['level' => $level, 'memberships' => $memberships])
-
-                //foreach($benefits as $benefit) {
-
-                    //<a href="/membership#mem<?=$benefit->id? >" class="col-xs-4 text-left btn" data-toggle="tooltip" title="<?$benefit->description? >">
-
-
-//                                <img src="/img/icon/<$benefit->icon? >.png">
-
-  //                              <div class="h4"><?=$benefit->name? ></div>
-//
-
-                    //</a>
-
-                 //}
-
-                ?>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row content-row">
-            <div class="col-sm-6 col-md-4 col-lg-4 col-sm-offset-3 col-md-offset-4 col-lg-offset-4 hidden-xs">
-                <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->has_member) {?>
-                    <a href="<?= Url::to(['member/index']) ?>" class="btn btn-info btn-lg btn-block">My Benefits</a>
-                <?php } else{ ?>
-                    <a href="<?= Url::to(['site/membership', '#' => 'plans']) ?>" class="btn btn-primary btn-lg btn-block">Join Now!</a>
-                <?php } ?>
-            </div>
-        </div>
-
-
-
-
 
 
 
