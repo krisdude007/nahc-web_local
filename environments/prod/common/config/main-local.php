@@ -41,5 +41,11 @@ return [
                 'encryption' => 'tls',
             ],
         ],
+        'e123' => [
+            'class' => '\common\components\E123Api',
+            'username' => 'nahcweb',
+            'password' => 'MbS2wcqENX5LwYrjgY6hBSdy',
+            'corpid' => 1272,
+        ],
     ],
 ];

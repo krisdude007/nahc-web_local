@@ -34,5 +34,8 @@ return [
                 'encryption' => 'tls',
             ],
         ],
+        'e123' => [
+            'class' => '\common\components\E123Api',
+        ],
     ],
 ];
