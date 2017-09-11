@@ -293,16 +293,12 @@ class SyncController extends Controller
         foreach($purchases as $purch) {
             $member = $purch->member;
 
-            $purchList[] = $purch->id;
-            $memberList[] = $member->id;
+
+            //$memberList[] = $member->id;
 
             $model = E123Member::getModelFromPurchase($purch);
 
-            if($model->mode == E123Member::MODE_ADD || $member->updated_at > $member->sync_at)
-                $memberList[] = $member->id;
 
-            if($model->mode == E123Member::MODE_ADD/* || $purch->paymentMethod->updated_at > $purch->paymentMethod->sync_at*/)
-                $payList[] = $purch->paymentMethod->id;
 
             $api = Yii::$app->e123;
 
@@ -318,6 +314,14 @@ class SyncController extends Controller
                 echo 'Error syncing Purchase '.$purch->id.PHP_EOL;
                 continue;
             }
+
+            $purchList[] = $purch->id;
+
+            if($model->mode == E123Member::MODE_ADD || $member->updated_at > $member->sync_at)
+                $memberList[] = $member->id;
+
+            if($model->mode == E123Member::MODE_ADD/* || $purch->paymentMethod->updated_at > $purch->paymentMethod->sync_at*/)
+                $payList[] = $purch->paymentMethod->id;
 
             if($model->mode == E123Member::MODE_ADD) {
                 $id = ArrayHelper::getValue($result, 'MEMBER.ID', null);
