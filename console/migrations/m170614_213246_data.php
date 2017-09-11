@@ -291,7 +291,7 @@ class m170614_213246_data extends Migration
                 [6, 11, 'Dental Insurance',                   'Dental',   'products-3.jpg',    'icon-dsp', $ts, $ts,
                     'Visits to the dentist create more than a healthy smile, they create a healthy you.  You should not have to put off going to the dentist because of budget concerns.',
                     implode('::', [
-                        'Sse any Dentist of your choice',
+                        'See any Dentist of your choice',
                         'No waiting periods; good from Day 1',
                         'Can lower out-of-pocket expenses',
                         'Covers from cleaning to oral surgery',

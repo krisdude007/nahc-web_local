@@ -19,32 +19,34 @@ class m170824_152201_live_data extends Migration
         $this->batchInsert('member',
             [/*"id",*/"user_id","agent_id","group_id","ext_id","f_name","l_name","m_name","dob","gender","ssn","address","address2","city","state_id","zip","email","phone","status","created_at","updated_at","sync_at"],
             [
-                [/*6,*/ 35, 1,  null, null, "Michael",    "Menefee",  "C",      "1901-01-01", "M",    "123123123",    "123 Test St",         null, "Test",     43,   "12345",    "mikem@mnetwork.org",                   "1231231234",  10, 1503507795, 1503507795, 0],
-                [/*7,*/ 34, 1,  null, null, "Russell",    "Miller",   "Dean",   "1967-12-05", "M",    "331566324",    "14052 Wrangler Way",  null, "Haslet",   43,   "76052",    "russ@russmillerinsurancegroup.com",    "8179957854",  10, 1503508867, 1503508867, 0],
-                [/*8,*/ 36, 1,  null, null, "Kris",       "Naladi",   null,     "1969-04-12", "M",    "342312312",    "test123 testse",      null, "testcity", 42,   "34253",    "test@kristest.com",                    "3123123121",  10, 1503513663, 1503513663, 0],
-                [/*9,*/ 37, 1,  null, null, "Cyndi",      "Pierson",  null,     "1966-07-31", "F",    "463515489",    "1402 Parker Rd",      null, "St Paul",  43,   "75098",    "mrsgp101310@gmail.com",                "9723380058",  10, 1503514089, 1503514089, 0],
+                [/*6,*/  35,     1,  null, null,   "Michael",   "Menefee",      "C",     "1901-01-01", "M",    "123123123", "123 Test St",                                  null,   "Test",     43,   "12345",  "mikem@mnetwork.org",                   "1231231234",   10, 1503507795, 1503507795, 0],
+                [/*7,*/  34,     1,  null, null,   "Russell",    "Miller",   "Dean",     "1967-12-05", "M",    "331566324", "14052 Wrangler Way",                           null,   "Haslet",   43,   "76052",  "russ@russmillerinsurancegroup.com",    "8179957854",   10, 1503508867, 1503508867, 0],
+                [/*8,*/  36,     1,  null, null,      "Kris",    "Naladi",     null,     "1969-04-12", "M",    "342312312", "test123 testse",                               null,   "testcity", 42,   "34253",  "test@kristest.com",                    "3123123121",   10, 1503513663, 1503513663, 0],
+                [/*9,*/  37,     1,  null, null,     "Cyndi",   "Pierson",     null,     "1966-07-31", "F",    "463515489", "1402 Parker Rd",                               null,   "St Paul",  43,   "75098",  "mrsgp101310@gmail.com",                "9723380058",   10, 1503514089, 1503514089, 0],
+                [/*10*/null,    21,  null, null,    "Damian",   "Sanchez",      "A",     "1999-01-19", "M",    "633664923", "Room 317  Talkington  Texas Tech University",  null,   "Lubbock",  43,   "79406",  "damian.sanchez@ttu.edu",               "8306370145",   10, 1504739406, 1504739406, 0],
+
             ]
         );
 
         $this->batchInsert('payment_method',
             [/*"id",*/"member_id","name","pay_type","f_name","l_name","routing","account","account_type","exp","pan","cvv","status","created_at","updated_at","sync_at"],
             [
-                [/*6,*/ 6,  "Primary",  1,  "Michael",     "Menefee",           "011000138", "12312313",     1,       null,       null,               null,     50,   1503507795, 1503507795, 0],
-                [/*7,*/ 7,  "Primary",  1,  "Russell",     "Miller",            "111901014", "4670198051",   1,       null,       null,               null,     50,   1503508867, 1503508867, 0],
-                [/*8,*/ 8,  "Primary",  2,  "test",        "test",              null,        null,           null,    "02/2021",  "4242424242424242", "2342",   50,   1503513663, 1503513663, 0],
-                [/*9,*/ 9,  "Primary",  1,  "INNOVATIVE",  "BENEFIT SOLUTIONS", "111901014", "4670198051",   1,       null,       null,               null,     50,   1503514089, 1503514089, 0],
+                [/*6,*/ 6,  "Primary",  1,  "INNOVATIVE",   "BENEFIT SOLUTIONS",    "111901014", "4670198051",   1,       null,       null,               null,     50,   1503507795, 1503507795, 0],
+                [/*7,*/ 7,  "Primary",  1,  "INNOVATIVE",   "BENEFIT SOLUTIONS",    "111901014", "4670198051",   1,       null,       null,               null,     50,   1503508867, 1503508867, 0],
+                [/*8,*/ 8,  "Primary",  2,  "INNOVATIVE",   "BENEFIT SOLUTIONS",    "111901014", "4670198051",   1,       null,       null,               null,     50,   1503513663, 1503513663, 0],
+                [/*9,*/ 9,  "Primary",  1,  "INNOVATIVE",   "BENEFIT SOLUTIONS",    "111901014", "4670198051",   1,       null,       null,               null,     50,   1503514089, 1503514089, 0],
+                [/*10*/10,  null,       1,  "Damian",       "Sanchez",              "111900659", "1636873935",   1,       null,       null,               null,     50,   1504739406, 1504739406, 0],
             ]
         );
 
         $this->batchInsert('purchase',
             [/*"id",*/"member_id","payment_id","type","product_option_id","membership_id","purchase_date","active_date","recurring_bill_day","initial_bill_day","status","created_at","updated_at","sync_at"],
             [
-                [/*11,*/    6,  6,  1,  null,   4,      1503446400, 1503705600, 5,  5,  10, 1503507795, 1503507795, 0],
-                [/*12,*/    7,  7,  1,  null,   4,      1503446400, 1503705600, 5,  5,  10, 1503508867, 1503508867, 0],
-//                [/*13,*/    7,  7,  2,  9,      null,   1503446400, 1503705600, 5,  5,  10, 1503508951, 1503508951, 0],
-                [/*14,*/    8,  8,  1,  null,   4,      1503446400, 1503705600, 5,  5,  10, 1503513663, 1503513663, 0],
-                [/*15,*/    9,  9,  1,  null,   4,      1503446400, 1503705600, 5,  5,  10, 1503514089, 1503514089, 0],
-//                [/*16,*/    9,  9,  2,  21,     null,   1503446400, 1503705600, 5,  5,  10, 1503514252, 1503514252, 0],
+                [/*11,*/    6,  6, 1,  null,   4,  1504656000, 1504915200, 15,  15,  10, 1504739406, 1504739406, 0],
+                [/*12,*/    7,  7, 1,  null,   4,  1504656000, 1504915200, 15,  15,  10, 1504739406, 1504739406, 0],
+                [/*13,*/    8,  8, 1,  null,   4,  1504656000, 1504915200, 15,  15,  10, 1504739406, 1504739406, 0],
+                [/*14,*/    9,  9, 1,  null,   4,  1504656000, 1504915200, 15,  15,  10, 1504739406, 1504739406, 0],
+                [/*15,*/   10, 10, 1,  null,   1,  1504656000, 1504915200, 15,  15,  10, 1504739406, 1504739406, 0],
             ]
         );
     }

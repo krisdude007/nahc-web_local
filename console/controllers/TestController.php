@@ -320,4 +320,17 @@ class TestController extends Controller
 
         return Controller::EXIT_CODE_NORMAL;
     }
+
+    public function actionE123AgentLogin()
+    {
+        $api = Yii::$app->e123;
+
+        $login = ['username' => 'mark_harris', 'password' => 'temp_140987'];
+
+        $result = $api->callV2Rest('agents/login', $login);
+
+        echo 'RESULT: '.PHP_EOL.print_r($result, true);
+
+        return Controller::EXIT_CODE_NORMAL;
+    }
 }
