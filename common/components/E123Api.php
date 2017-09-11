@@ -26,6 +26,7 @@ class E123Api extends Component {
     const DEFAULT_PDID = 18240;
 
     const REST_URL_BASE = 'api.1administration.com/v1/';
+    const V2_REST_URL_BASE = 'api.1administration.com/v2/';
     const DO_LOOKUP_URL = 'https://www.enrollment123.com/api/user.cfc';
     const API_SEARCH_URL = 'https://www.enrollment123.com/api/user.getall/';
 
@@ -128,11 +129,11 @@ class E123Api extends Component {
             $url = 'https://' . $this->username . ':' . $this->password . '@' . self::REST_URL_BASE . $agent . '/member/'.$memAr['uniqueid'].'.json';
         }
 
-        echo 'Calling: '.$url.PHP_EOL;
+        Yii::info('Calling: '.$url);
 
         $payload_str = json_encode($memAr, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
 
-        echo 'Payload Json: '.$payload_str.PHP_EOL;
+        Yii::info('Payload Json: '.$payload_str);
 
         $response = $client->createRequest()
             ->setMethod('post')
@@ -147,5 +148,34 @@ class E123Api extends Component {
         }
 
         return $response->data;
+    }
+
+    public function callV2Rest($endpoint, $payload)
+    {
+        $site_username = $this->username;
+        $site_pass = $this->password;
+
+        $auth = base64_encode("{$site_username}:{$site_pass}");
+
+        $url = 'https://'.self::V2_REST_URL_BASE.$endpoint;
+
+        $payload_str = json_encode($payload, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+
+        Yii::info('Calling '.$url.' with auth: '.$auth.' with payload: '.$payload_str);
+
+        $client = new Client();
+
+        $req = $client->createRequest()
+            ->setMethod('post')
+            ->setUrl($url)
+            ->setFormat(Client::FORMAT_JSON)
+            ->setHeaders(['Authorization' => 'Basic '.$auth])
+            ->setData($payload);
+
+        $response = $req->send();
+
+        Yii::info('Got response: '.print_r($response));
+
+        return $response;
     }
 }
