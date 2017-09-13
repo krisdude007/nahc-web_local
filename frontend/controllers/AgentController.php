@@ -309,9 +309,33 @@ class AgentController extends Controller
                 }
             }
 
-            if($changed) {
-                return $this->render('product_summary', ['member' => $member, 'products' => $products, 'changed' => $changed, 'existing' => $existing]);
+            if(!empty($changed) && ArrayHelper::keyExists('product-summary-btn', Yii::$app->request->post())) {
+                $purchase_state = true;
+
+                // BEGIN TRANSACTION
+
+                foreach($changed as $ch) {
+                    $purchase = Purchase::purchaseProduct($ch->product_option_id, $member->id);
+
+                    Yii::info('Product Purchase - '.$purchase->id);
+
+                    if(empty($purchase)) {
+                        $purchase_state = false;
+                    }
+                }
+
+                if(!$purchase_state) {
+                    // ABORT TRANSACTION
+                    Yii::$app->session->addFlash('error', 'Error Purchasing Product - '.$ch->product_option_id);
+                    return $this->render('product_summary', ['member' => $member, 'changed' => $changed, 'products' => $products, 'models' => $models]);
+                }
+
+                // COMMIT TRANSACTION
+                Yii::$app->session->addFlash('success', 'Products Purchased');
+                return $this->redirect(['agent/member', 'id' => $member->id]);
             }
+
+            return $this->render('product_summary', ['member' => $member, 'existing' => $existing, 'changed' => $changed, 'products' => $products, 'models' => $models]);
         }
 
         return $this->render('product', ['member' => $member, 'products' => $products, 'models' => $models]);

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Member */
 /* @var $productOptions common\models\ProductOption */
 
-//$this->title = $model->id;
+$this->title = 'Member Details';
 //$this->params['breadcrumbs'][] = ['label' => 'Members', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 
@@ -20,7 +20,7 @@ $this->render('_leftnav');
     <p>
         <?= Html::a('Update', ['agent/member-detail', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Change Plan', ['agent/member-plan', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Update Payment Info', ['agent/member-payment', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php //=Html::a('Update Payment Info', ['agent/member-payment', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Add Products', ['agent/products', 'member_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?php /* Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -106,19 +106,11 @@ $this->render('_leftnav');
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Membership Level</h3>
-        </div>
-        <div class="panel-body">
-            <?php // $form->field($model, 'plan')->dropDownList([1 => 'Basic',2 => 'Bronze', 3 => 'Silver', 4 => 'Gold'],['prompt' => 'Select Plan']) ?>
-            <h3><?= (empty($model->membership)?'None':$model->membership->name)?></h3>
-        </div>
-    </div>
+
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Products</h3>
+        <h3 class="panel-title">Membership & Products</h3>
     </div>
     <table class="table">
         <thead>
@@ -129,7 +121,7 @@ $this->render('_leftnav');
         </thead>
         <tbody>
         <?php
-        $total = 0;
+        $total = $model->membership->price;
 //        Yii::info('ProdOpts: '.print_r($productOptions, true));?>
         <tr>
             <td style="/*padding-left: 20px;*/">

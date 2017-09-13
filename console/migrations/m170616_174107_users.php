@@ -35,10 +35,10 @@ class m170616_174107_users extends Migration
         $user = new User();
         $user->username = 'admin';
         $user->email = 'admin@joinnahc.com';
-        $user->setPassword('pT3RN6p9kbn542AN3BPfwAvj');
+        $user->setPassword('Addison1'/*pT3RN6p9kbn542AN/*3BPfwAvj'*/);
         $user->generateAuthKey();
         $user->has_agent = true;
-        $user->admin = true;
+        //$user->admin = true;
 //        $user->admin = true;
         if($user->save())
             echo '    > create User '.$user->id.':'.$user->username.' ... done'.PHP_EOL;

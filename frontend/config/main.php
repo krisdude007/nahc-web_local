@@ -43,6 +43,7 @@ return [
                 'member/upgrade/<plan:[1-4]>' => 'member/upgrade',
                 'member/purchase/<product_id:[0-9]{1,4}>' => 'member/purchase',
                 'member/<action:(index|details|dependents|dependent|add-dependent|contact|user|payment|upgrade|purchase)>' => 'member/<action>',
+                'agent/products/<member_id:[0-9]{1,10}>' => 'agent/products',
                 'agent/<action:(index|details|enroll|agents|members|member|member-detail|member-plan|products)>' => 'agent/<action>',
                 'legal/<doc:(terms|privacy)>' => 'site/legal',
                 '/' => 'site/index',

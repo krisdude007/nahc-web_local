@@ -6,13 +6,15 @@ use \yii\helpers\ArrayHelper;
 /* @var $products common\models\Product[] */
 /* @var $models frontend\models\ProductForm[] */
 
+$this->title = 'Product Confirmation';
+
 $this->render('_leftnav');
 
 $total = 0;
 $form = ActiveForm::begin();
 
-Yii::info('Changed: '.print_r($changed, true));
-Yii::info('Products: '.print_r($products, true));
+//Yii::info('Changed: '.print_r($changed, true));
+//Yii::info('Products: '.print_r($products, true));
 ?>
 
 <h1>Product Confirmation</h1>
