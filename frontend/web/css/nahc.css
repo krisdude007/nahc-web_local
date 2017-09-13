@@ -228,10 +228,13 @@ body {
     color: white;
 }
 
-.dropdown-menu > li > a {
+.navbar-nav > li > .dropdown-menu > li > a {
     color: white;
 }
 
+.navbar-nav > li > .dropdown-menu > li > a:hover {
+    color: #262626;
+}
 
 
 .index-jumbo {
