@@ -151,6 +151,10 @@ class E123Member extends Model {
 
         $model = self::getModelFromMember($member);
 
+        if(empty($model)) {
+            return null;
+        }
+
         if($model->mode == self::MODE_ADD)
             $model->addPayment($payment);
 
