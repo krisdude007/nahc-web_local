@@ -58,7 +58,22 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['username', 'unique', 'filter' => function ($query) {
+                $query->orWhere(['lower(username)' => $this->getUsernameLowercase()]);
+            }],
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->username = strtolower($this->username);
+
+        return parent::beforeSave($insert);
+    }
+
+    public function getUsernameLowercase()
+    {
+        return strtolower($this->username);
     }
 
     /**

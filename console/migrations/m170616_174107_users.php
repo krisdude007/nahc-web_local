@@ -35,7 +35,7 @@ class m170616_174107_users extends Migration
         $user = new User();
         $user->username = 'admin';
         $user->email = 'admin@joinnahc.com';
-        $user->setPassword('Addison1'/*pT3RN6p9kbn542AN/*3BPfwAvj'*/);
+        $user->setPassword('pT3RN6p9kbn542AN/*3BPfwAvj');
         $user->generateAuthKey();
         $user->has_agent = true;
         //$user->admin = true;
@@ -175,13 +175,13 @@ class m170616_174107_users extends Migration
         );
 
         $this->batchInsert('payment_method',
-            ['member_id', 'name', 'pay_type', 'f_name', 'l_name', 'routing', 'account_type', 'account',  'status', 'created_at', 'updated_at'],
+            ['member_id', 'name', 'pay_type', 'f_name', 'l_name', 'routing', 'account_type', 'account',  'status', 'created_at', 'updated_at', 'sync_at'],
             [
-                [1, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [2, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [3, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [4, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
-                [5, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts],
+                [1, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts, 2147385600],
+                [2, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts, 2147385600],
+                [3, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts, 2147385600],
+                [4, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts, 2147385600],
+                [5, 'Primary',  1,  'John', 'Member', '011000138',    1, '1234', 50, $ts,    $ts, 2147385600],
             ]
         );
 
@@ -189,11 +189,11 @@ class m170616_174107_users extends Migration
         $this->batchInsert('purchase',
             ['member_id', 'payment_id', 'type', 'membership_id', 'purchase_date', 'active_date', 'initial_bill_day', 'recurring_bill_day', 'created_at', 'updated_at', 'sync_at'],
             [
-                [1, 1,  1,  1,  $ts, ($ts+(86400*3)),                   25, 25, $ts, $ts,   2147385600],
-                [2, 2,  1,  2,  ($ts+(86400*7)), ($ts+(86400*10)),       5, 5,  $ts, $ts,   2147385600],
-                [3, 3,  1,  3,  ($ts+(86400*17)), ($ts+(86400*20)),     15, 15, $ts, $ts,   2147385600],
-                [4, 4,  1,  4,  ($ts+(86400*27)), ($ts+(86400*30)),     25, 25, $ts, $ts,   2147385600],
-                [5, 5,  1,  4,  $ts, ($ts+(86400*3)),                   25, 25, $ts, $ts,   2147385600],
+                [1,  1,  1,  1,  $ts,               ($ts+(86400*3)),      25, 25, $ts, $ts,   2147385600],
+                [2,  2,  1,  2,  ($ts+(86400*7)),   ($ts+(86400*10)),      5,  5, $ts, $ts,   2147385600],
+                [3,  3,  1,  3,  ($ts+(86400*17)),  ($ts+(86400*20)),     15, 15, $ts, $ts,   2147385600],
+                [4,  4,  1,  4,  ($ts+(86400*27)),  ($ts+(86400*30)),     25, 25, $ts, $ts,   2147385600],
+                [5,  5,  1,  4,  $ts,               ($ts+(86400*3)),      25, 25, $ts, $ts,   2147385600],
             ]
         );
 

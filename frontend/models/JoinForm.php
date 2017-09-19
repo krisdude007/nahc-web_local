@@ -150,11 +150,14 @@ class JoinForm extends Model
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
+
             [['email'], 'email'],
 
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
             ['password', 'string', 'min' => 6, 'max' => 255],
+            ['password', 'compare', 'compareAttribute' => 'usernameLower', 'operator' => '!=', 'message' => 'Password must be different than username'],
+
             ['repeat_password', 'string', 'min' => 6, 'max' => 255],
             ['repeat_password', 'compare', 'compareAttribute'=>'password', 'skipOnEmpty' => false, 'message'=>"Passwords don't match"],
 
@@ -388,5 +391,10 @@ class JoinForm extends Model
     public function getAccountName()
     {
         return $this->acct_f_name.' '.$this->acct_l_name;
+    }
+
+    public function getUsernameLower()
+    {
+        return strtolower($this->username);
     }
 }

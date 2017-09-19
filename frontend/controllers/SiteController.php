@@ -42,10 +42,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'dashboard'],
+                'only' => ['logout', 'join', 'dashboard'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['join'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -581,15 +581,15 @@ class SiteController extends Controller
      * @return string Rendered Content
      * @throws NotFoundHttpException
      */
-    public function actionPage($id = 1)
-    {
-        $page = Page::findOne($id);
-
-        if(empty($page))
-            throw new NotFoundHttpException();
-
-        return $this->render('page', ['pageHtml' => $page->html]);
-    }
+//    public function actionPage($id = 1)
+//    {
+//        $page = Page::findOne($id);
+//
+//        if(empty($page))
+//            throw new NotFoundHttpException();
+//
+//        return $this->render('page', ['pageHtml' => $page->html]);
+//    }
 
     /**
      * Logs in a user.
@@ -608,21 +608,36 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 //            return $this->goBack();
 
-            if(Yii::$app->user->identity->has_agent)
-                return $this->redirect(['agent/index']);
+            if(!empty(Yii::$app->user->identity->password_reset_token)) {
+                $token = Yii::$app->user->identity->password_reset_token;
 
-            if(Yii::$app->user->identity->has_provider)
-                return $this->redirect(['provider/index']);
+                Yii::$app->user->logout(true);
+                return $this->redirect(['site/reset-password', 'token' => $token]);
+            }
 
-            if(Yii::$app->user->identity->has_member)
-                return $this->redirect(['member/index']);
-
-            return $this->redirect(['site/dashboard']);
+            return self::redirectUser();
         } else {
             return $this->render('login', [
                 'model' => $model,
             ]);
         }
+    }
+
+    private function redirectUser()
+    {
+        if(Yii::$app->user->isGuest)
+            return $this->redirect(['site/index']);
+
+        if(Yii::$app->user->identity->has_agent)
+            return $this->redirect(['agent/index']);
+
+        if(Yii::$app->user->identity->has_provider)
+            return $this->redirect(['provider/index']);
+
+        if(Yii::$app->user->identity->has_member)
+            return $this->redirect(['member/index']);
+
+        return $this->redirect(['site/dashboard']);
     }
 
     /**
@@ -785,7 +800,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
 
-            return $this->goHome();
+            return self::redirectUser();
+
+//            return $this->goHome();
         }
 
         return $this->render('resetPassword', [
