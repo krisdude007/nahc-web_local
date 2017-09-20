@@ -3,5 +3,5 @@ return [
     'adminEmail' => 'admin@nahc.co',
     'agentEmail' => 'admin@nahc.co',
     'supportEmail' => 'support@nahc.co',
-    'user.passwordResetTokenExpire' => 3600,
+    'user.passwordResetTokenExpire' => 604800,
 ];
