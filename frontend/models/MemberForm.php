@@ -68,7 +68,6 @@ class MemberForm extends Member
 
         $rules[] = [
             [   'f_name',
-                'm_name',
                 'l_name',
                 'dobText',
                 'gender',
@@ -125,7 +124,6 @@ class MemberForm extends Member
         $rules[] = [
             [   //'plan',
                 'f_name',
-                'm_name',
                 'l_name',
 
                 'dobText',

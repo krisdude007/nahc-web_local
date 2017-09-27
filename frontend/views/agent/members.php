@@ -41,7 +41,7 @@ $this->render('_leftnav');
 //             'address',
             // 'address2',
              'city',
-             'state_id',
+             'state.two_letter:text:State',
              'zip',
 //             'email:email',
 //             'phone',
