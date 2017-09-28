@@ -157,7 +157,7 @@ $this->render('_leftnav');
 
             <div class="row" id="cardPanel" style="display: none;">
                 <div class="col-sm-6">
-                    <?= $form->field($model, 'pan')->widget(MaskedInput::className(),['mask' => ['x### ###### #####'],
+                    <?= $form->field($model, 'pan')->widget(MaskedInput::className(),['mask' => ['x### ###### #####', 'o### #### #### ####'],
                         'definitions' => [
                             'x' => [
                                 'validator' =>  '3',
