@@ -1,10 +1,13 @@
 <?php
 namespace console\controllers;
 
+use common\models\Agent;
+use common\models\AgentStateMap;
 use common\models\E123Member;
 use common\models\Member;
 use common\models\PaymentMethod;
 use common\models\Purchase;
+use common\models\State;
 use common\models\SyncLog;
 use SplFileObject;
 use Yii;
@@ -366,6 +369,80 @@ class SyncController extends Controller
 
         if(!empty($payList))
             PaymentMethod::updateAll(['sync_at' => $end], ['id' => $payList]);
+
+        return Controller::EXIT_CODE_NORMAL;
+    }
+
+    public function actionAgentStates()
+    {
+        $api = Yii::$app->e123;
+
+        echo 'Getting cookies...' . PHP_EOL;
+
+        $result = $api->initWebSession();
+
+        //echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        echo 'Got Cookies: '.PHP_EOL.print_r($api->web_session_cookies, true).PHP_EOL;
+
+        echo 'Calling Login...' . PHP_EOL . 'Username: '.$api->username.PHP_EOL.'Password: '.$api->password.PHP_EOL;
+
+        $result = $api->callWebLogin();
+
+        echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        $result = $api->callWebAgentInfo();
+
+        echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        $agent_csv = $result->content;
+
+        //print_r($agent_csv);
+
+        $agent_lines = str_getcsv($agent_csv, "\n", "\t");
+
+        //print_r($agent_lines);
+
+        $agent_list = array_map('str_getcsv', $agent_lines);
+
+        //print_r($agent_list);
+
+        array_walk($agent_list, function(&$a) use ($agent_list) {
+            //print_r($a);
+            $a = array_combine($agent_list[0], $a);
+        });
+
+        array_shift($agent_list); # remove column header
+
+        $agent = null;
+
+        foreach($agent_list as $agent_info) {
+            echo 'Checking Map for Agent Ext ID '.$agent_info['Agent ID'].' / '.$agent_info['State'].PHP_EOL;
+
+            if(empty($agent) || $agent->ext_id !=  $agent_info['Agent ID'])
+                $agent = Agent::findOne(['ext_id' => $agent_info['Agent ID']]);
+
+            if(empty($agent)) {
+                echo PHP_EOL.PHP_EOL.'MISSING AGENT! EXT_ID - '.$agent_info['Agent ID'].PHP_EOL.PHP_EOL;
+                continue;
+            }
+
+            $state = State::findOne(['two_letter' => $agent_info['State']]);
+
+            if(empty($state)) {
+                echo PHP_EOL.PHP_EOL.'MISSING STATE! EXT_ID - '.$agent_info['Agent ID'].' / STATE - '.$agent_info['State'].PHP_EOL.PHP_EOL;
+                continue;
+            }
+
+            $map = AgentStateMap::findOne(['agent_id' => $agent->id, 'state_id' => $state->id]);
+
+            if(empty($map)) {
+                $map = new AgentStateMap(['agent_id' => $agent->id, 'state_id' => $state->id]);
+                $map->save(false);
+
+                echo '...Added State Map for Agent ID '.$agent->id.' / '.$state->name.PHP_EOL;
+            }
+        }
 
         return Controller::EXIT_CODE_NORMAL;
     }

@@ -29,6 +29,7 @@ class E123Api extends Component {
     const V2_REST_URL_BASE = 'api.1administration.com/v2/';
     const DO_LOOKUP_URL = 'https://www.enrollment123.com/api/user.cfc';
     const API_SEARCH_URL = 'https://www.enrollment123.com/api/user.getall/';
+    const WEB_BASE = 'www.enrollment123.com/';
 
     public $username;
     public $password;
@@ -36,6 +37,8 @@ class E123Api extends Component {
     public $agentid;
 
     public $testMode = false;
+
+    public $web_session_cookies = [];
 
     public function __construct(array $config = [])
     {
@@ -175,6 +178,147 @@ class E123Api extends Component {
         $response = $req->send();
 
         Yii::info('Got response: '.print_r($response));
+
+        return $response;
+    }
+
+    private function storeCookies($response)
+    {
+        if(empty($response))
+            return;
+
+        //$this->web_session_cookies = $response->cookies;
+
+        foreach($response->cookies as &$cookie) {
+            $cookie->value = urlencode($cookie->value);
+            $this->web_session_cookies[$cookie->name] = $cookie;
+        }
+    }
+
+    public function initWebSession()
+    {
+        $url = 'https://'.self::WEB_BASE.'manage/index.cfm';
+
+        $client = new Client();
+
+        $req = $client->createRequest()
+            ->setMethod('get')
+            ->setUrl($url);
+
+        $response = $req->send();
+
+        Yii::info('Got response: '.print_r($response, true));
+
+        $this->storeCookies($response);
+
+        return $response;
+    }
+
+    public function callWebLogin()
+    {
+        $site_username = $this->username;
+        $site_pass = $this->password;
+
+        $url = 'https://'.self::WEB_BASE.'manage/index.cfm';
+
+        $client = new Client();
+
+        $req = $client->createRequest()
+            ->setMethod('post')
+            ->setUrl($url)
+            ->setCookies($this->web_session_cookies)
+            ->setData(['username' => $site_username, 'password' => $site_pass, 'authenticate'=>'']);
+
+        print_r($req);
+
+        $response = $req->send();
+
+        Yii::info('Got response: '.print_r($response, true));
+
+        $this->storeCookies($response);
+
+        if(strpos($response->content, 'skipinfo') !== false) {
+            echo 'Doing skipinfo'.PHP_EOL;
+
+            $req = $client->createRequest()
+                ->setMethod('post')
+                ->setUrl($url)
+                ->setCookies($this->web_session_cookies)
+                ->setData(['phone'=>'', 'emailaddress'=>'','skipinfo'=>'']);
+
+            print_r($req);
+
+            $response = $req->send();
+
+            Yii::info('Got response: '.print_r($response, true));
+
+            $this->storeCookies($response);
+        }
+
+        return $response;
+    }
+
+    public function callWebAgentInfo()
+    {
+        $url = 'https://www.enrollment123.com/manage/agents/index.cfm?pageindex=0&broker_id=&lIDs=&parent_id=&brokerType=&brokerType2=&brokerType3=&bActive=1&bWebsiteActive=&bListBillInvoice=&bGroup=&bLicensed=1&bInternalSales=&bVendor=&bMemberPortal=&bAgentPortal=&broker_label=&companyname=&firstname=&lastname=&city=&state=&zipcode=&email=&phone=&username=&code=&note=&productSearchType=ANY&product=&rd_product=1&rd_product_sort=label&lProductIDs=&underwriter=&prodcat3=&dtCreatedStart=&dtCreatedEnd=&dtLicenseActiveStart=&dtLicenseActiveEnd=&dtLicenseExpirationStart=&dtLicenseExpirationEnd=&dtEOExpirationStart=&dtEOExpirationEnd=&dtNoteStart=&dtNoteEnd=&dtNextStepStart=&dtNextStepEnd=&dtEstimatedCloseStart=&dtEstimatedCloseEnd=&dtLoggedInWithinStart=&dtLoggedInWithinEnd=&dtNotLoggedInSince=&brokerFlag=&brokerStage=&sicCode=&brokerSource=&brokerDetail=&licensestate=&licensenumber=&licenseunderwriter=&processorType=&processorSearchType=ANY&processor=&eocoverage=&doctype=&noteType=&submit=Search+Agents&reportid=5717&pagesize=100';
+
+        $client = new Client();
+
+        $req = $client->createRequest()
+            ->setMethod('get')
+            ->setUrl($url)
+            ->setCookies($this->web_session_cookies);
+
+        print_r($req);
+
+        $response = $req->send();
+
+        $this->storeCookies($response);
+
+//        return $response;
+
+        $location = $response->headers->get('location');
+        $pos = strpos($location, 'token=');
+
+        if($pos === false)
+            return null;
+
+        $token = substr($location,$pos+6);
+
+        /*
+         * <select id="downloadfilter" name="downloadfilter" class="selectBox2">
+         *     <option value="FULL">Agent Information</option>
+         *     <option value="Logins">Agent Users</option>
+         *     <option value="Product">Agent Product Information</option>
+         *     <option value="Pricing">Agent Product Pricing</option>
+         *     <option value="Commission">Agent Commissions</option>
+         *     <option value="Bank">Agent Bank Accounts</option>
+         *     <option value="License">Agent Licenses</option>
+         *     <option value="LicenseFilter">Agent Filtered Licenses</option>
+         *     <option value="Appointment">Agent Appointments</option>
+         *     <option value="Documents">Agent Documents</option>
+         *     <option value="Processors">Agent Payment Processors</option>
+         *     <option value="Tree">Agent Hierarchy Tree</option>
+         *     <option value="Productivity">Agent Productivity Report</option>
+         * </select>
+        */
+
+        $url = 'https://www.enrollment123.com/manage/agents/downloadCommandHandler.cfc?method=run&returnFormat=plain&command=License&lSelectedIDs=&token='.$token;
+
+        $req = $client->createRequest()
+            ->setMethod('get')
+            ->setUrl($url)
+            ->setCookies($this->web_session_cookies);
+
+        print_r($req);
+
+        $response = $req->send();
+
+        $this->storeCookies($response);
+
+
+
+
 
         return $response;
     }

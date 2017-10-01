@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "agent_state_map".
@@ -28,10 +29,20 @@ class AgentStateMap extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['agent_id', 'state_id', 'created_at', 'updated_at'], 'required'],
+            [['agent_id', 'state_id'], 'required'],
             [['agent_id', 'state_id', 'created_at', 'updated_at'], 'integer'],
             [['agent_id'], 'exist', 'skipOnError' => true, 'targetClass' => Agent::className(), 'targetAttribute' => ['agent_id' => 'id']],
             [['state_id'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['state_id' => 'id']],
