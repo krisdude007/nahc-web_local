@@ -480,22 +480,28 @@ class SiteController extends Controller
         }
 
         $payment = new PaymentMethod([
-            'member_id' => $member->id,
-            'pay_type' => $model->pay_type,
-            'f_name' => $model->acct_f_name,
-            'l_name' => $model->acct_l_name,
-            'name' => 'Primary',
-            'status' => PaymentMethod::STATUS_ACTIVE,
+            'member_id'     => $member->id,
+            'pay_type'      => $model->pay_type,
+            'f_name'        => $model->acct_f_name,
+            'l_name'        => $model->acct_l_name,
+            'routing'       => $model->routing,
+            'account'       => $model->account,
+            'account_type'  => $model->account_type,
+            'pan'           => $model->pan,
+            'exp'           => $model->exp,
+            'cvv'           => $model->cvv,
+            'name'          => 'Primary',
+            'status'        => PaymentMethod::STATUS_ACTIVE,
         ]);
 
         if($payment->pay_type == PaymentMethod::PAY_TYPE_BANK) {
-            $payment->routing = $model->routing;
-            $payment->account = $model->account;
-            $payment->account_type = $model->account_type;
-        } elseif($payment->pay_type == PaymentMethod::PAY_TYPE_CARD) {
-            $payment->pan = $model->pan;
-            $payment->exp = $model->exp;
-            $payment->cvv = $model->cvv;
+            $payment->pan = null;
+            $payment->cvv = null;
+            $payment->exp = null;
+        } else if($this->pay_type == PaymentMethod::PAY_TYPE_CARD) {
+            $payment->routing = null;
+            $payment->account = null;
+            $payment->account_type = null;
         } else { // bad pay_type
             $transaction->rollBack();
             $event->result = false;
@@ -741,18 +747,18 @@ class SiteController extends Controller
     {
         return $this->redirect(['site/join']);
 
-        $model = new MemberForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+//        $model = new MemberForm();
+//        if ($model->load(Yii::$app->request->post())) {
+//            if ($user = $model->signup()) {
+//                if (Yii::$app->getUser()->login($user)) {
+//                    return $this->goHome();
+//                }
+//            }
+//        }
+//
+//        return $this->render('signup', [
+//            'model' => $model,
+//        ]);
     }
 
     /**

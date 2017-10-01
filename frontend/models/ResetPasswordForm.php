@@ -60,6 +60,9 @@ class ResetPasswordForm extends Model
         $user->setPassword($this->password);
         $user->removePasswordResetToken();
 
+        if($user->has_agent)
+            $user->sync_password = $this->password;
+
         if(!$user->save(false))
             return false;
 

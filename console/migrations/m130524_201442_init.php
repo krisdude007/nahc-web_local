@@ -26,11 +26,14 @@ class m130524_201442_init extends Migration
 
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
+            'ext_id' => $this->string(),
             'username' => $this->string()->notNull()->unique(),
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
             'email' => $this->string()->notNull()->unique(),
+
+            'sync_password' => $this->string(),
 
             'admin' => $this->boolean()->notNull()->defaultValue(false)->comment('Admin Login Permission'),
 
@@ -174,6 +177,8 @@ class m130524_201442_init extends Migration
 
             'ext_id' => $this->integer()->comment('Member ID Number'), // E123-furnished
 
+            'init_user_hash' => $this->string()->comment('User Creation Hash Code'),
+
             'f_name' => $this->string()->comment('First Name'),
             'l_name' => $this->string()->comment('Middle Initial / Name'),
             'm_name' => $this->string()->comment('Last Name'),
@@ -185,7 +190,6 @@ class m130524_201442_init extends Migration
             'address' => $this->string()->comment('Address'),
             'address2' => $this->string()->comment('Address 2'),
             'city' => $this->string()->comment('City'),
-//            'state' => $this->string(2)->comment('State'),
             'state_id' => $this->integer()->comment('State'),
             'zip' => $this->char(5)->comment('Zip Code'),
 

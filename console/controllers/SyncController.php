@@ -1,6 +1,7 @@
 <?php
 namespace console\controllers;
 
+use common\components\E123Api;
 use common\models\Agent;
 use common\models\AgentStateMap;
 use common\models\E123Member;
@@ -9,6 +10,7 @@ use common\models\PaymentMethod;
 use common\models\Purchase;
 use common\models\State;
 use common\models\SyncLog;
+use common\models\User;
 use SplFileObject;
 use Yii;
 use yii\console\Controller;
@@ -373,7 +375,7 @@ class SyncController extends Controller
         return Controller::EXIT_CODE_NORMAL;
     }
 
-    public function actionAgentStates()
+    public function actionPullAgentStates()
     {
         $api = Yii::$app->e123;
 
@@ -391,7 +393,7 @@ class SyncController extends Controller
 
         echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
 
-        $result = $api->callWebAgentInfo();
+        $result = $api->callWebAgentInfo(E123Api::AGENT_INFO_LICENSE);
 
         echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
 
@@ -443,6 +445,119 @@ class SyncController extends Controller
                 echo '...Added State Map for Agent ID '.$agent->id.' / '.$state->name.PHP_EOL;
             }
         }
+
+        return Controller::EXIT_CODE_NORMAL;
+    }
+
+    public function actionPullAgentLogins()
+    {
+        $api = Yii::$app->e123;
+
+        echo 'Getting cookies...' . PHP_EOL;
+
+        $result = $api->initWebSession();
+
+        //echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        echo 'Got Cookies: '.PHP_EOL.print_r($api->web_session_cookies, true).PHP_EOL;
+
+        echo 'Calling Login...' . PHP_EOL . 'Username: '.$api->username.PHP_EOL.'Password: '.$api->password.PHP_EOL;
+
+        $result = $api->callWebLogin();
+
+        echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        $result = $api->callWebAgentInfo(E123Api::AGENT_INFO_USERS);
+
+        echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        $agent_csv = $result->content;
+
+        //print_r($agent_csv);
+
+        $agent_lines = str_getcsv($agent_csv, "\n", "\t");
+
+        //print_r($agent_lines);
+
+        $agent_list = array_map('str_getcsv', $agent_lines);
+
+        //print_r($agent_list);
+
+        array_walk($agent_list, function(&$a) use ($agent_list) {
+            //print_r($a);
+            $a = array_combine($agent_list[0], $a);
+        });
+
+        array_shift($agent_list); # remove column header
+
+        /* @var $agent \common\models\Agent */
+        $agent = null;
+
+        foreach($agent_list as $agent_info) {
+            echo 'Checking User for Agent Ext ID '.$agent_info['Agent ID'].' / '.$agent_info['User ID'].PHP_EOL;
+
+            if(empty($agent) || $agent->ext_id !=  $agent_info['Agent ID'])
+                $agent = Agent::findOne(['ext_id' => $agent_info['Agent ID']]);
+
+            if(empty($agent)) {
+                echo PHP_EOL.PHP_EOL.'MISSING AGENT! EXT_ID - '.$agent_info['Agent ID'].PHP_EOL.PHP_EOL;
+                continue;
+            }
+
+            $user = $agent->user;
+
+            if(empty($user->ext_id) || $user->ext_id != $agent_info['User ID']) {
+                $user->ext_id = $agent_info['User ID'];
+
+                if(!$user->save()) {
+                    echo PHP_EOL . PHP_EOL . 'FAILED UPDATING USER EXT_ID! EXT_ID - ' . $agent_info['Agent ID'] . ' / USER_ID - ' . $agent_info['User ID'] . PHP_EOL . PHP_EOL;
+                    continue;
+                }
+
+                echo '...Updated User EXT_ID for Agent ID '.$agent->id.' / '.$user->ext_id.PHP_EOL;
+            }
+        }
+
+        return Controller::EXIT_CODE_NORMAL;
+    }
+
+    public function actionPushAgentPasswords()
+    {
+//        $agent_id = '136154';
+//        $user_id = '194345';
+//        $username = 'nahcweb-test';
+//        $password = 'SL685yQAmgRCm2mf12qpUfAQ';
+
+//        $agent = Agent::findOne(['ext_id' => $agent_id]);
+//        $user = User::find()->where(['ext_id' => $user_id]);
+
+        $api = Yii::$app->e123;
+
+        echo 'Getting cookies...' . PHP_EOL;
+
+        $result = $api->initWebSession();
+
+        //echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        echo 'Got Cookies: '.PHP_EOL.print_r($api->web_session_cookies, true).PHP_EOL;
+
+        echo 'Calling Login...' . PHP_EOL . 'Username: '.$api->username.PHP_EOL.'Password: '.$api->password.PHP_EOL;
+
+        $result = $api->callWebLogin();
+
+        echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+
+        $users = User::find()->where(['not', ['sync_password'=> null]])->andWhere(['has_agent' => true])->andWhere(['not', ['ext_id' => null]])->all();
+
+        $uid_list = [];
+
+        foreach($users as $u) {
+            $result = $api->callSetPassword($u->agent->ext_id, $u->ext_id, $u->username, $u->sync_password);
+            echo 'Got Response: '.PHP_EOL.print_r($result,true).PHP_EOL;
+            $uid_list[] = $u->id;
+        }
+
+        User::updateAll(['sync_password' => null, 'sync_at' => time()], ['id' => $uid_list]);
 
         return Controller::EXIT_CODE_NORMAL;
     }

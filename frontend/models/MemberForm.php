@@ -273,26 +273,41 @@ class MemberForm extends Member
                     }
                 }
 
-                $pay = new PaymentMethod();
-                $pay->member_id = $this->id;
-                $pay->pay_type  = $this->pay_type;
-                $pay->f_name = $this->acct_f_name;
-                $pay->l_name = $this->acct_l_name;
-                $pay->routing = $this->routing;
-                $pay->account = $this->account;
-                $pay->pan = $this->pan;
-                $pay->exp = $this->exp;
-                $pay->cvv = $this->cvv;
 
-                if(!$pay->save()) {
-                    Yii::info('Errors: '.print_r($pay->errors, true));
+
+                $payment = new PaymentMethod([
+                    'member_id'     => $this->id,
+                    'pay_type'      => $this->pay_type,
+                    'f_name'        => $this->acct_f_name,
+                    'l_name'        => $this->acct_l_name,
+                    'routing'       => $this->routing,
+                    'account'       => $this->account,
+                    'account_type'  => $this->account_type,
+                    'pan'           => $this->pan,
+                    'exp'           => $this->exp,
+                    'cvv'           => $this->cvv,
+                    'status'        => PaymentMethod::STATUS_ACTIVE,
+                ]);
+
+                if($payment->pay_type == PaymentMethod::PAY_TYPE_BANK) {
+                    $payment->pan = null;
+                    $payment->cvv = null;
+                    $payment->exp = null;
+                } else if($this->pay_type == PaymentMethod::PAY_TYPE_CARD) {
+                    $payment->routing = null;
+                    $payment->account = null;
+                    $payment->account_type = null;
+                }
+
+                if(!$payment->save()) {
+                    Yii::info('Errors: '.print_r($payment->errors, true));
                     $transaction->rollBack();
                     return false;
                 }
             }
 
             if($scenario == self::SCENARIO_ENROLL) {
-                $purchase = Purchase::purchaseMembership($this->plan, $this->id, $pay->id);
+                $purchase = Purchase::purchaseMembership($this->plan, $this->id, $payment->id);
             }
 
             $transaction->commit();

@@ -1,7 +1,10 @@
 <?php
 namespace common\components;
 
+use common\models\Agent;
 use common\models\E123Member;
+use common\models\User;
+use Sunra\PhpSimple\HtmlDomParser;
 use Yii;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
@@ -30,6 +33,20 @@ class E123Api extends Component {
     const DO_LOOKUP_URL = 'https://www.enrollment123.com/api/user.cfc';
     const API_SEARCH_URL = 'https://www.enrollment123.com/api/user.getall/';
     const WEB_BASE = 'www.enrollment123.com/';
+
+    const AGENT_INFO_FULL = 'FULL';
+    const AGENT_INFO_USERS = 'Logins';
+    const AGENT_INFO_PRODUCT = 'Product';
+    const AGENT_INFO_PRICING = 'Pricing';
+    const AGENT_INFO_COMISSION = 'Commission';
+    const AGENT_INFO_BANK = 'Bank';
+    const AGENT_INFO_LICENSE = 'License';
+    const AGENT_INFO_LICENSE_FILTER = 'LicenseFilter';
+    const AGENT_INFO_APPOINTMENT = 'Appointment';
+    const AGENT_INFO_DOCUMENTS = 'Documents';
+    const AGENT_INFO_PROCESSORS = 'Processors';
+    const AGENT_INFO_TREE = 'Tree';
+    const AGENT_INFO_PRODUCTIVITY = 'Productivity';
 
     public $username;
     public $password;
@@ -229,7 +246,7 @@ class E123Api extends Component {
             ->setCookies($this->web_session_cookies)
             ->setData(['username' => $site_username, 'password' => $site_pass, 'authenticate'=>'']);
 
-        print_r($req);
+//        print_r($req);
 
         $response = $req->send();
 
@@ -246,7 +263,7 @@ class E123Api extends Component {
                 ->setCookies($this->web_session_cookies)
                 ->setData(['phone'=>'', 'emailaddress'=>'','skipinfo'=>'']);
 
-            print_r($req);
+//            print_r($req);
 
             $response = $req->send();
 
@@ -258,7 +275,7 @@ class E123Api extends Component {
         return $response;
     }
 
-    public function callWebAgentInfo()
+    public function callWebAgentInfo($info_type = self::AGENT_INFO_FULL)
     {
         $url = 'https://www.enrollment123.com/manage/agents/index.cfm?pageindex=0&broker_id=&lIDs=&parent_id=&brokerType=&brokerType2=&brokerType3=&bActive=1&bWebsiteActive=&bListBillInvoice=&bGroup=&bLicensed=1&bInternalSales=&bVendor=&bMemberPortal=&bAgentPortal=&broker_label=&companyname=&firstname=&lastname=&city=&state=&zipcode=&email=&phone=&username=&code=&note=&productSearchType=ANY&product=&rd_product=1&rd_product_sort=label&lProductIDs=&underwriter=&prodcat3=&dtCreatedStart=&dtCreatedEnd=&dtLicenseActiveStart=&dtLicenseActiveEnd=&dtLicenseExpirationStart=&dtLicenseExpirationEnd=&dtEOExpirationStart=&dtEOExpirationEnd=&dtNoteStart=&dtNoteEnd=&dtNextStepStart=&dtNextStepEnd=&dtEstimatedCloseStart=&dtEstimatedCloseEnd=&dtLoggedInWithinStart=&dtLoggedInWithinEnd=&dtNotLoggedInSince=&brokerFlag=&brokerStage=&sicCode=&brokerSource=&brokerDetail=&licensestate=&licensenumber=&licenseunderwriter=&processorType=&processorSearchType=ANY&processor=&eocoverage=&doctype=&noteType=&submit=Search+Agents&reportid=5717&pagesize=100';
 
@@ -269,13 +286,11 @@ class E123Api extends Component {
             ->setUrl($url)
             ->setCookies($this->web_session_cookies);
 
-        print_r($req);
+//        print_r($req);
 
         $response = $req->send();
 
         $this->storeCookies($response);
-
-//        return $response;
 
         $location = $response->headers->get('location');
         $pos = strpos($location, 'token=');
@@ -303,22 +318,146 @@ class E123Api extends Component {
          * </select>
         */
 
-        $url = 'https://www.enrollment123.com/manage/agents/downloadCommandHandler.cfc?method=run&returnFormat=plain&command=License&lSelectedIDs=&token='.$token;
+        $url = 'https://www.enrollment123.com/manage/agents/downloadCommandHandler.cfc?method=run&returnFormat=plain&command='.$info_type.'&lSelectedIDs=&token='.$token;
 
         $req = $client->createRequest()
             ->setMethod('get')
             ->setUrl($url)
             ->setCookies($this->web_session_cookies);
 
-        print_r($req);
+//        print_r($req);
 
         $response = $req->send();
 
         $this->storeCookies($response);
 
+        return $response;
+    }
+
+    public function callSetPassword($agent_id, $user_id, $username, $password)
+    {
+        if (empty($agent_id) || empty($user_id) || empty($username) || empty($password))
+            return null;
 
 
 
+        $url = 'https://www.enrollment123.com/manage/agents/manage.cfm?id='.$agent_id.'&method=security&bsid='.$user_id;
+
+        $client = new Client();
+
+        $req = $client->createRequest()
+            ->setMethod('get')
+            ->setUrl($url)
+            ->setCookies($this->web_session_cookies);
+
+//        print_r($req);
+
+        $response = $req->send();
+
+        $this->storeCookies($response);
+
+        $dom = HtmlDomParser::str_get_html($response->content);
+
+//        print_r($response->content);
+
+        $inputs = [];
+
+
+        foreach($dom->find('input') as $e) {
+            $inputs[] = $e->getAllAttributes();
+            //echo ArrayHelper::getValue($e, 'name', '').' / '.ArrayHelper::getValue($e, 'value', '').PHP_EOL;
+        }
+
+        foreach($dom->find('select') as $sel) {
+            $sel_value = ['name' => $sel->getAttribute('name')];
+
+            foreach($sel->children as $child) {
+                if($child->getAttribute('selected')) {
+                    $sel_value['value'] = $child->getAttribute('value');
+                }
+            }
+
+            if(!isset($sel_value['value']))
+                $sel_value['value'] = '';
+
+            echo 'Got Select: '.print_r($sel_value, true).PHP_EOL;
+
+            $inputs[] = $sel_value;
+        }
+
+
+        $req2 = $client->createRequest()
+            ->setMethod('post')
+            ->setUrl($url)
+            ->setCookies($this->web_session_cookies);
+
+        $contentParts = [];
+
+        $submit_flag = false;
+
+        foreach($inputs as $i) {
+            if($i['name'] == 'password') {
+                $contentParts[] = 'Content-Disposition: form-data; name="' . $i['name'] . "\"\r\n\r\n".$password;
+//                $req2->addContent($i['name'], $password);
+            }
+            else if(isset($i['name']) && $i['name'] == 'cancel') {
+                continue;
+            }
+            else if(isset($i['name']) && $i['name'] == 'submit') {
+                if(!$submit_flag) {
+                    $contentParts[] = 'Content-Disposition: form-data; name="' . $i['name'] . "\"\r\n\r\n".$i['value'];
+                    $submit_flag = true;
+                }
+            }
+            else if(isset($i['name']) && $i['name'] == 'passwordScore') {
+                $contentParts[] = 'Content-Disposition: form-data; name="' . $i['name'] . "\"\r\n\r\n".'100';
+//                $req2->addContent($i['name'], 100);
+            }
+            else if(isset($i['type']) && $i['type'] == 'checkbox')
+            {
+                echo 'Found checkbox: '.$i['name'].' / '.ArrayHelper::getValue($i, 'checked','NULL').PHP_EOL;
+                if(isset($i['checked']) && $i['checked'] == 1) {
+                    $contentParts[] = 'Content-Disposition: form-data; name="' . $i['name'] . "\"\r\n\r\n".$i['value'];
+//                    $req2->addContent($i['name'], $i['value']);
+                }
+            }
+            else if(isset($i['type']) && $i['type'] == 'radio')
+            {
+                echo 'Found radio: '.$i['name'].' / '.ArrayHelper::getValue($i, 'checked','NULL').PHP_EOL;
+                if(isset($i['checked']) && $i['checked'] == 1) {
+                    $contentParts[] = 'Content-Disposition: form-data; name="' . $i['name'] . "\"\r\n\r\n".$i['value'];
+//                    $req2->addContent($i['name'], $i['value']);
+                }
+            }
+            else {
+                $contentParts[] = 'Content-Disposition: form-data; name="' . $i['name'] . "\"\r\n\r\n".$i['value'];
+//                $req2->addContent($i['name'], $i['value']);
+            }
+        }
+
+        do {
+            $boundary = '---------------------' . md5(mt_rand() . microtime());
+        } while (preg_grep("/{$boundary}/", $contentParts));
+
+        array_walk($contentParts, function (&$part) use ($boundary) {
+            $part = "--{$boundary}\r\n{$part}";
+        });
+
+        $contentParts[] = "--{$boundary}--";
+        $contentParts[] = '';
+
+        $req2->getHeaders()->set('content-type', "multipart/form-data; boundary={$boundary}");
+        $content = implode("\r\n", $contentParts);
+
+        echo 'Content: '.$content.PHP_EOL;
+
+        $req2->setContent($content);
+
+        $response = $req2->send();
+//
+//        print_r($req2);
+
+        $this->storeCookies($response);
 
         return $response;
     }

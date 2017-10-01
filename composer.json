@@ -23,7 +23,8 @@
         "yiisoft/yii2-httpclient": "^2.0",
         "kartik-v/yii2-icons": "@dev",
         "kartik-v/bootstrap-popover-x": "dev-master",
-        "kartik-v/yii2-popover-x": "dev-master"
+        "kartik-v/yii2-popover-x": "dev-master",
+        "sunra/php-simple-html-dom-parser": "^1.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
