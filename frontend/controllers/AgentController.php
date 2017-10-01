@@ -2,6 +2,8 @@
 namespace frontend\controllers;
 
 use common\models\Agent;
+use common\models\Dependent;
+use common\models\DependentSearch;
 use common\models\Member;
 use common\models\MemberSearch;
 use common\models\Membership;
@@ -51,6 +53,31 @@ class AgentController extends Controller
                 ],
             ],
         ];
+    }
+
+    private function findMember($id)
+    {
+        $agent = $this->findAgent();
+
+        $member = Member::findOne(['id' => $id, 'agent_id' => $agent->id]);
+
+        if(empty($member))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        return $member;
+    }
+
+    private function findAgent()
+    {
+        if(Yii::$app->user->isGuest)
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+
+        if(empty($agent))
+            throw new NotFoundHttpException('The requested page does not exist.');
+
+        return $agent;
     }
 
     public function actionIndex()
@@ -310,24 +337,18 @@ class AgentController extends Controller
             }
 
             if(!empty($changed) && ArrayHelper::keyExists('product-summary-btn', Yii::$app->request->post())) {
-                $purchase_state = true;
-
                 // BEGIN TRANSACTION
 
                 foreach($changed as $ch) {
                     $purchase = Purchase::purchaseProduct($ch->product_option_id, $member->id);
 
-                    Yii::info('Product Purchase - '.$purchase->id);
+                    Yii::info('Product Purchase - ' . $purchase->id);
 
-                    if(empty($purchase)) {
-                        $purchase_state = false;
+                    if (empty($purchase)) {
+                        // ABORT TRANSACTION
+                        Yii::$app->session->addFlash('error', 'Error Purchasing Product - ' . $ch->product->name);
+                        return $this->render('product_summary', ['member' => $member, 'changed' => $changed, 'products' => $products, 'models' => $models]);
                     }
-                }
-
-                if(!$purchase_state) {
-                    // ABORT TRANSACTION
-                    Yii::$app->session->addFlash('error', 'Error Purchasing Product - '.$ch->product_option_id);
-                    return $this->render('product_summary', ['member' => $member, 'changed' => $changed, 'products' => $products, 'models' => $models]);
                 }
 
                 // COMMIT TRANSACTION
@@ -371,5 +392,61 @@ class AgentController extends Controller
 //        }
 
 
+    }
+
+    public function actionDependents($id) {
+        $member = $this->findMember($id);
+
+        $searchModel = new DependentSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('dependents', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'member' => $member,
+        ]);
+    }
+
+    public function actionDependent($id = null, $member_id = null) {
+        if(empty($id) && empty($member_id))
+            return $this->redirect(['agent/members']);
+
+        $agent = $this->findAgent();
+
+        $model = null;
+
+        if(empty($id) && !empty($member_id)) {
+            $member = $this->findMember($member_id);
+
+            $model = new Dependent([
+                'member_id' => $member->id,
+                'address' => $member->address,
+                'address2' => $member->address2,
+                'city' => $member->city,
+                'state_id' => $member->state_id,
+                'zip' => $member->zip,
+            ]);
+
+
+        } else {
+            $model = Dependent::findOne($id);
+
+            if(empty($model))
+                throw new NotFoundHttpException('Dependent not found');
+
+            $member = $model->member;
+
+            if($member->agent_id != $agent->id)
+                throw new NotFoundHttpException('Dependent not found');
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->addFlash('success', (empty($id)?'Dependent Added':'Dependent Updated'));
+            return $this->redirect(['agent/dependents', 'id' => $member->id]);
+        } else {
+            return $this->render('dependent', [
+                'model' => $model,
+            ]);
+        }
     }
 }

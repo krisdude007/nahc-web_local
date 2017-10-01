@@ -67,6 +67,10 @@ class Dependent extends \yii\db\ActiveRecord
 
             [['member_id', 'relationship', 'state_id', 'status', 'created_at', 'updated_at'], 'integer'],
 
+            ['relationship', 'unique', 'targetAttribute' => ['relationship', 'member_id'], 'when' => function($model) {
+                return $model->relationship == self::RELATIONSHIP_SPOUSE;
+            }, 'message' => 'Only one spouse dependent allowed per member'],
+
             [['dob'], 'date', 'format' => 'php:Y-m-d',
                 'min' => \Yii::$app->formatter->asDate(strtotime( '-26 years', strtotime( date('Y-m-d') ) ),'php:Y-m-d'),
                 'max' => \Yii::$app->formatter->asDate(strtotime(date('Y-m-d')),'php:Y-m-d'),

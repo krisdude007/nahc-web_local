@@ -49,6 +49,7 @@ return [
                 'legal/<doc:(terms|privacy)>' => 'site/legal',
                 '/' => 'site/index',
                 '<id:[0-9]{4,10}>' => 'site/agent',
+                'agent/dependents/<id:[0-9]{1,10}>' => 'agent/dependents',
                 '<action:(index|membership|products|tools|agents|believe|about|contact|join|login|reset|request-password-reset|reset-password|legal)>' => 'site/<action>',
 
 //                'page/<id:\d+>' => 'site/page',
