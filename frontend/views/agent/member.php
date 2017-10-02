@@ -22,6 +22,7 @@ $this->render('_leftnav');
         <?= Html::a('Change Plan', ['agent/member-plan', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?php //=Html::a('Update Payment Info', ['agent/member-payment', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Add Products', ['agent/products', 'member_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update Dependents', ['agent/dependents', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?php /* Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [

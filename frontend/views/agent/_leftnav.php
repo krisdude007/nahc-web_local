@@ -4,9 +4,10 @@ use yii\helpers\Url;
 $this->params['leftNav'] = [
     ['label' => 'Agent Home',       'url' => ['agent/index'],       'action' => 'index'],
     ['label' => 'Agent Details',    'url' => ['agent/details'],     'action' => 'details'],
+    ['label' => 'Update Login',     'url' => ['agent/user'],        'action' => 'user'],
     ['label' => 'Enroll Member',    'url' => ['agent/enroll'],      'action' => 'enroll'],
     ['label' => 'Active Members',   'url' => ['agent/members'],     'action' => 'members'],
-    ['label' => 'Agents',           'url' => ['agent/agents'],      'action' => 'agents'],
+
 
 ];
 

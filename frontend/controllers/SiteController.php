@@ -15,6 +15,7 @@ use common\models\User;
 use frontend\models\AgentSearchForm;
 use frontend\models\MemberForm;
 use frontend\models\ProductSearchForm;
+use frontend\models\SignupForm;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
@@ -741,24 +742,35 @@ class SiteController extends Controller
     /**
      * Signs user up.
      *
+     * @param string $token
      * @return mixed
+     * @throws NotFoundHttpException
      */
-    public function actionSignup()
+    public function actionSignup($token = null)
     {
-        return $this->redirect(['site/join']);
+        $this->layout = 'login';
 
-//        $model = new MemberForm();
-//        if ($model->load(Yii::$app->request->post())) {
-//            if ($user = $model->signup()) {
-//                if (Yii::$app->getUser()->login($user)) {
-//                    return $this->goHome();
-//                }
-//            }
-//        }
-//
-//        return $this->render('signup', [
-//            'model' => $model,
-//        ]);
+        if(empty($token))
+            return $this->redirect(['site/join']);
+
+        $member = Member::find()->where(['like', 'init_user_hash', $token])->one();
+
+        if(empty($member))
+            throw new NotFoundHttpException('Page not found');
+
+        $model = new SignupForm(['email' => $member->email]);
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup($member)) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->redirect(['member/index']);
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 
     /**

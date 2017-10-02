@@ -51,13 +51,16 @@ $this->render('_leftnav');
 //             'updated_at:date',
 
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{member} {memberDetail} {memberPlan} {memberPayment} {memberProduct}',
+                'template' => '{member} {memberDetail} {memberDeps} {memberPlan} {memberPayment} {memberProduct}',
                 'buttons' => [
                     'member' => function ($url, $model, $key) {
                         return Html::a('Detail', ['agent/member', 'id'=>$model->id], ['class' => 'btn btn-xs btn-link']);
                     },
                     'memberDetail' => function ($url, $model, $key) {
                         return Html::a('Update', ['agent/member-detail', 'id'=>$model->id], ['class' => 'btn btn-xs btn-link']);
+                    },
+                    'memberDeps' => function ($url, $model, $key) {
+                        return Html::a('Dependents', ['agent/dependents', 'id'=>$model->id], ['class' => 'btn btn-xs btn-link']);
                     },
                     'memberPlan' => function ($url, $model, $key) {
                         return Html::a('Plan', ['agent/member-plan', 'id'=>$model->id], ['class' => 'btn btn-xs btn-link']);
@@ -68,6 +71,7 @@ $this->render('_leftnav');
                     'memberProduct' => function ($url, $model, $key) {
                         return Html::a('Products', ['agent/products', 'member_id'=>$model->id], ['class' => 'btn btn-xs btn-link']);
                     },
+
                 ],
             ],
         ],

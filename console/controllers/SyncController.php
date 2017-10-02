@@ -500,6 +500,8 @@ class SyncController extends Controller
                 $agent = Agent::findOne(['ext_id' => $agent_info['Agent ID']]);
 
             if(empty($agent)) {
+                //TODO: CREATE AGENT RECORD
+
                 echo PHP_EOL.PHP_EOL.'MISSING AGENT! EXT_ID - '.$agent_info['Agent ID'].PHP_EOL.PHP_EOL;
                 continue;
             }

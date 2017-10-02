@@ -22,7 +22,7 @@ class m170614_213246_data extends Migration
                 ['Karis Group',                 'help@karis360.com',                '512-292-9560',     $ts, $ts],
 
                 ['Healthcare Advocates',        'info@healthcareadvocates.com',     '215-735-7738',     $ts, $ts],
-                ['AnyDoctor',                   'tbd@chi.com',                      'NA',               $ts, $ts],
+                ['AnyDoctor',                   'help@anydoctor.com',               '855-276-1354',     $ts, $ts],
 
                 ['Catlin',                      'NA',                               'NA',               $ts, $ts],
                 ['OptimumVision',               'NA',                               'NA',               $ts, $ts],
@@ -43,7 +43,7 @@ class m170614_213246_data extends Migration
         $this->batchInsert('membership_benefit',
             ['provider_id', 'name', 'long_name', 'icon', 'email', 'phone', 'url', 'benefit_mem_id', 'group_data', 'other_ref', 'created_at', 'updated_at', 'description', 'detail', 'features', 'features2'],
             [
-                [1, 'RX Savings Card',  'Prescription Drug Savings Card',      'icon-card',            'tbd@chi.com',                      '877-827-8680',     'api',                                              true,   'NAHC',     null,    $ts, $ts,
+                [1, 'RX Savings Card',  'Prescription Drug Savings Card',      'icon-card',            'tbd@chi.com',                      '877-827-8680',     'http://www.wellcardsavings.com',                                              true,   'NAHC',     null,    $ts, $ts,
                     'Save hundreds of dollars per year at thousands of name-brand pharmacies nationwide',
                     'The NAHC Prescription Drug Savings Card is free and gives you and your family immediate discounts on prescription drugs at over 59,000 pharmacies nationwide.',
                     implode('::', [
@@ -61,7 +61,7 @@ class m170614_213246_data extends Migration
                         'Do not have to wait, get immediate cost savings',
                     ]),
                 ],
-                [1, 'Savings Network',  'Medical Provider Savings Network',         'icon-dmpo',        'tbd@chi.com',                      '877-827-8680',     'api',                                              true,   'NAHC',     null,    $ts, $ts,
+                [1, 'Savings Network',  'Medical Provider Savings Network',         'icon-dmpo',        'tbd@chi.com',                      '877-827-8680',     'http://www.wellcardsavings.com',                                              true,   'NAHC',     null,    $ts, $ts,
                     'Save thousands of dollars per year at thousands of medical providers nationwide',
                     'NAHC Members get access to a nationwide network of doctors and other healthcare providers who provide immediate discounts at time of service for Members paying cash.',
                     implode('::', [
@@ -182,7 +182,7 @@ class m170614_213246_data extends Migration
                         'Get advice on the best hospital for a specific specialty',
                     ]),
                 ],
-                [8, 'Provider Concierge',   'Concierge for Healthcare Services',               'icon-pc',       'tbd@chi.com',                      'NA',               null,                                               true,   'NAHC',     null,    $ts, $ts,
+                [8, 'Provider Concierge',   'Concierge for Healthcare Services',               'icon-pc',       'help@anydoctor.com',                      '855-276-1354',               null,                                               true,   'NAHC',     null,    $ts, $ts,
                     'Your advocate negotiates a cash price for any non-contracted provider on your behalf',
                     'Have an advocate negotiate with doctors and other healthcare providers and determine a price for you, before you visit the doctor’s office.',
                     implode('::', [

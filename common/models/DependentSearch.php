@@ -63,6 +63,7 @@ class DependentSearch extends Dependent
             'member_id' => $this->member_id,
             'relationship' => $this->relationship,
             'dob' => $this->dob,
+            'state_id' => $this->state_id,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -76,7 +77,7 @@ class DependentSearch extends Dependent
             ->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'address2', $this->address2])
             ->andFilterWhere(['like', 'city', $this->city])
-            ->andFilterWhere(['like', 'state', $this->state])
+//            ->andFilterWhere(['like', 'state_id', $this->state_id])
             ->andFilterWhere(['like', 'zip', $this->zip])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'phone', $this->phone]);

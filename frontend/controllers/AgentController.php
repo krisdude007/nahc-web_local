@@ -9,6 +9,7 @@ use common\models\MemberSearch;
 use common\models\Membership;
 use common\models\PaymentMethod;
 use common\models\Purchase;
+use frontend\models\ChangePasswordForm;
 use frontend\models\MemberForm;
 use frontend\models\ProductForm;
 use Yii;
@@ -99,6 +100,21 @@ class AgentController extends Controller
         return $this->render('details', ['model' => $model]);
     }
 
+    public function actionUser()
+    {
+        $model = new ChangePasswordForm();
+
+        if($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if($model->changePassword()) {
+                Yii::$app->session->addFlash('success', 'Password updated!');
+                $model = new ChangePasswordForm();
+                return $this->redirect(['agent/index']);
+            }
+        }
+
+        return $this->render('user',['model'=>$model]);
+    }
+
     public function actionEnroll()
     {
         $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
@@ -109,6 +125,21 @@ class AgentController extends Controller
         $model->setScenario(MemberForm::SCENARIO_ENROLL);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(empty($model->user_id)) {
+                $model->init_user_hash = Yii::$app->security->generateRandomString();
+                $model->save(false);
+            }
+
+            Yii::$app
+                ->mailer
+                ->compose(
+                    ['html' => 'memberAgentWelcome-html', 'text' => 'memberAgentWelcome-text'],
+                    ['member' => $model] )
+                ->setFrom([Yii::$app->params['supportEmail'] => 'NAHC Support'])
+                ->setTo($model->email)
+                ->setSubject('Welcome to NAHC!')
+                ->send();
+
             return $this->redirect(['member', 'id' => $model->id]);
         }
 
@@ -397,7 +428,7 @@ class AgentController extends Controller
     public function actionDependents($id) {
         $member = $this->findMember($id);
 
-        $searchModel = new DependentSearch();
+        $searchModel = new DependentSearch(['member_id' => $member->id]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('dependents', [
