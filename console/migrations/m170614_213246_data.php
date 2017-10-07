@@ -143,7 +143,7 @@ class m170614_213246_data extends Migration
                         '$20 co-pay with Silver membership',
                         '$0 co-pay with Gold membership',
                         '24/7 On-line access to a medical professional',
-                        '24/7 On-line access to a medical professional',
+                        'When medically necessary, get an e-prescription',
                         'Secure on-line access, with confidential diagnoses',
                     ]),
                 ],
