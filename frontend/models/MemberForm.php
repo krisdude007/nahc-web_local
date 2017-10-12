@@ -289,15 +289,15 @@ class MemberForm extends Member
                     'status'        => PaymentMethod::STATUS_ACTIVE,
                 ]);
 
-                if($payment->pay_type == PaymentMethod::PAY_TYPE_BANK) {
-                    $payment->pan = null;
-                    $payment->cvv = null;
-                    $payment->exp = null;
-                } else if($this->pay_type == PaymentMethod::PAY_TYPE_CARD) {
-                    $payment->routing = null;
-                    $payment->account = null;
-                    $payment->account_type = null;
-                }
+//                if($payment->pay_type == PaymentMethod::PAY_TYPE_BANK) {
+//                    $payment->pan = null;
+//                    $payment->cvv = null;
+//                    $payment->exp = null;
+//                } else if($this->pay_type == PaymentMethod::PAY_TYPE_CARD) {
+//                    $payment->routing = null;
+//                    $payment->account = null;
+//                    $payment->account_type = null;
+//                }
 
                 if(!$payment->save()) {
                     Yii::info('Errors: '.print_r($payment->errors, true));
@@ -311,7 +311,6 @@ class MemberForm extends Member
             }
 
             $transaction->commit();
-
 
 
 

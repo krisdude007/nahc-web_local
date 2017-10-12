@@ -495,19 +495,19 @@ class SiteController extends Controller
             'status'        => PaymentMethod::STATUS_ACTIVE,
         ]);
 
-        if($payment->pay_type == PaymentMethod::PAY_TYPE_BANK) {
-            $payment->pan = null;
-            $payment->cvv = null;
-            $payment->exp = null;
-        } else if($this->pay_type == PaymentMethod::PAY_TYPE_CARD) {
-            $payment->routing = null;
-            $payment->account = null;
-            $payment->account_type = null;
-        } else { // bad pay_type
-            $transaction->rollBack();
-            $event->result = false;
-            return;
-        }
+//        if($payment->pay_type == PaymentMethod::PAY_TYPE_BANK) {
+//            $payment->pan = null;
+//            $payment->cvv = null;
+//            $payment->exp = null;
+//        } else if($this->pay_type == PaymentMethod::PAY_TYPE_CARD) {
+//            $payment->routing = null;
+//            $payment->account = null;
+//            $payment->account_type = null;
+//        } else { // bad pay_type
+//            $transaction->rollBack();
+//            $event->result = false;
+//            return;
+//        }
 
         if(!$payment->save()) {
             Yii::info('Errors: '.print_r($payment->errors, true));

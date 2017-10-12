@@ -192,7 +192,8 @@ echo $form->field($wm, 'data')->hiddenInput()->label(false)->hint(false);
             <div class="section-divider"></div>
             <div class="row ">
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'dobText')->widget(MaskedInput::className(),['clientOptions'=>['alias'=>'mm/dd/yyyy']]);  ?>
+                    <?= $form->field($model, 'dobText', ['inputOptions' => ['placeholder' => 'mm/dd/yyyy']]);  ?>
+                    <?php //echo $form->field($model, 'dobText')->widget(MaskedInput::className(),['clientOptions'=>['alias'=>'mm/dd/yyyy']]);  ?>
                     <?php //$form->field($model, 'email')->widget(MaskedInput::className(),['clientOptions'=>['alias'=>'email']]); ?>
                 </div>
                 <div class="col-sm-3">
