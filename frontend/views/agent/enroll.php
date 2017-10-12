@@ -53,7 +53,8 @@ $this->render('_leftnav');
                     <?= $form->field($model, 'gender')->dropDownList(['M' => 'Male', 'F' => 'Female'],['prompt' => 'Gender']) ?>
                 </div>
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'dobText')->widget(MaskedInput::className(),['clientOptions'=>['alias'=>'mm/dd/yyyy']]) ?>
+                    <?= $form->field($model, 'dobText', ['inputOptions' => ['placeholder' => 'mm/dd/yyyy']]);  ?>
+                    <?php //echo $form->field($model, 'dobText')->widget(MaskedInput::className(),['clientOptions'=>['alias'=>'mm/dd/yyyy']]) ?>
                 </div>
                 <div class="col-sm-5">
                     <?= $form->field($model, 'ssn')->widget(MaskedInput::className(),['mask' => '999-99-9999','clientOptions'=>['autoUnmask'=>true,'removeMaskOnSubmit'=>true]]) ?>
