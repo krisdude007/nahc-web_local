@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\models\Dependent;
 use common\models\DependentSearch;
+use common\models\User;
 use common\models\Member;
 use common\models\Membership;
 use common\models\MembershipBenefit;
@@ -117,9 +118,14 @@ class MemberController extends Controller
 
     public function actionDependents()
     {
+        $member = Member::findOne(['user_id' => \Yii::$app->user->id]);
+        
         $searchModel = new DependentSearch();
+        if (!is_null($member)) {
+        $searchModel->member_id = $member->id;
+        }
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('dependents', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

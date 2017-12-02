@@ -62,7 +62,7 @@ if($is_member) {
         <div class="row content-row">
             <div class="col-sm-10 col-sm-offset-1">
                 <h1>NAHC Insurance Products</h1>
-                <p class="lead">Designed to both save money and deliver peace of mind, these insurance products are available exclusively to NAHC members.</p>
+                <p class="lead">Designed to both save money and deliver peace of mind, these insurance products are available exclusively to NAHC members. Catlin Insurance Company, Inc.’s accident insurance products are not available to Utah residents.</p>
             </div>
         </div>
 
