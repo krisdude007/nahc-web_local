@@ -189,9 +189,9 @@ class SiteController extends Controller
                 'prod' => array_merge([['label' => 'All Products', 'url' => ['site/products']]],$prod2)];
 
             Yii::$app->session->set('memprod', $memprod);
-
+            if (!empty($agent)) {
             Yii::$app->session->set('agent_id', $agent->id);
-
+            }
             return true;
         }
 
@@ -314,6 +314,9 @@ class SiteController extends Controller
 
             $state = $member->state;
             $products = $agent->getProductList($state->id);
+            if (empty($products)) {
+                $products = Product::find()->state($state->id)->ordered()->all(); 
+            }
 
             Yii::$app->session->set('agent_id', $agent->id);
         }
@@ -326,14 +329,23 @@ class SiteController extends Controller
             }
 
             $products = $agent->getProductList($state_id);
-        }
+            if (empty($products)) {
+                $products = Product::find()->state($state_id)->ordered()->all(); 
+            }
+        } 
         elseif(!empty($state)) {
+//            if (!Yii::$app->user->isGuest) {
+//                $agent = Agent::findOne(['user_id' => Yii::$app->user->id]);
+//                if (!empty($agent)) {
+//                    $products = $agent->getProductList($state->id);
+//                }
+//            }
             $products = Product::find()->state($state_id)->ordered()->all();
-        }
+        } 
         else {
             $products = Product::find()->ordered()->all();
         }
-
+        
         Yii::info('Products: '.print_r($products, true));
 
         return $this->render('products', ['products' => $products, 'state' => $state, 'model' => $model, 'member' => $member]);
