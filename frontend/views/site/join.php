@@ -312,7 +312,7 @@ echo $form->field($wm, 'data')->hiddenInput()->label(false)->hint(false);
                                             'cardinality' => 1,
                                         ],
                                         'o' => [
-                                            'validator' =>  '[45]',
+                                            'validator' =>  '[456]',
                                             'cardinality' => 1,
                                         ],
                                     ],

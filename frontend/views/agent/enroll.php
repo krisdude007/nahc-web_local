@@ -165,7 +165,7 @@ $this->render('_leftnav');
                                 'cardinality' => 1,
                             ],
                             'o' => [
-                                'validator' =>  '[45]',
+                                'validator' =>  '[456]',
                                 'cardinality' => 1,
                             ],
                         ],
