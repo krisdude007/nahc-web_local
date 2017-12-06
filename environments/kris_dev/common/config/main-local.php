@@ -27,8 +27,10 @@ return [
             'viewPath' => '@common/mail',
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.office365.com',
-                'username' => 'webuser@nahc.co',
+                //'host' => 'smtp.office365.com',
+                'host' => 'smtp.gmail.com',
+                //'username' => 'webuser@nahc.co',
+                'username' => 'webuser.nahc@gmail.com',
                 'password' => '8mvMQsvbyWhdkCZ2',
                 'port' => '587',
                 'encryption' => 'tls',
