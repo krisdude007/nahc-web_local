@@ -580,7 +580,7 @@ class SiteController extends Controller
         // TODO: VERIFY EMAIL!
         Yii::$app->user->login($user);
 
-        Yii::$app
+        $result = Yii::$app
             ->mailer
             ->compose(
                 ['html' => 'memberWelcome-html', 'text' => 'memberWelcome-text'],
@@ -589,6 +589,9 @@ class SiteController extends Controller
             ->setTo($member->email)
             ->setSubject('Welcome to NAHC!')
             ->send();
+        if (isset($result) == false) {
+            return;
+        }
 
         return;
     }
