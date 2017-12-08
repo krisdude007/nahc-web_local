@@ -15,16 +15,16 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
-        "yidas/yii2-bower-asset": "~2.0.5",
+        "fxp/composer-asset-plugin": "^1.2.0",
         "yiisoft/yii2": ">=2.0.12",
         "yiisoft/yii2-bootstrap": "dev-master",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "kartik-v/yii2-markdown": "dev-master",
         "yiisoft/yii2-redis": "^2.0",
         "yiisoft/yii2-httpclient": "^2.0",
         "kartik-v/yii2-icons": "@dev",
         "kartik-v/bootstrap-popover-x": "dev-master",
         "kartik-v/yii2-popover-x": "dev-master",
+        "kartik-v/yii2-markdown": "dev-master",
         "sunra/php-simple-html-dom-parser": "^1.5"
     },
     "require-dev": {

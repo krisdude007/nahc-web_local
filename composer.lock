@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7ede8b95b0545b34c2e306156f76725",
+    "content-hash": "ccfad7f2d9bba1d32a42888d0fd72bb5",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -171,7 +171,8 @@
             },
             "license": [
                 "MIT"
-            ]
+            ],
+            "time": "2016-09-16T05:47:55+00:00"
         },
         {
             "name": "bower-asset/punycode",
@@ -427,6 +428,65 @@
                 "icon"
             ],
             "time": "2016-10-24T15:52:54+00:00"
+        },
+        {
+            "name": "fxp/composer-asset-plugin",
+            "version": "v1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fxpio/composer-asset-plugin.git",
+                "reference": "61352d99940d2b2392a5d2db83b8c0ef5faf222a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fxpio/composer-asset-plugin/zipball/61352d99940d2b2392a5d2db83b8c0ef5faf222a",
+                "reference": "61352d99940d2b2392a5d2db83b8c0ef5faf222a",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "composer/composer": "^1.4.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Fxp\\Composer\\AssetPlugin\\FxpAssetPlugin",
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fxp\\Composer\\AssetPlugin\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Pluchino",
+                    "email": "francois.pluchino@gmail.com"
+                }
+            ],
+            "description": "NPM/Bower Dependency Manager for Composer",
+            "homepage": "https://github.com/fxpio/composer-asset-plugin",
+            "keywords": [
+                "asset",
+                "bower",
+                "composer",
+                "dependency manager",
+                "nodejs",
+                "npm",
+                "package"
+            ],
+            "time": "2017-10-20T06:53:56+00:00"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -883,47 +943,6 @@
                 "mailer"
             ],
             "time": "2017-05-01T15:54:03+00:00"
-        },
-        {
-            "name": "yidas/yii2-bower-asset",
-            "version": "2.0.13",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yidas/yii2-bower-asset.git",
-                "reference": "0021e82d8adb830c0b7b54c3a63e134154c90b71"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yidas/yii2-bower-asset/zipball/0021e82d8adb830c0b7b54c3a63e134154c90b71",
-                "reference": "0021e82d8adb830c0b7b54c3a63e134154c90b71",
-                "shasum": ""
-            },
-            "provide": {
-                "bower-asset/bootstrap": "*",
-                "bower-asset/inputmask": "*",
-                "bower-asset/jquery": "*",
-                "bower-asset/punycode": "*",
-                "bower-asset/typeahead.js": "*",
-                "bower-asset/yii2-pjax": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "yidas\\yii2BowerAsset\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Bower Assets for Yii 2 app provided via Composer repository",
-            "keywords": [
-                "bower",
-                "bower asset",
-                "framework",
-                "yii2"
-            ],
-            "time": "2017-11-03T06:25:56+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -3952,10 +3971,10 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "yiisoft/yii2-bootstrap": 20,
-        "kartik-v/yii2-markdown": 20,
         "kartik-v/yii2-icons": 20,
         "kartik-v/bootstrap-popover-x": 20,
-        "kartik-v/yii2-popover-x": 20
+        "kartik-v/yii2-popover-x": 20,
+        "kartik-v/yii2-markdown": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
