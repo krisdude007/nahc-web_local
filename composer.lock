@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9a244ecb311ea141f70e281659dba11",
+    "content-hash": "d7ede8b95b0545b34c2e306156f76725",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -883,6 +883,47 @@
                 "mailer"
             ],
             "time": "2017-05-01T15:54:03+00:00"
+        },
+        {
+            "name": "yidas/yii2-bower-asset",
+            "version": "2.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/yii2-bower-asset.git",
+                "reference": "0021e82d8adb830c0b7b54c3a63e134154c90b71"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/yii2-bower-asset/zipball/0021e82d8adb830c0b7b54c3a63e134154c90b71",
+                "reference": "0021e82d8adb830c0b7b54c3a63e134154c90b71",
+                "shasum": ""
+            },
+            "provide": {
+                "bower-asset/bootstrap": "*",
+                "bower-asset/inputmask": "*",
+                "bower-asset/jquery": "*",
+                "bower-asset/punycode": "*",
+                "bower-asset/typeahead.js": "*",
+                "bower-asset/yii2-pjax": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yidas\\yii2BowerAsset\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Bower Assets for Yii 2 app provided via Composer repository",
+            "keywords": [
+                "bower",
+                "bower asset",
+                "framework",
+                "yii2"
+            ],
+            "time": "2017-11-03T06:25:56+00:00"
         },
         {
             "name": "yiisoft/yii2",
