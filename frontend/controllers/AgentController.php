@@ -139,6 +139,16 @@ class AgentController extends Controller
                 ->setTo($model->email)
                 ->setSubject('Welcome to NAHC!')
                 ->send();
+            
+            Yii::$app
+                ->mailer
+                ->compose(
+                    ['html' => 'memberAgentWelcome-html', 'text' => 'memberAgentWelcome-text'],
+                    ['member' => $model] )
+                ->setFrom([Yii::$app->params['supportEmail'] => 'NAHC Support'])
+                ->setTo($agent->email)
+                ->setSubject('Welcome to NAHC!')
+                ->send();
 
             return $this->redirect(['member', 'id' => $model->id]);
         }
